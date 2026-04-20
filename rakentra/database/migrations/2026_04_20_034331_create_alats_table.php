@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('alats', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_alat');
+            $table->string('kode_alat')->nullable();
+            $table->string('lokasi')->nullable();
+            $table->integer('hour_meter')->default(0);
+            $table->string('status')->default('tersedia'); 
             $table->timestamps();
         });
     }
