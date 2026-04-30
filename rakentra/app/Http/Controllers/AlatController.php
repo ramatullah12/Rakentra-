@@ -7,59 +7,63 @@ use Illuminate\Http\Request;
 
 class AlatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $alats = Alat::latest()->get();
+        return view('alat.admin.admin', compact('alats'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('alat.admin.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function edit($id)
+    {
+        $alat = Alat::findOrFail($id);
+        return view('alat.admin.edit', compact('alat'));
+    }
+
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_alat' => 'required|string|max:255',
+            'kode_alat' => 'required|string|max:100',
+            'lokasi' => 'required|string|max:255',
+            'hour_meter' => 'required|numeric|min:0',
+            'status' => 'required|in:tersedia,disewa,maintenance',
+        ]);
+
+        Alat::create($validated);
+
+        return redirect()->route('alat.admin')
+            ->with('success', 'Data alat berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Alat $alat)
+    public function update(Request $request, $id)
     {
-        //
+        $alat = Alat::findOrFail($id);
+
+        $validated = $request->validate([
+            'nama_alat' => 'required|string|max:255',
+            'kode_alat' => 'required|string|max:100',
+            'lokasi' => 'required|string|max:255',
+            'hour_meter' => 'required|numeric|min:0',
+            'status' => 'required|in:tersedia,disewa,maintenance',
+        ]);
+
+        $alat->update($validated);
+
+        return redirect()->route('alat.admin')
+            ->with('success', 'Data alat berhasil diupdate');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Alat $alat)
+    public function destroy($id)
     {
-        //
-    }
+        $alat = Alat::findOrFail($id);
+        $alat->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Alat $alat)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Alat $alat)
-    {
-        //
+        return redirect()->route('alat.admin')
+            ->with('success', 'Data alat berhasil dihapus');
     }
 }

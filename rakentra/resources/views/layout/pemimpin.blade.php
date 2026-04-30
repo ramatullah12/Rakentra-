@@ -5,6 +5,7 @@
     <title>Pimpinan - Rakentra</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
@@ -12,7 +13,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width:260px;
             height:100vh;
@@ -20,6 +20,7 @@
             background:#ffffff;
             border-right:1px solid #e5e7eb;
             padding:20px 15px;
+            overflow-y:auto;
         }
 
         .logo-box {
@@ -32,8 +33,8 @@
         .logo-icon {
             width:42px;
             height:42px;
-            background:#0f172a;
-            border-radius:10px;
+            background:#111827;
+            border-radius:12px;
             display:flex;
             align-items:center;
             justify-content:center;
@@ -50,49 +51,40 @@
             color:#64748b;
         }
 
-        /* MENU */
         .nav-link {
             display:flex;
             align-items:center;
-            gap:12px;
+            gap:10px;
             padding:10px 12px;
-            border-radius:10px;
-            color:#475569;
+            border-radius:12px;
+            color:#374151;
             font-size:14px;
             transition:0.2s;
         }
 
+        .nav-link i {
+            font-size:16px;
+        }
+
         .nav-link:hover {
-            background:#f1f5f9;
+            background:#f3f4f6;
         }
 
         .nav-link.active {
-            background:#eef2ff;
-            color:#4f46e5;
+            background:#e5e7eb;
             font-weight:500;
         }
 
-        .menu-icon {
-            width:18px;
-        }
-
-        /* USER */
         .user-box {
             margin-top:auto;
             padding-top:15px;
             border-top:1px solid #e5e7eb;
         }
 
-        .user-info {
-            font-size:14px;
-        }
-
-        /* CONTENT */
         .content {
             margin-left:260px;
         }
 
-        /* TOPBAR */
         .topbar {
             background:#fff;
             border-bottom:1px solid #e5e7eb;
@@ -142,14 +134,16 @@
         }
     </style>
 </head>
+
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar d-flex flex-column">
 
     <!-- LOGO -->
     <div class="logo-box">
-        <div class="logo-icon">📦</div>
+        <div class="logo-icon">
+            <i class="bi bi-box-seam"></i>
+        </div>
         <div class="logo-text">
             <strong>Rakentra</strong><br>
             <small>Asset & Rental Mgmt</small>
@@ -157,38 +151,38 @@
     </div>
 
     <!-- MENU -->
-    <div class="nav flex-column">
+    <div class="nav flex-column gap-1">
 
         <a href="{{ url('/pimpinan') }}" class="nav-link active">
-            <span class="menu-icon">🏠</span> Dashboard Executive
+            <i class="bi bi-house-door"></i> Dashboard Executive
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">📍</span> Monitoring Armada
+            <i class="bi bi-geo-alt"></i> Monitoring Armada
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">🚛</span> Data Alat Berat
+            <i class="bi bi-truck"></i> Data Alat Berat
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">👥</span> Data Pelanggan
+            <i class="bi bi-people"></i> Data Pelanggan
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">📅</span> Booking
+            <i class="bi bi-calendar"></i> Booking
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">📄</span> Kontrak
+            <i class="bi bi-file-earmark-text"></i> Kontrak
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">🛒</span> Data Vendor
+            <i class="bi bi-cart"></i> Data Vendor
         </a>
 
         <a href="#" class="nav-link">
-            <span class="menu-icon">📊</span> Laporan
+            <i class="bi bi-bar-chart"></i> Laporan
         </a>
 
     </div>
@@ -196,8 +190,8 @@
     <!-- USER -->
     <div class="user-box">
         <div class="d-flex align-items-center gap-2 mb-2">
-            👤
-            <div class="user-info">
+            <i class="bi bi-person-circle fs-5"></i>
+            <div>
                 <strong>{{ Auth::user()->name }}</strong><br>
                 <small class="text-muted">Pimpinan</small>
             </div>
@@ -205,16 +199,17 @@
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="btn btn-link text-danger p-0">Logout</button>
+            <button class="btn btn-link text-danger p-0 d-flex align-items-center gap-1">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
         </form>
     </div>
 
 </div>
 
-<!-- CONTENT -->
 <div class="content">
 
-    <!-- NAVBAR -->
+    <!-- TOPBAR -->
     <div class="topbar d-flex justify-content-between align-items-center">
 
         <div>
@@ -227,11 +222,11 @@
             <input type="text" class="search-box" placeholder="Search...">
 
             <div class="role-btn">
-                Pimpinan 
+                Pimpinan
             </div>
 
             <div class="notif">
-                🔔
+                <i class="bi bi-bell"></i>
                 <div class="notif-dot"></div>
             </div>
 
@@ -239,7 +234,7 @@
 
     </div>
 
-    <!-- MAIN -->
+    <!-- CONTENT -->
     <div class="p-4">
         @yield('content')
     </div>

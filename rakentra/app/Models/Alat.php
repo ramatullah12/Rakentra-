@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alat extends Model
 {
-    //
+    protected $fillable = [
+        'nama_alat',
+        'kode_alat',
+        'lokasi',
+        'hour_meter',
+        'status'
+    ];
 }
