@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
         $booking = Booking::latest()->take(5)->get();
 
-        return view('dashboard.pimpinan', compact(
+        return view('dashboard.pemimpin.pimpinan', compact(
             'totalAlat',
             'alatDisewa',
             'totalPelanggan',

@@ -5,35 +5,38 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/dashboard', function () {
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
 
     $role = auth()->user()->role;
 
-    if ($role == 'admin') {
-        return redirect('/dashboard/admin');
-    } elseif ($role == 'mekanik') {
-        return redirect('/dashboard/mekanik');
-    } else {
-        return redirect('/dashboard/pimpinan');
-    }
+    return match ($role) {
+        'admin' => redirect()->route('dashboard.admin'),
+        'mekanik' => redirect()->route('dashboard.mekanik'),
+        'pimpinan' => redirect()->route('dashboard.pimpinan'),
+        default => abort(403),
+    };
+})->name('home');
 
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'admin'])
+        ->name('dashboard.admin');
+});
 
-Route::get('/dashboard/admin', [DashboardController::class, 'admin'])
-    ->middleware(['auth','role:admin']);
+Route::middleware(['auth', 'role:mekanik'])->group(function () {
+    Route::get('/mekanik', [DashboardController::class, 'mekanik'])
+        ->name('dashboard.mekanik');
+});
 
-Route::get('/dashboard/mekanik', [DashboardController::class, 'mekanik'])
-    ->middleware(['auth','role:mekanik']);
-
-Route::get('/dashboard/pimpinan', [DashboardController::class, 'pimpinan'])
-    ->middleware(['auth','role:pimpinan']);
+Route::middleware(['auth', 'role:pimpinan'])->group(function () {
+    Route::get('/pimpinan', [DashboardController::class, 'pimpinan'])
+        ->name('dashboard.pimpinan');
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
 });
 
 require __DIR__.'/auth.php';
