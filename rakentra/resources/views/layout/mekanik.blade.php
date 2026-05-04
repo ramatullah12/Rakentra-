@@ -48,6 +48,7 @@
             border-radius: 12px;
             color: #374151;
             transition: 0.2s;
+            text-decoration: none;
         }
 
         .nav-link:hover {
@@ -104,22 +105,27 @@
     <div class="nav flex-column gap-1">
 
         <a href="{{ route('dashboard.mekanik') }}"
-           class="nav-link {{ request()->is('mekanik') ? 'active' : '' }}">
+           class="nav-link {{ request()->routeIs('dashboard.mekanik') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
 
-        <a href="#"
-           class="nav-link">
+        <a href="{{ url('/mekanik/alat') }}"
+           class="nav-link {{ request()->is('mekanik/alat*') ? 'active' : '' }}">
+            <i class="bi bi-truck"></i> Alat Berat
+        </a>
+
+        <a href="{{ url('/mekanik/operasional') }}"
+           class="nav-link {{ request()->is('mekanik/operasional*') ? 'active' : '' }}">
             <i class="bi bi-clock-history"></i> Operasional
         </a>
 
-        <a href="#"
-           class="nav-link">
+        <a href="{{ url('/mekanik/maintenance') }}"
+           class="nav-link {{ request()->is('mekanik/maintenance*') ? 'active' : '' }}">
             <i class="bi bi-tools"></i> Maintenance
         </a>
 
-        <a href="#"
-           class="nav-link">
+        <a href="{{ url('/mekanik/inspeksi') }}"
+           class="nav-link {{ request()->is('mekanik/inspeksi*') ? 'active' : '' }}">
             <i class="bi bi-clipboard-check"></i> Inspeksi
         </a>
 
@@ -166,6 +172,8 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
