@@ -6,95 +6,143 @@
 
 <div class="container-fluid">
 
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="mb-0">Data Alat Berat</h4>
-            <small class="text-muted">Manajemen alat berat</small>
+            <h4 class="mb-1 text-white fw-bold">Data Alat Berat</h4>
+            <small class="text-secondary">Manajemen alat berat</small>
         </div>
 
-
-        <a href="{{ route('alat.create') }}" class="btn btn-dark">
+        <a href="{{ route('alat.create') }}"
+           class="btn px-4"
+           style="background:linear-gradient(135deg,#2563eb,#1d4ed8); border-radius:12px; color:#fff;">
             <i class="bi bi-plus-lg"></i> Tambah
         </a>
     </div>
 
-    <!-- ALERT -->
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show">
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm">
             {{ session('success') }}
             <button class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    <!-- TABLE -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
+    <div class="card border-0 shadow-sm"
+         style="background: rgba(255,255,255,0.05); border-radius:20px;">
 
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Nama</th>
-                            <th>Kode</th>
-                            <th>Lokasi</th>
-                            <th>HM</th>
-                            <th>Status</th>
-                            <th width="150">Aksi</th>
-                        </tr>
-                    </thead>
+        <div class="card-body p-0 table-responsive">
 
-                    <tbody>
-                        @forelse($alats as $alat)
-                        <tr>
-                            <td class="fw-semibold">{{ $alat->nama_alat }}</td>
-                            <td>{{ $alat->kode_alat }}</td>
-                            <td>{{ $alat->lokasi }}</td>
-                            <td>{{ $alat->hour_meter }}</td>
+            <table class="table mb-0 align-middle text-white">
 
-                            <td>
-                                @if($alat->status == 'tersedia')
-                                    <span class="badge bg-success">Tersedia</span>
-                                @elseif($alat->status == 'disewa')
-                                    <span class="badge bg-warning text-dark">Disewa</span>
-                                @else
-                                    <span class="badge bg-danger">Maintenance</span>
-                                @endif
-                            </td>
+                <thead>
+                    <tr style="background:#1e293b;">
+                        <th class="ps-4 text-secondary">Nama</th>
+                        <th class="text-secondary">Kode</th>
+                        <th class="text-secondary">Lokasi</th>
+                        <th class="text-secondary">HM</th>
+                        <th class="text-secondary">Status</th>
+                        <th class="text-center text-secondary">Aksi</th>
+                    </tr>
+                </thead>
 
-                            <td>
-                                <div class="d-flex gap-2">
+                <tbody>
+                    @forelse($alats as $alat)
 
-                                    <!-- ✅ FIX: edit pakai halaman -->
-                                    <a href="{{ route('alat.edit',$alat->id) }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
+                    <tr style="
+                        border-bottom:1px solid rgba(255,255,255,0.05);
+                        transition:0.2s;
+                    "
+                    onmouseover="this.style.background='#1e293b'"
+                    onmouseout="this.style.background='transparent'">
 
-                                    <!-- DELETE -->
-                                    <form action="{{ route('alat.delete',$alat->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('Yakin hapus data?')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                        <td class="ps-4 fw-semibold">{{ $alat->nama_alat }}</td>
+                        <td>{{ $alat->kode_alat }}</td>
+                        <td class="text-secondary">{{ $alat->lokasi }}</td>
+                        <td class="text-secondary">{{ $alat->hour_meter }}</td>
 
-                                </div>
-                            </td>
-                        </tr>
+                        <td>
+                            @if($alat->status == 'tersedia')
+                                <span style="
+                                    background:#16a34a;
+                                    padding:6px 14px;
+                                    border-radius:10px;
+                                    font-size:12px;
+                                ">
+                                    Tersedia
+                                </span>
+                            @elseif($alat->status == 'disewa')
+                                <span style="
+                                    background:#facc15;
+                                    color:#000;
+                                    padding:6px 14px;
+                                    border-radius:10px;
+                                    font-size:12px;
+                                ">
+                                    Disewa
+                                </span>
+                            @else
+                                <span style="
+                                    background:#ef4444;
+                                    padding:6px 14px;
+                                    border-radius:10px;
+                                    font-size:12px;
+                                ">
+                                    Maintenance
+                                </span>
+                            @endif
+                        </td>
 
-                        @empty
-                        <tr>
-                            <td colspan="6" class="text-center text-muted">
-                                Data belum tersedia
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
 
-                </table>
-            </div>
+                                <a href="{{ route('alat.edit',$alat->id) }}"
+                                   class="btn btn-sm"
+                                   style="
+                                    background:#2563eb;
+                                    border-radius:10px;
+                                    width:38px;
+                                    height:38px;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                   ">
+                                    <i class="bi bi-pencil text-white"></i>
+                                </a>
+
+                                <form action="{{ route('alat.delete',$alat->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-sm"
+                                        style="
+                                            background:#ef4444;
+                                            border-radius:10px;
+                                            width:38px;
+                                            height:38px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                        "
+                                        onclick="return confirm('Yakin hapus data?')">
+                                        <i class="bi bi-trash text-white"></i>
+                                    </button>
+
+                                </form>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center text-secondary py-4">
+                            Data belum tersedia
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+
+            </table>
 
         </div>
     </div>

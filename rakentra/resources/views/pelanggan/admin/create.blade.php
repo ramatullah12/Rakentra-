@@ -1,11 +1,18 @@
-@extends('layouts.app')
+@extends('layout.admin')
+
+@section('title','Tambah Pelanggan')
 
 @section('content')
-<div class="container">
-    <h3 class="mb-3">Tambah Pelanggan</h3>
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h4 class="fw-bold text-white">Tambah Pelanggan</h4>
+        <small class="text-secondary">Input data pelanggan baru</small>
+    </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger border-0 shadow-sm">
             <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -14,32 +21,55 @@
         </div>
     @endif
 
-    <div class="card">
+    <div class="card border-0 shadow-sm" style="background: rgba(255,255,255,0.05); border-radius:15px;">
         <div class="card-body">
+
             <form action="{{ route('pelanggan.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Nama</label>
-                    <input type="text" name="nama" class="form-control" value="{{ old('nama') }}">
+                    <label class="form-label text-light">Nama</label>
+                    <input type="text" name="nama"
+                           class="form-control text-white"
+                           style="background:#1e293b; border:none; border-radius:10px;"
+                           value="{{ old('nama') }}">
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">No HP</label>
-                    <input type="text" name="hp" class="form-control" value="{{ old('hp') }}">
+                    <label class="form-label text-light">No HP</label>
+                    <input type="text" name="hp"
+                           class="form-control text-white"
+                           style="background:#1e293b; border:none; border-radius:10px;"
+                           value="{{ old('hp') }}">
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Alamat</label>
-                    <textarea name="alamat" class="form-control" rows="4">{{ old('alamat') }}</textarea>
+                    <label class="form-label text-light">Alamat</label>
+                    <textarea name="alamat"
+                              class="form-control text-white"
+                              style="background:#1e293b; border:none; border-radius:10px;"
+                              rows="4">{{ old('alamat') }}</textarea>
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('pelanggan.index') }}" class="btn btn-secondary">Kembali</a>
-                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <a href="{{ route('pelanggan.index') }}"
+                       class="btn btn-outline-light"
+                       style="border-radius:10px;">
+                        Kembali
+                    </a>
+
+                    <button type="submit"
+                            class="btn"
+                            style="background:#22c55e; color:#fff; border-radius:10px;">
+                        Simpan
+                    </button>
                 </div>
+
             </form>
+
         </div>
     </div>
+
 </div>
+
 @endsection

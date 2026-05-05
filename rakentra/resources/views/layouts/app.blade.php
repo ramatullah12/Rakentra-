@@ -30,7 +30,6 @@
             </header>
         @endif
 
-        {{-- CONTENT --}}
         <main>
             @yield('content')
         </main>

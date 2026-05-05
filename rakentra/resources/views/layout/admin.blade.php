@@ -18,9 +18,9 @@
             width:260px;
             height:100vh;
             position:fixed;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
-            border-right:1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border-right:1px solid rgba(255,255,255,0.08);
             padding:20px 15px;
             overflow-y:auto;
         }
@@ -46,20 +46,20 @@
         }
 
         .logo-text strong { color:#fff; }
-        .logo-text small { color:#cbd5f5; }
+        .logo-text small { color:#94a3b8; }
 
         .nav-link {
             display:flex;
             align-items:center;
             gap:10px;
             padding:10px 12px;
-            border-radius:12px;
+            border-radius:10px;
             color:#cbd5f5;
             transition:0.2s;
         }
 
         .nav-link:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             color:#fff;
             transform: translateX(4px);
         }
@@ -74,17 +74,17 @@
         }
 
         .topbar {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
-            border-bottom:1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-bottom:1px solid rgba(255,255,255,0.08);
             padding:15px 25px;
         }
 
         .title { color:#fff; font-weight:600; }
-        .subtitle { color:#cbd5f5; font-size:13px; }
+        .subtitle { color:#94a3b8; font-size:13px; }
 
         .search-box {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             border:none;
             border-radius:10px;
             padding:8px 14px;
@@ -92,11 +92,11 @@
         }
 
         .search-box::placeholder {
-            color:#cbd5f5;
+            color:#94a3b8;
         }
 
         .role-btn {
-            background:#2563eb;
+            background: linear-gradient(135deg,#2563eb,#1d4ed8);
             color:#fff;
             border:none;
             border-radius:10px;
@@ -113,38 +113,99 @@
             right:-2px;
             width:7px;
             height:7px;
-            background:red;
+            background:#ef4444;
             border-radius:50%;
         }
 
         .user-box {
             margin-top:auto;
             padding-top:15px;
-            border-top:1px solid rgba(255,255,255,0.1);
+            border-top:1px solid rgba(255,255,255,0.08);
         }
 
         .card {
             background: rgba(255,255,255,0.05);
             border:none;
+            border-radius:15px;
             color:#fff;
         }
 
+        .form-control,
+        .form-select {
+            background:#1e293b !important;
+            border:1px solid rgba(255,255,255,0.08) !important;
+            color:#e2e8f0 !important;
+            border-radius:10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background:#1e293b !important;
+            border-color:#2563eb !important;
+            color:#fff !important;
+            box-shadow:0 0 0 1px #2563eb !important;
+        }
+
+        .form-control::placeholder {
+            color:#94a3b8 !important;
+        }
+
+        label {
+            color:#cbd5f5;
+        }
+
         .table {
+            --bs-table-bg: transparent !important;
+            --bs-table-striped-bg: transparent !important;
+            --bs-table-hover-bg: transparent !important;
             background: transparent !important;
-            color:#e2e8f0;
+            color:#e2e8f0 !important;
+        }
+
+        .table thead {
+            background:#1e293b !important;
         }
 
         .table thead th {
             background:#1e293b !important;
-            color:#94a3b8;
+            color:#94a3b8 !important;
+            border:none !important;
         }
 
-        .table td {
-            color:#e2e8f0;
+        .table tbody tr {
+            background: transparent !important;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            transition:0.2s;
         }
 
         .table tbody tr:hover {
-            background: rgba(255,255,255,0.04);
+            background:#1e293b !important;
+        }
+
+        .table tbody td {
+            background: transparent !important;
+            color:#e2e8f0 !important;
+            border-color: rgba(255,255,255,0.05) !important;
+        }
+
+        .table * {
+            background-color: transparent !important;
+        }
+
+        .badge-status {
+            background:#16a34a;
+            padding:5px 12px;
+            border-radius:8px;
+            font-size:12px;
+        }
+
+        .btn-warning {
+            background:#facc15;
+            border:none;
+        }
+
+        .btn-danger {
+            border:none;
         }
     </style>
 </head>
@@ -165,23 +226,14 @@
 
     <div class="nav flex-column gap-1">
 
-        <a href="{{ url('/admin') }}"
-           class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+        <a href="{{ url('/admin') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
-
-        <a href="{{ route('user.index') }}"
-           class="nav-link {{ request()->routeIs('user.*') ? 'active' : '' }}">
-            <i class="bi bi-people"></i> User Management
-        </a>
-
-        <a href="{{ route('alat.admin') }}"
-           class="nav-link {{ request()->is('alat-admin*') ? 'active' : '' }}">
+        <a href="{{ route('alat.admin') }}" class="nav-link {{ request()->is('alat-admin*') ? 'active' : '' }}">
             <i class="bi bi-truck"></i> Data Alat Berat
         </a>
 
-        <a href="{{ route('pelanggan.index') }}"
-           class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
+        <a href="{{ route('pelanggan.index') }}" class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> Data Pelanggan
         </a>
 
@@ -203,7 +255,7 @@
             <i class="bi bi-person-circle fs-5"></i>
             <div>
                 <strong>{{ Auth::user()->name }}</strong><br>
-                <small class="text-light">Admin</small>
+                <small class="text-secondary">Admin</small>
             </div>
         </div>
 
