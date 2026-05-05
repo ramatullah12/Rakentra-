@@ -18,7 +18,7 @@ class DashboardController extends Controller
         return view('dashboard.mekanik.mekanik');
     }
 
-    public function pimpinan()
+    public function pemimpin()
     {
         $totalAlat = Alat::count();
         $alatDisewa = Alat::where('status', 'disewa')->count();

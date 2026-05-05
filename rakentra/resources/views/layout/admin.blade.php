@@ -2,23 +2,25 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Rakentra</title>
+    <title>@yield('title', 'Admin - Rakentra')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background:#f8fafc;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             font-family: 'Inter', sans-serif;
+            color:#fff;
         }
 
         .sidebar {
             width:260px;
             height:100vh;
             position:fixed;
-            background:#ffffff;
-            border-right:1px solid #e5e7eb;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-right:1px solid rgba(255,255,255,0.1);
             padding:20px 15px;
             overflow-y:auto;
         }
@@ -34,9 +36,6 @@
             width:42px;
             height:42px;
             border-radius:12px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
             overflow:hidden;
         }
 
@@ -46,14 +45,8 @@
             object-fit:contain;
         }
 
-        .logo-text strong {
-            font-size:16px;
-        }
-
-        .logo-text small {
-            font-size:12px;
-            color:#64748b;
-        }
+        .logo-text strong { color:#fff; }
+        .logo-text small { color:#cbd5f5; }
 
         .nav-link {
             display:flex;
@@ -61,28 +54,19 @@
             gap:10px;
             padding:10px 12px;
             border-radius:12px;
-            color:#374151;
-            font-size:14px;
+            color:#cbd5f5;
             transition:0.2s;
         }
 
-        .nav-link i {
-            font-size:16px;
-        }
-
         .nav-link:hover {
-            background:#f3f4f6;
+            background: rgba(255,255,255,0.1);
+            color:#fff;
+            transform: translateX(4px);
         }
 
         .nav-link.active {
-            background:#e5e7eb;
-            font-weight:500;
-        }
-
-        .user-box {
-            margin-top:auto;
-            padding-top:15px;
-            border-top:1px solid #e5e7eb;
+            background: linear-gradient(135deg,#2563eb,#1d4ed8);
+            color:#fff;
         }
 
         .content {
@@ -90,41 +74,37 @@
         }
 
         .topbar {
-            background:#fff;
-            border-bottom:1px solid #e5e7eb;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-bottom:1px solid rgba(255,255,255,0.1);
             padding:15px 25px;
         }
 
-        .title {
-            font-weight:600;
-            font-size:18px;
-        }
-
-        .subtitle {
-            font-size:13px;
-            color:#64748b;
-        }
+        .title { color:#fff; font-weight:600; }
+        .subtitle { color:#cbd5f5; font-size:13px; }
 
         .search-box {
-            background:#f1f5f9;
+            background: rgba(255,255,255,0.1);
             border:none;
             border-radius:10px;
             padding:8px 14px;
-            font-size:14px;
-            width:220px;
+            color:#fff;
+        }
+
+        .search-box::placeholder {
+            color:#cbd5f5;
         }
 
         .role-btn {
-            border:1px solid #e5e7eb;
+            background:#2563eb;
+            color:#fff;
+            border:none;
             border-radius:10px;
             padding:6px 12px;
-            font-size:14px;
-            background:#fff;
         }
 
         .notif {
             position:relative;
-            font-size:18px;
         }
 
         .notif-dot {
@@ -133,103 +113,39 @@
             right:-2px;
             width:7px;
             height:7px;
-            background:#ef4444;
+            background:red;
             border-radius:50%;
         }
 
-        /* ==== TAMBAHAN DARK UI ==== */
-
-        body {
-            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
-            color: #fff;
-        }
-
-        .sidebar {
-            background: rgba(255,255,255,0.08) !important;
-            backdrop-filter: blur(15px);
-            border-right:1px solid rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-        }
-
-        .logo-text strong {
-            color:#fff !important;
-        }
-
-        .logo-text small {
-            color:#cbd5f5 !important;
-        }
-
-        .nav-link {
-            color:#cbd5f5 !important;
-        }
-
-        .nav-link i {
-            color:#cbd5f5 !important;
-        }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-            transform: translateX(4px);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg,#2563eb,#1d4ed8) !important;
-            color:#fff !important;
-            box-shadow: 0 6px 12px rgba(37,99,235,0.3);
-        }
-
         .user-box {
-            border-top:1px solid rgba(255,255,255,0.1) !important;
+            margin-top:auto;
+            padding-top:15px;
+            border-top:1px solid rgba(255,255,255,0.1);
         }
 
-        .user-box small {
-            color:#cbd5f5 !important;
+        .card {
+            background: rgba(255,255,255,0.05);
+            border:none;
+            color:#fff;
         }
 
-        .topbar {
-            background: rgba(255,255,255,0.08) !important;
-            backdrop-filter: blur(15px);
-            border-bottom:1px solid rgba(255,255,255,0.1) !important;
-            color:#fff !important;
+        .table {
+            background: transparent !important;
+            color:#e2e8f0;
         }
 
-        .title {
-            color:#fff !important;
+        .table thead th {
+            background:#1e293b !important;
+            color:#94a3b8;
         }
 
-        .subtitle {
-            color:#cbd5f5 !important;
+        .table td {
+            color:#e2e8f0;
         }
 
-        .search-box {
-            background: rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-            border:none !important;
+        .table tbody tr:hover {
+            background: rgba(255,255,255,0.04);
         }
-
-        .search-box::placeholder {
-            color:#cbd5f5;
-        }
-
-        .role-btn {
-            background:#2563eb !important;
-            color:#fff !important;
-            border:none !important;
-        }
-
-        .notif i {
-            color:#fff !important;
-        }
-
-        .content {
-            color:#fff !important;
-        }
-
-        .p-4 {
-            color:#fff !important;
-        }
-
     </style>
 </head>
 
@@ -249,81 +165,55 @@
 
     <div class="nav flex-column gap-1">
 
-        <a href="{{ url('/admin') }}" class="nav-link active">
+        <a href="{{ url('/admin') }}"
+           class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="{{ route('user.index') }}"
+           class="nav-link {{ request()->routeIs('user.*') ? 'active' : '' }}">
             <i class="bi bi-people"></i> User Management
         </a>
 
         <a href="{{ route('alat.admin') }}"
-            class="nav-link {{ request()->is('alat-admin*') ? 'active' : '' }}">
+           class="nav-link {{ request()->is('alat-admin*') ? 'active' : '' }}">
             <i class="bi bi-truck"></i> Data Alat Berat
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="{{ route('pelanggan.index') }}"
+           class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> Data Pelanggan
         </a>
 
-        <a href="#" class="nav-link">
-            <i class="bi bi-calendar"></i> Booking
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-file-earmark-text"></i> Kontrak
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-box"></i> Mobilisasi
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-cart"></i> Vendor
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-clock"></i> Operasional
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-currency-dollar"></i> Biaya
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-wrench"></i> Maintenance
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-receipt"></i> Tagihan & Faktur
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-bar-chart"></i> Laporan
-        </a>
-
-        <a href="#" class="nav-link d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-geo-alt"></i> Monitoring</span>
-            <i class="bi bi-chevron-down"></i>
-        </a>
+        <a href="#" class="nav-link"><i class="bi bi-calendar"></i> Booking</a>
+        <a href="#" class="nav-link"><i class="bi bi-file-earmark-text"></i> Kontrak</a>
+        <a href="#" class="nav-link"><i class="bi bi-box"></i> Mobilisasi</a>
+        <a href="#" class="nav-link"><i class="bi bi-cart"></i> Vendor</a>
+        <a href="#" class="nav-link"><i class="bi bi-clock"></i> Operasional</a>
+        <a href="#" class="nav-link"><i class="bi bi-currency-dollar"></i> Biaya</a>
+        <a href="#" class="nav-link"><i class="bi bi-wrench"></i> Maintenance</a>
+        <a href="#" class="nav-link"><i class="bi bi-receipt"></i> Tagihan & Faktur</a>
+        <a href="#" class="nav-link"><i class="bi bi-bar-chart"></i> Laporan</a>
 
     </div>
 
     <div class="user-box">
+
         <div class="d-flex align-items-center gap-2 mb-2">
             <i class="bi bi-person-circle fs-5"></i>
             <div>
                 <strong>{{ Auth::user()->name }}</strong><br>
-                <small class="text-muted">Admin</small>
+                <small class="text-light">Admin</small>
             </div>
         </div>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="btn btn-link text-danger p-0 d-flex align-items-center gap-1">
-                <i class="bi bi-box-arrow-right"></i> Logout
+            <button class="btn btn-sm btn-danger w-100">
+                Logout
             </button>
         </form>
+
     </div>
 
 </div>
@@ -341,9 +231,7 @@
 
             <input type="text" class="search-box" placeholder="Search...">
 
-            <div class="role-btn">
-                Admin
-            </div>
+            <div class="role-btn">Admin</div>
 
             <div class="notif">
                 <i class="bi bi-bell"></i>

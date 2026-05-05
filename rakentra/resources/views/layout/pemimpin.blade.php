@@ -2,23 +2,26 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Pimpinan - Rakentra</title>
+    <title>@yield('title', 'Pimpinan - Rakentra')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background:#f8fafc;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             font-family: 'Inter', sans-serif;
+            color:#fff;
         }
 
         .sidebar {
             width:260px;
             height:100vh;
             position:fixed;
-            background:#ffffff;
-            border-right:1px solid #e5e7eb;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-right:1px solid rgba(255,255,255,0.1);
             padding:20px 15px;
             overflow-y:auto;
         }
@@ -34,9 +37,6 @@
             width:42px;
             height:42px;
             border-radius:12px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
             overflow:hidden;
         }
 
@@ -46,14 +46,8 @@
             object-fit:contain;
         }
 
-        .logo-text strong {
-            font-size:16px;
-        }
-
-        .logo-text small {
-            font-size:12px;
-            color:#64748b;
-        }
+        .logo-text strong { color:#fff; }
+        .logo-text small { color:#cbd5f5; }
 
         .nav-link {
             display:flex;
@@ -61,28 +55,20 @@
             gap:10px;
             padding:10px 12px;
             border-radius:12px;
-            color:#374151;
+            color:#cbd5f5;
             font-size:14px;
             transition:0.2s;
         }
 
-        .nav-link i {
-            font-size:16px;
-        }
-
         .nav-link:hover {
-            background:#f3f4f6;
+            background: rgba(255,255,255,0.1);
+            color:#fff;
+            transform: translateX(4px);
         }
 
         .nav-link.active {
-            background:#e5e7eb;
-            font-weight:500;
-        }
-
-        .user-box {
-            margin-top:auto;
-            padding-top:15px;
-            border-top:1px solid #e5e7eb;
+            background: linear-gradient(135deg,#2563eb,#1d4ed8);
+            color:#fff;
         }
 
         .content {
@@ -90,41 +76,33 @@
         }
 
         .topbar {
-            background:#fff;
-            border-bottom:1px solid #e5e7eb;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-bottom:1px solid rgba(255,255,255,0.1);
             padding:15px 25px;
         }
 
-        .title {
-            font-weight:600;
-            font-size:18px;
-        }
-
-        .subtitle {
-            font-size:13px;
-            color:#64748b;
-        }
+        .title { font-weight:600; }
+        .subtitle { font-size:13px; color:#cbd5f5; }
 
         .search-box {
-            background:#f1f5f9;
+            background: rgba(255,255,255,0.1);
             border:none;
             border-radius:10px;
             padding:8px 14px;
-            font-size:14px;
-            width:220px;
+            color:#fff;
         }
 
         .role-btn {
-            border:1px solid #e5e7eb;
+            background:#2563eb;
+            color:#fff;
+            border:none;
             border-radius:10px;
             padding:6px 12px;
-            font-size:14px;
-            background:#fff;
         }
 
         .notif {
             position:relative;
-            font-size:18px;
         }
 
         .notif-dot {
@@ -133,102 +111,56 @@
             right:-2px;
             width:7px;
             height:7px;
-            background:#ef4444;
+            background:red;
             border-radius:50%;
         }
 
-        /* ===== TAMBAHAN DARK UI ===== */
-
-        body {
-            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+        .card {
+            background: rgba(255,255,255,0.05);
+            border:none;
             color:#fff;
         }
 
-        .sidebar {
-            background: rgba(255,255,255,0.08) !important;
-            backdrop-filter: blur(15px);
-            border-right:1px solid rgba(255,255,255,0.1) !important;
-            color:#fff !important;
+        .table {
+            background: transparent !important;
+            color:#e2e8f0;
         }
 
-        .logo-text strong {
-            color:#fff !important;
+        .table > :not(caption) > * > * {
+            background: transparent !important;
         }
 
-        .logo-text small {
-            color:#cbd5f5 !important;
+        .table thead th {
+            background:#1e293b !important;
+            color:#94a3b8;
         }
 
-        .nav-link {
-            color:#cbd5f5 !important;
+        .table tbody tr {
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            transition:0.2s;
         }
 
-        .nav-link i {
-            color:#cbd5f5 !important;
+        .table tbody tr:hover {
+            background: rgba(255,255,255,0.04) !important;
         }
 
-        .nav-link:hover {
-            background: rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-            transform: translateX(4px);
+        .table td {
+            color:#e2e8f0 !important;
         }
 
-        .nav-link.active {
-            background: linear-gradient(135deg,#2563eb,#1d4ed8) !important;
-            color:#fff !important;
-            box-shadow: 0 6px 12px rgba(37,99,235,0.3);
+        .table td.fw-semibold {
+            color:#ffffff !important;
         }
 
-        .user-box {
-            border-top:1px solid rgba(255,255,255,0.1) !important;
+        .table td, .table th {
+            border-color: rgba(255,255,255,0.05) !important;
         }
 
-        .user-box small {
-            color:#cbd5f5 !important;
+        .badge {
+            font-size:12px;
+            background:#475569;
+            color:#fff;
         }
-
-        .topbar {
-            background: rgba(255,255,255,0.08) !important;
-            backdrop-filter: blur(15px);
-            border-bottom:1px solid rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-        }
-
-        .title {
-            color:#fff !important;
-        }
-
-        .subtitle {
-            color:#cbd5f5 !important;
-        }
-
-        .search-box {
-            background: rgba(255,255,255,0.1) !important;
-            color:#fff !important;
-        }
-
-        .search-box::placeholder {
-            color:#cbd5f5;
-        }
-
-        .role-btn {
-            background:#2563eb !important;
-            color:#fff !important;
-            border:none !important;
-        }
-
-        .notif i {
-            color:#fff !important;
-        }
-
-        .content {
-            color:#fff !important;
-        }
-
-        .p-4 {
-            color:#fff !important;
-        }
-
     </style>
 </head>
 
@@ -248,32 +180,28 @@
 
     <div class="nav flex-column gap-1">
 
-        <a href="{{ url('/pimpinan') }}" class="nav-link active">
-            <i class="bi bi-house-door"></i> Dashboard Executive
+        <a href="{{ route('dashboard.pemimpin') }}"
+           class="nav-link {{ request()->routeIs('dashboard.pemimpin') ? 'active' : '' }}">
+            <i class="bi bi-house-door"></i> Dashboard
         </a>
 
-        <a href="#" class="nav-link">
-            <i class="bi bi-geo-alt"></i> Monitoring Armada
+        <a href="{{ route('user.index') }}"
+           class="nav-link {{ request()->routeIs('user.*') ? 'active' : '' }}">
+            <i class="bi bi-person-gear"></i> Manajemen User
         </a>
 
-        <a href="#" class="nav-link">
-            <i class="bi bi-truck"></i> Data Alat Berat
+        <a href="{{ route('pelanggan.index') }}"
+           class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
+            <i class="bi bi-people"></i> Pelanggan
         </a>
 
-        <a href="#" class="nav-link">
-            <i class="bi bi-people"></i> Data Pelanggan
+        <a href="{{ route('alat.admin') }}"
+           class="nav-link {{ request()->routeIs('alat.*') ? 'active' : '' }}">
+            <i class="bi bi-truck"></i> Alat
         </a>
 
         <a href="#" class="nav-link">
             <i class="bi bi-calendar"></i> Booking
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-file-earmark-text"></i> Kontrak
-        </a>
-
-        <a href="#" class="nav-link">
-            <i class="bi bi-cart"></i> Data Vendor
         </a>
 
         <a href="#" class="nav-link">
@@ -282,21 +210,23 @@
 
     </div>
 
-    <div class="user-box">
+    <div class="mt-auto pt-3 border-top border-secondary">
+
         <div class="d-flex align-items-center gap-2 mb-2">
             <i class="bi bi-person-circle fs-5"></i>
             <div>
                 <strong>{{ Auth::user()->name }}</strong><br>
-                <small class="text-muted">Pimpinan</small>
+                <small class="text-light">{{ auth()->user()->role }}</small>
             </div>
         </div>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="btn btn-link text-danger p-0 d-flex align-items-center gap-1">
-                <i class="bi bi-box-arrow-right"></i> Logout
+            <button class="btn btn-sm btn-danger w-100">
+                Logout
             </button>
         </form>
+
     </div>
 
 </div>
@@ -307,15 +237,15 @@
 
         <div>
             <div class="title">@yield('title')</div>
-            <div class="subtitle">Selamat datang di sistem Rakentra</div>
+            <div class="subtitle">Dashboard sistem Rakentra</div>
         </div>
 
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex gap-3 align-items-center">
 
             <input type="text" class="search-box" placeholder="Search...">
 
             <div class="role-btn">
-                Pimpinan
+                {{ auth()->user()->role }}
             </div>
 
             <div class="notif">
@@ -332,6 +262,8 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

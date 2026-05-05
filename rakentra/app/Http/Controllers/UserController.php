@@ -10,13 +10,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = User::latest()->get();
-
-        if (auth()->user()->role == 'pemimpin') {
-            return view('user.pemimpin.index', compact('data'));
+        if (auth()->user()->role != 'pemimpin') {
+            abort(403);
         }
 
-        abort(403);
+        $data = User::where('role', '!=', 'pemimpin')->latest()->get();
+
+        return view('user.pemimpin.index', compact('data'));
     }
 
     public function create()
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);
@@ -36,16 +36,19 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'mekanik',
-            'status' => 'aktif'
+            'role' => 'mekanik'
         ]);
 
-        return redirect()->route('login')->with('success','Akun berhasil dibuat');
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat');
     }
 
     public function edit(User $user)
     {
         if (auth()->user()->role != 'pemimpin') {
+            abort(403);
+        }
+
+        if ($user->role == 'pemimpin') {
             abort(403);
         }
 
@@ -58,16 +61,33 @@ class UserController extends Controller
             abort(403);
         }
 
+        if ($user->role == 'pemimpin') {
+            abort(403);
+        }
+
         $request->validate([
-            'role' => 'required|in:admin,mekanik',
-            'status' => 'required|in:aktif,nonaktif'
+            'role' => 'required|in:admin,mekanik'
         ]);
 
         $user->update([
-            'role' => $request->role,
-            'status' => $request->status
+            'role' => $request->role
         ]);
 
-        return redirect()->route('user.index')->with('success','Akses berhasil diupdate');
+        return redirect()->route('user.index')->with('success', 'Role berhasil diupdate');
+    }
+
+    public function destroy(User $user)
+    {
+        if (auth()->user()->role != 'pemimpin') {
+            abort(403);
+        }
+
+        if ($user->role == 'pemimpin') {
+            abort(403);
+        }
+
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
     }
 }

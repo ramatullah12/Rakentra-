@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AlatController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PelangganController;
 
 Route::get('/', function () {
     if (!auth()->check()) {
@@ -29,6 +31,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/alat-admin/update/{id}', [AlatController::class, 'update'])->name('alat.update');
     Route::delete('/alat-admin/delete/{id}', [AlatController::class, 'destroy'])->name('alat.delete');
 
+    Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
+    Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('pelanggan.create');
+    Route::post('/pelanggan/store', [PelangganController::class, 'store'])->name('pelanggan.store');
+    Route::get('/pelanggan/edit/{pelanggan}', [PelangganController::class, 'edit'])->name('pelanggan.edit');
+    Route::put('/pelanggan/update/{pelanggan}', [PelangganController::class, 'update'])->name('pelanggan.update');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -36,7 +44,13 @@ Route::middleware(['auth', 'role:mekanik'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:pemimpin'])->group(function () {
+
     Route::get('/pemimpin', [DashboardController::class, 'pemimpin'])->name('dashboard.pemimpin');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
+
 });
 
 Route::middleware('auth')->group(function () {
