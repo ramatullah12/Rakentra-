@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelanggans', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama');
-        $table->string('hp');
-        $table->text('alamat');
-        $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
-        $table->timestamps();
-    });
+        $table->enum('role', ['admin','mekanik','pemimpin'])->default('mekanik');
+        $table->enum('status', ['aktif','nonaktif'])->default('aktif');
     }
 
     /**
@@ -26,6 +20,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelanggans');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
