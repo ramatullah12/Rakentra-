@@ -32,12 +32,17 @@
         .logo-icon {
             width: 42px;
             height: 42px;
-            background: #111827;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .nav-link {
@@ -85,6 +90,79 @@
             background: #fff;
             font-size: 14px;
         }
+
+        /* ===== TAMBAHAN DARK UI ===== */
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+            color: #fff;
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.08) !important;
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+        }
+
+        .logo-box strong {
+            color: #fff !important;
+        }
+
+        .logo-box small {
+            color: #cbd5f5 !important;
+        }
+
+        .nav-link {
+            color: #cbd5f5 !important;
+        }
+
+        .nav-link i {
+            color: #cbd5f5 !important;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg,#2563eb,#1d4ed8) !important;
+            color: #fff !important;
+            box-shadow: 0 6px 12px rgba(37,99,235,0.3);
+        }
+
+        .topbar {
+            background: rgba(255,255,255,0.08) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+        }
+
+        .search-box::placeholder {
+            color: #cbd5f5;
+        }
+
+        .role-btn {
+            background: #2563eb !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
+        .content {
+            color: #fff !important;
+        }
+
+        .p-4 {
+            color: #fff !important;
+        }
+
     </style>
 </head>
 
@@ -94,7 +172,7 @@
 
     <div class="logo-box">
         <div class="logo-icon">
-            <i class="bi bi-box-seam"></i>
+            <img src="{{ asset('images/logo.png') }}">
         </div>
         <div>
             <strong>Rakentra</strong><br>

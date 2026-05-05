@@ -5,8 +5,6 @@
     <title>Admin - Rakentra</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- ICON -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
@@ -35,13 +33,17 @@
         .logo-icon {
             width:42px;
             height:42px;
-            background:#111827;
             border-radius:12px;
             display:flex;
             align-items:center;
             justify-content:center;
-            color:#fff;
-            font-size:18px;
+            overflow:hidden;
+        }
+
+        .logo-icon img {
+            width:100%;
+            height:100%;
+            object-fit:contain;
         }
 
         .logo-text strong {
@@ -134,6 +136,100 @@
             background:#ef4444;
             border-radius:50%;
         }
+
+        /* ==== TAMBAHAN DARK UI ==== */
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+            color: #fff;
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.08) !important;
+            backdrop-filter: blur(15px);
+            border-right:1px solid rgba(255,255,255,0.1) !important;
+            color:#fff !important;
+        }
+
+        .logo-text strong {
+            color:#fff !important;
+        }
+
+        .logo-text small {
+            color:#cbd5f5 !important;
+        }
+
+        .nav-link {
+            color:#cbd5f5 !important;
+        }
+
+        .nav-link i {
+            color:#cbd5f5 !important;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1) !important;
+            color:#fff !important;
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg,#2563eb,#1d4ed8) !important;
+            color:#fff !important;
+            box-shadow: 0 6px 12px rgba(37,99,235,0.3);
+        }
+
+        .user-box {
+            border-top:1px solid rgba(255,255,255,0.1) !important;
+        }
+
+        .user-box small {
+            color:#cbd5f5 !important;
+        }
+
+        .topbar {
+            background: rgba(255,255,255,0.08) !important;
+            backdrop-filter: blur(15px);
+            border-bottom:1px solid rgba(255,255,255,0.1) !important;
+            color:#fff !important;
+        }
+
+        .title {
+            color:#fff !important;
+        }
+
+        .subtitle {
+            color:#cbd5f5 !important;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.1) !important;
+            color:#fff !important;
+            border:none !important;
+        }
+
+        .search-box::placeholder {
+            color:#cbd5f5;
+        }
+
+        .role-btn {
+            background:#2563eb !important;
+            color:#fff !important;
+            border:none !important;
+        }
+
+        .notif i {
+            color:#fff !important;
+        }
+
+        .content {
+            color:#fff !important;
+        }
+
+        .p-4 {
+            color:#fff !important;
+        }
+
     </style>
 </head>
 
@@ -141,10 +237,9 @@
 
 <div class="sidebar d-flex flex-column">
 
-    <!-- LOGO -->
     <div class="logo-box">
         <div class="logo-icon">
-            <i class="bi bi-box-seam"></i>
+            <img src="{{ asset('images/logo.png') }}">
         </div>
         <div class="logo-text">
             <strong>Rakentra</strong><br>
@@ -152,7 +247,6 @@
         </div>
     </div>
 
-    <!-- MENU -->
     <div class="nav flex-column gap-1">
 
         <a href="{{ url('/admin') }}" class="nav-link active">
@@ -215,7 +309,6 @@
 
     </div>
 
-    <!-- USER -->
     <div class="user-box">
         <div class="d-flex align-items-center gap-2 mb-2">
             <i class="bi bi-person-circle fs-5"></i>
@@ -237,7 +330,6 @@
 
 <div class="content">
 
-    <!-- NAVBAR -->
     <div class="topbar d-flex justify-content-between align-items-center">
 
         <div>
@@ -262,7 +354,6 @@
 
     </div>
 
-    <!-- CONTENT -->
     <div class="p-4">
         @yield('content')
     </div>
