@@ -25,4 +25,9 @@ class Booking extends Model
     {
         return $this->belongsTo(Alat::class);
     }
+
+    public function kontrak()
+    {
+        return $this->hasOne(Kontrak::class);
+    }
 }

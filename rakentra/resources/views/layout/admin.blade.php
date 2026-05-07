@@ -241,7 +241,10 @@
             class="nav-link {{ request()->routeIs('booking.*') ? 'active' : '' }}">
             <i class="bi bi-calendar"></i> Booking
         </a>
-        <a href="#" class="nav-link"><i class="bi bi-file-earmark-text"></i> Kontrak</a>
+        <a href="{{ route('kontrak.index') }}"
+            class="nav-link {{ request()->routeIs('kontrak.*') ? 'active' : '' }}">
+            <i class="bi bi-file-earmark-text"></i> Kontrak
+        </a>
         <a href="#" class="nav-link"><i class="bi bi-box"></i> Mobilisasi</a>
         <a href="{{ route('vendor.index') }}"
             class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">

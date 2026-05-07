@@ -12,8 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kontraks', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('booking_id')
+                ->constrained('bookings')
+                ->onDelete('cascade');
+
+            $table->string('nomor_kontrak')->unique();
+
+            $table->date('tanggal_kontrak');
+
+            $table->integer('durasi');
+
+            $table->decimal('nilai_kontrak', 15, 2);
+
+            $table->string('file_po')->nullable();
+
+            $table->string('file_spk')->nullable();
+
+            $table->enum('status', [
+                'aktif',
+                'selesai',
+                'dibatalkan'
+            ])->default('aktif');
+
+            $table->text('keterangan')->nullable();
+
             $table->timestamps();
+
         });
     }
 

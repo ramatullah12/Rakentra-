@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\KontrakController;
 
 Route::get('/', function () {
 
@@ -98,6 +99,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/booking/delete/{id}', [BookingController::class, 'destroy'])
         ->name('booking.delete');
 
+    Route::get('/kontrak', [KontrakController::class, 'index'])
+        ->name('kontrak.index');
+
+    Route::get('/kontrak/create', [KontrakController::class, 'create'])
+        ->name('kontrak.create');
+
+    Route::post('/kontrak/store', [KontrakController::class, 'store'])
+        ->name('kontrak.store');
+
+    Route::get('/kontrak/edit/{id}', [KontrakController::class, 'edit'])
+        ->name('kontrak.edit');
+
+    Route::put('/kontrak/update/{id}', [KontrakController::class, 'update'])
+        ->name('kontrak.update');
+
+    Route::delete('/kontrak/delete/{id}', [KontrakController::class, 'destroy'])
+        ->name('kontrak.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -126,6 +145,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/booking-pemimpin', [BookingController::class, 'index'])
         ->name('booking.pemimpin');
+
+    Route::get('/kontrak-pemimpin', [KontrakController::class, 'index'])
+        ->name('kontrak.pemimpin');
 
 });
 
