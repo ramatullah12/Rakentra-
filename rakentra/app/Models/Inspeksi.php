@@ -6,5 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inspeksi extends Model
 {
-    //
+    protected $fillable = [
+        'alat_id',
+        'operasional_id',
+        'tanggal_inspeksi',
+        'kondisi_alat',
+        'hasil_inspeksi',
+        'foto_kerusakan',
+        'status',
+        'keterangan',
+    ];
+
+    public function alat()
+    {
+        return $this->belongsTo(Alat::class);
+    }
+
+    public function operasional()
+    {
+        return $this->belongsTo(Operasional::class);
+    }
 }

@@ -1,6 +1,6 @@
-@extends('layout.pemimpin')
+@extends('layout.admin')
 
-@section('title', 'Data Alat')
+@section('title', 'Data Inspeksi')
 
 @section('content')
 
@@ -11,33 +11,45 @@
         <div>
 
             <h2 class="fw-bold text-white mb-1">
-                Monitoring Alat Berat
+                Data Inspeksi
             </h2>
 
             <p class="text-secondary mb-0">
-                Monitoring status dan performa alat berat
+                Monitoring hasil inspeksi dan kerusakan alat
             </p>
 
         </div>
 
     </div>
 
+    @if(session('success'))
+
+        <div class="alert alert-success border-0 shadow-sm"
+             style="border-radius:14px;">
+
+            {{ session('success') }}
+
+        </div>
+
+    @endif
+
     <div class="row mb-4">
 
         <div class="col-md-4 mb-3">
 
-            <div class="card shadow-sm border-0"
-                 style="border-radius:18px;">
+            <div class="card border-0 shadow-sm"
+                 style="background:rgba(255,255,255,0.05);
+                        border-radius:20px;">
 
                 <div class="card-body">
 
                     <h6 class="text-secondary">
-                        Total Alat
+                        Total Inspeksi
                     </h6>
 
                     <h2 class="fw-bold text-white">
 
-                        {{ $alats->count() }}
+                        {{ $inspeksis->count() }}
 
                     </h2>
 
@@ -49,18 +61,19 @@
 
         <div class="col-md-4 mb-3">
 
-            <div class="card shadow-sm border-0"
-                 style="border-radius:18px;">
+            <div class="card border-0 shadow-sm"
+                 style="background:rgba(255,255,255,0.05);
+                        border-radius:20px;">
 
                 <div class="card-body">
 
                     <h6 class="text-secondary">
-                        Alat Tersedia
+                        Rusak Ringan
                     </h6>
 
-                    <h2 class="fw-bold text-success">
+                    <h2 class="fw-bold text-warning">
 
-                        {{ $alats->where('status','tersedia')->count() }}
+                        {{ $inspeksis->where('kondisi_alat','rusak_ringan')->count() }}
 
                     </h2>
 
@@ -72,18 +85,19 @@
 
         <div class="col-md-4 mb-3">
 
-            <div class="card shadow-sm border-0"
-                 style="border-radius:18px;">
+            <div class="card border-0 shadow-sm"
+                 style="background:rgba(255,255,255,0.05);
+                        border-radius:20px;">
 
                 <div class="card-body">
 
                     <h6 class="text-secondary">
-                        Maintenance
+                        Rusak Berat
                     </h6>
 
                     <h2 class="fw-bold text-danger">
 
-                        {{ $alats->where('status','maintenance')->count() }}
+                        {{ $inspeksis->where('kondisi_alat','rusak_berat')->count() }}
 
                     </h2>
 
@@ -101,7 +115,8 @@
 
         <div class="card-body p-4">
 
-            <form method="GET">
+            <form action="{{ route('inspeksi.index') }}"
+                  method="GET">
 
                 <div class="row g-3">
 
@@ -133,7 +148,7 @@
 
                         </button>
 
-                        <a href=""
+                        <a href="{{ route('inspeksi.index') }}"
                            class="btn btn-outline-light"
                            style="border-radius:12px;">
 
@@ -168,23 +183,31 @@
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Nama Alat
+                            Alat
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Kategori
+                            Tanggal
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Merk
+                            Kondisi
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Tahun
+                            Hasil Inspeksi
+                        </th>
+
+                        <th class="text-secondary border-0 py-4">
+                            Foto Kerusakan
                         </th>
 
                         <th class="text-secondary border-0 py-4">
                             Status
+                        </th>
+
+                        <th class="text-secondary border-0 py-4">
+                            Keterangan
                         </th>
 
                     </tr>
@@ -193,66 +216,54 @@
 
                 <tbody>
 
-                    @forelse($alats as $i => $alat)
+                    @forelse($inspeksis as $i => $inspeksi)
 
                         <tr style="background:rgba(255,255,255,0.03);
                                    border-bottom:1px solid rgba(255,255,255,0.05);">
 
                             <td class="text-white fw-semibold py-4 ps-4">
 
-                                {{ $alats->firstItem() + $i }}
+                                {{ $inspeksis->firstItem() + $i }}
 
                             </td>
 
                             <td class="text-white fw-semibold py-4">
 
-                                {{ $alat->nama_alat }}
+                                {{ $inspeksi->alat->nama_alat }}
 
                             </td>
 
                             <td class="text-secondary py-4">
 
-                                {{ $alat->kategori }}
-
-                            </td>
-
-                            <td class="text-secondary py-4">
-
-                                {{ $alat->merk }}
-
-                            </td>
-
-                            <td class="text-secondary py-4">
-
-                                {{ $alat->tahun }}
+                                {{ $inspeksi->tanggal_inspeksi }}
 
                             </td>
 
                             <td class="py-4">
 
-                                @if($alat->status == 'tersedia')
+                                @if($inspeksi->kondisi_alat == 'baik')
 
                                     <span style="background:#16a34a;
                                                  color:white;
-                                                 padding:8px 16px;
+                                                 padding:8px 14px;
                                                  border-radius:10px;
                                                  font-size:13px;
                                                  font-weight:600;">
 
-                                        Tersedia
+                                        Baik
 
                                     </span>
 
-                                @elseif($alat->status == 'disewa')
+                                @elseif($inspeksi->kondisi_alat == 'rusak_ringan')
 
-                                    <span style="background:#2563eb;
+                                    <span style="background:#f59e0b;
                                                  color:white;
-                                                 padding:8px 16px;
+                                                 padding:8px 14px;
                                                  border-radius:10px;
                                                  font-size:13px;
                                                  font-weight:600;">
 
-                                        Disewa
+                                        Rusak Ringan
 
                                     </span>
 
@@ -260,16 +271,98 @@
 
                                     <span style="background:#dc2626;
                                                  color:white;
-                                                 padding:8px 16px;
+                                                 padding:8px 14px;
                                                  border-radius:10px;
                                                  font-size:13px;
                                                  font-weight:600;">
 
-                                        Maintenance
+                                        Rusak Berat
 
                                     </span>
 
                                 @endif
+
+                            </td>
+
+                            <td class="text-secondary py-4">
+
+                                {{ Str::limit($inspeksi->hasil_inspeksi, 50) }}
+
+                            </td>
+
+                            <td class="py-4">
+
+                                @if($inspeksi->foto_kerusakan)
+
+                                    <a href="{{ $inspeksi->foto_kerusakan }}"
+                                       target="_blank">
+
+                                        <img src="{{ $inspeksi->foto_kerusakan }}"
+                                             width="90"
+                                             height="65"
+                                             style="object-fit:cover;
+                                                    border-radius:10px;">
+
+                                    </a>
+
+                                @else
+
+                                    <span class="text-secondary">
+                                        Tidak ada foto
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            <td class="py-4">
+
+                                @if($inspeksi->status == 'pending')
+
+                                    <span style="background:#64748b;
+                                                 color:white;
+                                                 padding:8px 14px;
+                                                 border-radius:10px;
+                                                 font-size:13px;
+                                                 font-weight:600;">
+
+                                        Pending
+
+                                    </span>
+
+                                @elseif($inspeksi->status == 'proses')
+
+                                    <span style="background:#2563eb;
+                                                 color:white;
+                                                 padding:8px 14px;
+                                                 border-radius:10px;
+                                                 font-size:13px;
+                                                 font-weight:600;">
+
+                                        Proses
+
+                                    </span>
+
+                                @else
+
+                                    <span style="background:#16a34a;
+                                                 color:white;
+                                                 padding:8px 14px;
+                                                 border-radius:10px;
+                                                 font-size:13px;
+                                                 font-weight:600;">
+
+                                        Selesai
+
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            <td class="text-secondary py-4">
+
+                                {{ $inspeksi->keterangan }}
 
                             </td>
 
@@ -279,10 +372,10 @@
 
                         <tr>
 
-                            <td colspan="6"
+                            <td colspan="8"
                                 class="text-center text-secondary py-5">
 
-                                Data alat tidak tersedia
+                                Data inspeksi tidak tersedia
 
                             </td>
 
@@ -300,7 +393,7 @@
 
     <div class="mt-4">
 
-        {{ $alats->withQueryString()->links() }}
+        {{ $inspeksis->withQueryString()->links() }}
 
     </div>
 

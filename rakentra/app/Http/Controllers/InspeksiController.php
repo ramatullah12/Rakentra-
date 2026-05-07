@@ -2,64 +2,263 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alat;
 use App\Models\Inspeksi;
+use App\Models\Operasional;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class InspeksiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Inspeksi::with([
+            'alat',
+            'operasional'
+        ]);
+
+        if ($request->search) {
+
+            $query->whereHas('alat', function ($q) use ($request) {
+
+                $q->where(
+                    'nama_alat',
+                    'like',
+                    '%' . $request->search . '%'
+                );
+
+            });
+
+        }
+
+        $inspeksis = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'inspeksi.admin.index',
+            compact('inspeksis')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function mekanik(Request $request)
+    {
+        $query = Inspeksi::with([
+            'alat',
+            'operasional'
+        ]);
+
+        if ($request->search) {
+
+            $query->whereHas('alat', function ($q) use ($request) {
+
+                $q->where(
+                    'nama_alat',
+                    'like',
+                    '%' . $request->search . '%'
+                );
+
+            });
+
+        }
+
+        $inspeksis = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'inspeksi.mekanik.index',
+            compact('inspeksis')
+        );
+    }
+
+    public function pemimpin(Request $request)
+    {
+        $query = Inspeksi::with([
+            'alat',
+            'operasional'
+        ]);
+
+        if ($request->search) {
+
+            $query->whereHas('alat', function ($q) use ($request) {
+
+                $q->where(
+                    'nama_alat',
+                    'like',
+                    '%' . $request->search . '%'
+                );
+
+            });
+
+        }
+
+        if ($request->kondisi) {
+
+            $query->where(
+                'kondisi_alat',
+                $request->kondisi
+            );
+
+        }
+
+        $inspeksis = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'inspeksi.pemimpin.index',
+            compact('inspeksis')
+        );
+    }
+
     public function create()
     {
-        //
+        $alats = Alat::all();
+
+        $operasionals = Operasional::with([
+            'mobilisasi.kontrak'
+        ])->get();
+
+        return view(
+            'inspeksi.mekanik.create',
+            compact(
+                'alats',
+                'operasionals'
+            )
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'alat_id' => 'required',
+            'operasional_id' => 'nullable',
+            'tanggal_inspeksi' => 'required',
+            'kondisi_alat' => 'required',
+            'hasil_inspeksi' => 'required',
+            'foto_kerusakan' => 'nullable|image',
+            'status' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        $foto = null;
+
+        if ($request->hasFile('foto_kerusakan')) {
+
+            $upload = Cloudinary::upload(
+                $request->file('foto_kerusakan')->getRealPath(),
+                [
+                    'folder' => 'rakentra/inspeksi'
+                ]
+            );
+
+            $foto = $upload->getSecurePath();
+        }
+
+        Inspeksi::create([
+            'alat_id' => $request->alat_id,
+            'operasional_id' => $request->operasional_id,
+            'tanggal_inspeksi' => $request->tanggal_inspeksi,
+            'kondisi_alat' => $request->kondisi_alat,
+            'hasil_inspeksi' => $request->hasil_inspeksi,
+            'foto_kerusakan' => $foto,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()
+            ->route('inspeksi.mekanik')
+            ->with(
+                'success',
+                'Data inspeksi berhasil ditambahkan'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Inspeksi $inspeksi)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Inspeksi $inspeksi)
+    public function edit($id)
     {
-        //
+        $inspeksi = Inspeksi::findOrFail($id);
+
+        $alats = Alat::all();
+
+        $operasionals = Operasional::with([
+            'mobilisasi.kontrak'
+        ])->get();
+
+        return view(
+            'inspeksi.mekanik.edit',
+            compact(
+                'inspeksi',
+                'alats',
+                'operasionals'
+            )
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Inspeksi $inspeksi)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'alat_id' => 'required',
+            'operasional_id' => 'nullable',
+            'tanggal_inspeksi' => 'required',
+            'kondisi_alat' => 'required',
+            'hasil_inspeksi' => 'required',
+            'foto_kerusakan' => 'nullable|image',
+            'status' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        $inspeksi = Inspeksi::findOrFail($id);
+
+        $foto = $inspeksi->foto_kerusakan;
+
+        if ($request->hasFile('foto_kerusakan')) {
+
+            $upload = Cloudinary::upload(
+                $request->file('foto_kerusakan')->getRealPath(),
+                [
+                    'folder' => 'rakentra/inspeksi'
+                ]
+            );
+
+            $foto = $upload->getSecurePath();
+        }
+
+        $inspeksi->update([
+            'alat_id' => $request->alat_id,
+            'operasional_id' => $request->operasional_id,
+            'tanggal_inspeksi' => $request->tanggal_inspeksi,
+            'kondisi_alat' => $request->kondisi_alat,
+            'hasil_inspeksi' => $request->hasil_inspeksi,
+            'foto_kerusakan' => $foto,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()
+            ->route('inspeksi.mekanik')
+            ->with(
+                'success',
+                'Data inspeksi berhasil diupdate'
+            );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Inspeksi $inspeksi)
+    public function destroy($id)
     {
-        //
+        $inspeksi = Inspeksi::findOrFail($id);
+
+        $inspeksi->delete();
+
+        return redirect()
+            ->route('inspeksi.index')
+            ->with(
+                'success',
+                'Data inspeksi berhasil dihapus'
+            );
     }
 }

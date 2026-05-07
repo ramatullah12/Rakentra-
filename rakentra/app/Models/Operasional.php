@@ -22,4 +22,8 @@ class Operasional extends Model
     {
         return $this->belongsTo(Mobilisasi::class);
     }
+    public function inspeksis()
+    {
+        return $this->hasMany(Inspeksi::class);
+    }
 }

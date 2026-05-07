@@ -22,6 +22,7 @@
             backdrop-filter: blur(15px);
             border-right:1px solid rgba(255,255,255,0.1);
             padding:20px 15px;
+            overflow-y:auto;
         }
 
         .logo-box {
@@ -44,8 +45,13 @@
             object-fit:contain;
         }
 
-        .logo-text strong { color:#fff; }
-        .logo-text small { color:#cbd5f5; }
+        .logo-text strong {
+            color:#fff;
+        }
+
+        .logo-text small {
+            color:#cbd5f5;
+        }
 
         .nav-link {
             display:flex;
@@ -113,14 +119,40 @@
         .table thead th {
             background:#1e293b !important;
             color:#94a3b8;
+            border:none;
         }
 
         .table td {
             color:#e2e8f0;
+            border-color:rgba(255,255,255,0.05);
         }
 
         .table tbody tr:hover {
             background: rgba(255,255,255,0.04);
+        }
+
+        .form-control,
+        .form-select {
+            background:#1e293b !important;
+            border:1px solid rgba(255,255,255,0.08) !important;
+            color:#fff !important;
+            border-radius:12px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background:#1e293b !important;
+            border-color:#2563eb !important;
+            box-shadow:none !important;
+            color:#fff !important;
+        }
+
+        .form-control::placeholder {
+            color:#94a3b8;
+        }
+
+        label {
+            color:#cbd5f5;
         }
     </style>
 </head>
@@ -130,40 +162,60 @@
 <div class="sidebar d-flex flex-column">
 
     <div class="logo-box">
+
         <div class="logo-icon">
+
             <img src="{{ asset('images/logo.png') }}">
+
         </div>
+
         <div class="logo-text">
+
             <strong>Rakentra</strong><br>
+
             <small>Asset & Rental Mgmt</small>
+
         </div>
+
     </div>
 
     <div class="nav flex-column gap-1">
 
         <a href="{{ route('dashboard.mekanik') }}"
-            class="nav-link {{ request()->routeIs('dashboard.mekanik') ? 'active' : '' }}">
+           class="nav-link {{ request()->routeIs('dashboard.mekanik') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
+
         </a>
 
-        <a href="{{ url('alat.mekanik') }}"
+        <a href="{{ route('alat.mekanik') }}"
            class="nav-link {{ request()->routeIs('alat.mekanik') ? 'active' : '' }}">
-            <i class="bi bi-clock-history"></i> Alat Berat
+            <i class="bi bi-truck"></i> Alat Berat
+
         </a>
 
         <a href="{{ route('operasional.mekanik') }}"
-            class="nav-link {{ request()->routeIs('operasional.mekanik') ? 'active' : '' }}">
+           class="nav-link {{ request()->routeIs('operasional.mekanik') ? 'active' : '' }}">
             <i class="bi bi-clock-history"></i> Operasional
+
         </a>
 
-        <a href="{{ url('/mekanik/maintenance') }}"
-           class="nav-link {{ request()->is('mekanik/maintenance*') ? 'active' : '' }}">
-            <i class="bi bi-tools"></i> Maintenance
-        </a>
-
-        <a href="{{ url('/mekanik/inspeksi') }}"
-           class="nav-link {{ request()->is('mekanik/inspeksi*') ? 'active' : '' }}">
+        <a href="{{ route('inspeksi.mekanik') }}"
+           class="nav-link {{ request()->routeIs('inspeksi.*') ? 'active' : '' }}">
             <i class="bi bi-clipboard-check"></i> Inspeksi
+
+        </a>
+
+        <a href="#"
+           class="nav-link">
+            <i class="bi bi-tools"></i> Maintenance
+
+        </a>
+
+        <a href="#"
+           class="nav-link">
+
+            <i class="bi bi-box-seam"></i> Material
+
         </a>
 
     </div>
@@ -171,18 +223,32 @@
     <div class="mt-auto pt-3 border-top border-secondary">
 
         <div class="d-flex align-items-center gap-2 mb-2">
+
             <i class="bi bi-person-circle fs-5"></i>
+
             <div>
+
                 <strong>{{ Auth::user()->name }}</strong><br>
-                <small class="text-light">Mekanik</small>
+
+                <small class="text-light">
+                    Mekanik
+                </small>
+
             </div>
+
         </div>
 
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST"
+              action="{{ route('logout') }}">
+
             @csrf
+
             <button class="btn btn-sm btn-danger w-100">
+
                 Logout
+
             </button>
+
         </form>
 
     </div>
@@ -194,16 +260,29 @@
     <div class="topbar d-flex justify-content-between align-items-center">
 
         <div>
-            <h5 class="mb-0 text-white">@yield('header', 'Dashboard Mekanik')</h5>
-            <small class="text-secondary">Selamat datang di sistem Rakentra</small>
+
+            <h5 class="mb-0 text-white">
+
+                @yield('header', 'Dashboard Mekanik')
+
+            </h5>
+
+            <small class="text-secondary">
+                Selamat datang di sistem Rakentra
+            </small>
+
         </div>
 
         <div class="d-flex gap-3 align-items-center">
 
-            <input type="text" class="search-box" placeholder="Search...">
+            <input type="text"
+                   class="search-box"
+                   placeholder="Search...">
 
             <div class="role-btn">
+
                 Mekanik
+
             </div>
 
             <i class="bi bi-bell"></i>
@@ -213,7 +292,9 @@
     </div>
 
     <div class="p-4">
+
         @yield('content')
+
     </div>
 
 </div>

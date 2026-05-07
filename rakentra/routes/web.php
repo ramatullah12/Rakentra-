@@ -11,6 +11,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\MobilisasiController;
 use App\Http\Controllers\OperasionalController;
+use App\Http\Controllers\InspeksiController;
 
 Route::get('/', function () {
 
@@ -155,6 +156,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/operasional/delete/{id}', [OperasionalController::class, 'destroy'])
         ->name('operasional.delete');
 
+    Route::get('/inspeksi', [InspeksiController::class, 'index'])
+        ->name('inspeksi.index');
+
+    Route::delete('/inspeksi/delete/{id}', [InspeksiController::class, 'destroy'])
+        ->name('inspeksi.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -162,11 +169,29 @@ Route::middleware(['auth', 'role:mekanik'])->group(function () {
     Route::get('/mekanik', [DashboardController::class, 'mekanik'])
         ->name('dashboard.mekanik');
 
+    Route::get('/alat-mekanik', [AlatController::class, 'mekanik'])
+        ->name('alat.mekanik');
+
     Route::get('/operasional-mekanik', [OperasionalController::class, 'index'])
         ->name('operasional.mekanik');
 
     Route::put('/operasional-mekanik/update/{id}', [OperasionalController::class, 'update'])
         ->name('operasional.mekanik.update');
+
+    Route::get('/inspeksi-mekanik', [InspeksiController::class, 'mekanik'])
+        ->name('inspeksi.mekanik');
+
+    Route::get('/inspeksi/create', [InspeksiController::class, 'create'])
+        ->name('inspeksi.create');
+
+    Route::post('/inspeksi/store', [InspeksiController::class, 'store'])
+        ->name('inspeksi.store');
+
+    Route::get('/inspeksi/edit/{id}', [InspeksiController::class, 'edit'])
+        ->name('inspeksi.edit');
+
+    Route::put('/inspeksi/update/{id}', [InspeksiController::class, 'update'])
+        ->name('inspeksi.update');
 
 });
 
@@ -174,6 +199,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/pemimpin', [DashboardController::class, 'pemimpin'])
         ->name('dashboard.pemimpin');
+
+    Route::get('/alat-pemimpin', [AlatController::class, 'pemimpin'])
+        ->name('alat.pemimpin');
 
     Route::get('/user', [UserController::class, 'index'])
         ->name('user.index');
@@ -198,6 +226,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/operasional-pemimpin', [OperasionalController::class, 'index'])
         ->name('operasional.pemimpin');
+
+    Route::get('/inspeksi-pemimpin', [InspeksiController::class, 'pemimpin'])
+        ->name('inspeksi.pemimpin');
 
 });
 

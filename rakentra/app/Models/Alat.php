@@ -18,4 +18,9 @@ class Alat extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function inspeksis()
+    {
+        return $this->hasMany(Inspeksi::class);
+    }
 }
