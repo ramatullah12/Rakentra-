@@ -12,6 +12,7 @@ use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\MobilisasiController;
 use App\Http\Controllers\OperasionalController;
 use App\Http\Controllers\InspeksiController;
+use App\Http\Controllers\TagihanController;
 
 Route::get('/', function () {
 
@@ -162,6 +163,30 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/inspeksi/delete/{id}', [InspeksiController::class, 'destroy'])
         ->name('inspeksi.delete');
 
+    Route::get('/tagihan', [TagihanController::class, 'index'])
+        ->name('tagihan.index');
+
+    Route::get('/tagihan/create', [TagihanController::class, 'create'])
+        ->name('tagihan.create');
+
+    Route::post('/tagihan/store', [TagihanController::class, 'store'])
+        ->name('tagihan.store');
+
+    Route::get('/tagihan/edit/{id}', [TagihanController::class, 'edit'])
+        ->name('tagihan.edit');
+
+    Route::put('/tagihan/update/{id}', [TagihanController::class, 'update'])
+        ->name('tagihan.update');
+
+    Route::delete('/tagihan/delete/{id}', [TagihanController::class, 'destroy'])
+        ->name('tagihan.delete');
+
+    Route::get('/tagihan/faktur/{id}', [TagihanController::class, 'faktur'])
+        ->name('tagihan.faktur');
+
+    Route::get('/tagihan/cetak/{id}', [TagihanController::class, 'cetak'])
+        ->name('tagihan.cetak');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -229,6 +254,12 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/inspeksi-pemimpin', [InspeksiController::class, 'pemimpin'])
         ->name('inspeksi.pemimpin');
+
+    Route::get('/tagihan-pemimpin', [TagihanController::class, 'pemimpin'])
+        ->name('tagihan.pemimpin');
+
+    Route::get('/tagihan/faktur-pemimpin/{id}', [TagihanController::class, 'faktur'])
+        ->name('tagihan.faktur.pemimpin');
 
 });
 

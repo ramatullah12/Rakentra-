@@ -315,11 +315,9 @@
 
         </a>
 
-        <a href="#"
-           class="nav-link">
-
+        <a href="{{ route('tagihan.index') }}"
+            class="nav-link {{ request()->routeIs('tagihan.*') ? 'active' : '' }}">
             <i class="bi bi-receipt"></i> Tagihan & Faktur
-
         </a>
 
         <a href="#"

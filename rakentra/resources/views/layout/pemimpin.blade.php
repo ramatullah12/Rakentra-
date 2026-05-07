@@ -298,18 +298,9 @@
 
         </a>
 
-        <a href="#"
-           class="nav-link">
-
-            <i class="bi bi-currency-dollar"></i> Biaya
-
-        </a>
-
-        <a href="#"
-           class="nav-link">
-
+        <a href="{{ route('tagihan.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('tagihan.*') ? 'active' : '' }}">
             <i class="bi bi-receipt"></i> Tagihan & Faktur
-
         </a>
 
         <a href="#"

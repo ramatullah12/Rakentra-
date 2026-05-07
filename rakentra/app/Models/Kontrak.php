@@ -26,4 +26,8 @@ class Kontrak extends Model
     {
         return $this->hasOne(Mobilisasi::class);
     }
+    public function tagihans()
+    {
+        return $this->hasMany(Tagihan::class);
+    }
 }
