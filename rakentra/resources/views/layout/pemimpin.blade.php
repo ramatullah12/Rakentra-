@@ -1,185 +1,231 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>@yield('title', 'Pimpinan - Rakentra')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        @yield('title', 'Pemimpin - Rakentra')
+
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
 
     <style>
-        body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            font-family: 'Inter', sans-serif;
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#1e293b);
+            font-family:'Inter',sans-serif;
             color:#fff;
+            overflow-x:hidden;
         }
 
-        .sidebar {
+        .sidebar{
             width:260px;
             height:100vh;
             position:fixed;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
-            border-right:1px solid rgba(255,255,255,0.1);
+            left:0;
+            top:0;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(20px);
+            border-right:1px solid rgba(255,255,255,0.08);
             padding:20px 15px;
             overflow-y:auto;
+            z-index:1000;
         }
 
-        .logo-box {
+        .sidebar::-webkit-scrollbar{
+            width:5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb{
+            background:#334155;
+            border-radius:10px;
+        }
+
+        .logo-box{
             display:flex;
             align-items:center;
             gap:12px;
             margin-bottom:30px;
         }
 
-        .logo-icon {
-            width:42px;
-            height:42px;
+        .logo-icon{
+            width:45px;
+            height:45px;
             border-radius:12px;
             overflow:hidden;
+            background:#fff;
+            padding:5px;
         }
 
-        .logo-icon img {
+        .logo-icon img{
             width:100%;
             height:100%;
             object-fit:contain;
         }
 
-        .logo-text strong {
+        .logo-text strong{
             color:#fff;
+            font-size:18px;
         }
 
-        .logo-text small {
-            color:#cbd5f5;
+        .logo-text small{
+            color:#94a3b8;
+            font-size:12px;
         }
 
-        .nav-link {
+        .nav-link{
             display:flex;
             align-items:center;
-            gap:10px;
-            padding:10px 12px;
+            gap:12px;
+            padding:11px 14px;
             border-radius:12px;
-            color:#cbd5f5;
-            font-size:14px;
+            color:#cbd5e1;
             transition:0.2s;
+            font-size:14px;
+            margin-bottom:5px;
         }
 
-        .nav-link:hover {
-            background: rgba(255,255,255,0.1);
+        .nav-link i{
+            font-size:17px;
+        }
+
+        .nav-link:hover{
+            background:rgba(255,255,255,0.08);
             color:#fff;
-            transform: translateX(4px);
+            transform:translateX(4px);
         }
 
-        .nav-link.active {
-            background: linear-gradient(135deg,#2563eb,#1d4ed8);
+        .nav-link.active{
+            background:linear-gradient(135deg,#2563eb,#1d4ed8);
             color:#fff;
+            box-shadow:0 4px 15px rgba(37,99,235,0.4);
         }
 
-        .content {
+        .content{
             margin-left:260px;
+            min-height:100vh;
         }
 
-        .topbar {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
-            border-bottom:1px solid rgba(255,255,255,0.1);
+        .topbar{
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid rgba(255,255,255,0.08);
             padding:15px 25px;
+            position:sticky;
+            top:0;
+            z-index:999;
         }
 
-        .title {
-            font-weight:600;
+        .title{
+            color:#fff;
+            font-weight:700;
+            font-size:20px;
         }
 
-        .subtitle {
+        .subtitle{
+            color:#94a3b8;
             font-size:13px;
-            color:#cbd5f5;
         }
 
-        .search-box {
-            background: rgba(255,255,255,0.1);
+        .search-box{
+            background:rgba(255,255,255,0.08);
             border:none;
-            border-radius:10px;
-            padding:8px 14px;
+            border-radius:12px;
+            padding:10px 15px;
             color:#fff;
+            outline:none;
         }
 
-        .search-box::placeholder {
-            color:#cbd5f5;
-        }
-
-        .role-btn {
-            background:#2563eb;
-            color:#fff;
-            border:none;
-            border-radius:10px;
-            padding:6px 12px;
-        }
-
-        .notif {
-            position:relative;
-        }
-
-        .notif-dot {
-            position:absolute;
-            top:-2px;
-            right:-2px;
-            width:7px;
-            height:7px;
-            background:red;
-            border-radius:50%;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.05);
-            border:none;
-            color:#fff;
-        }
-
-        .table {
-            background: transparent !important;
-            color:#e2e8f0;
-        }
-
-        .table > :not(caption) > * > * {
-            background: transparent !important;
-        }
-
-        .table thead th {
-            background:#1e293b !important;
+        .search-box::placeholder{
             color:#94a3b8;
         }
 
-        .table tbody tr {
+        .role-btn{
+            background:linear-gradient(135deg,#2563eb,#1d4ed8);
+            color:#fff;
+            border:none;
+            border-radius:12px;
+            padding:8px 14px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .notif{
+            position:relative;
+            font-size:20px;
+            color:#fff;
+        }
+
+        .notif-dot{
+            position:absolute;
+            top:-2px;
+            right:-2px;
+            width:8px;
+            height:8px;
+            background:#ef4444;
+            border-radius:50%;
+        }
+
+        .user-box{
+            margin-top:auto;
+            padding-top:20px;
+            border-top:1px solid rgba(255,255,255,0.08);
+        }
+
+        .card{
+            background:rgba(255,255,255,0.05);
+            border:none;
+            border-radius:20px;
+            color:#fff;
+        }
+
+        .table{
+            --bs-table-bg:transparent !important;
+            --bs-table-striped-bg:transparent !important;
+            --bs-table-hover-bg:transparent !important;
+            background:transparent !important;
+            color:#e2e8f0 !important;
+        }
+
+        .table thead{
+            background:#1e293b !important;
+        }
+
+        .table thead th{
+            background:#1e293b !important;
+            color:#94a3b8 !important;
+            border:none !important;
+            padding:14px;
+        }
+
+        .table tbody tr{
             border-bottom:1px solid rgba(255,255,255,0.05);
             transition:0.2s;
         }
 
-        .table tbody tr:hover {
-            background: rgba(255,255,255,0.04) !important;
+        .table tbody tr:hover{
+            background:#1e293b !important;
         }
 
-        .table td {
+        .table tbody td{
             color:#e2e8f0 !important;
-        }
-
-        .table td.fw-semibold {
-            color:#ffffff !important;
-        }
-
-        .table td,
-        .table th {
-            border-color: rgba(255,255,255,0.05) !important;
-        }
-
-        .badge {
-            font-size:12px;
-            background:#475569;
-            color:#fff;
+            padding:14px;
+            border-color:rgba(255,255,255,0.05) !important;
         }
 
         .form-control,
-        .form-select {
+        .form-select{
             background:#1e293b !important;
             border:1px solid rgba(255,255,255,0.08) !important;
             color:#fff !important;
@@ -187,23 +233,62 @@
         }
 
         .form-control:focus,
-        .form-select:focus {
+        .form-select:focus{
             background:#1e293b !important;
             border-color:#2563eb !important;
-            box-shadow:none !important;
             color:#fff !important;
+            box-shadow:0 0 0 1px #2563eb !important;
         }
 
-        .form-control::placeholder {
+        .form-control::placeholder{
             color:#94a3b8;
         }
 
-        label {
-            color:#cbd5f5;
+        label{
+            color:#cbd5e1;
+            margin-bottom:6px;
         }
+
+        .btn-primary{
+            background:#2563eb;
+            border:none;
+        }
+
+        .btn-warning{
+            background:#facc15;
+            border:none;
+        }
+
+        .btn-danger{
+            border:none;
+        }
+
+        .btn-success{
+            border:none;
+        }
+
+        @media(max-width:992px){
+
+            .sidebar{
+                width:100%;
+                height:auto;
+                position:relative;
+            }
+
+            .content{
+                margin-left:0;
+            }
+
+            .topbar{
+                padding:15px;
+            }
+
+        }
+
     </style>
+
 </head>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
 
 <div class="sidebar d-flex flex-column">
@@ -226,105 +311,132 @@
 
     </div>
 
-    <div class="nav flex-column gap-1">
+    <div class="nav flex-column">
 
         <a href="{{ route('dashboard.pemimpin') }}"
            class="nav-link {{ request()->routeIs('dashboard.pemimpin') ? 'active' : '' }}">
 
-            <i class="bi bi-house-door"></i> Dashboard
+            <i class="bi bi-house-door"></i>
+            Dashboard
 
         </a>
 
         <a href="{{ route('user.index') }}"
            class="nav-link {{ request()->routeIs('user.*') ? 'active' : '' }}">
 
-            <i class="bi bi-person-gear"></i> Manajemen User
+            <i class="bi bi-person-gear"></i>
+            Manajemen User
 
         </a>
 
         <a href="{{ route('alat.pemimpin') }}"
            class="nav-link {{ request()->routeIs('alat.pemimpin') ? 'active' : '' }}">
 
-            <i class="bi bi-truck"></i> Alat Berat
+            <i class="bi bi-truck"></i>
+            Alat Berat
 
         </a>
 
         <a href="{{ route('booking.pemimpin') }}"
            class="nav-link {{ request()->routeIs('booking.*') ? 'active' : '' }}">
 
-            <i class="bi bi-calendar"></i> Booking
+            <i class="bi bi-calendar-check"></i>
+            Booking
 
         </a>
 
         <a href="{{ route('vendor.pemimpin') }}"
            class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
 
-            <i class="bi bi-cart"></i> Vendor
+            <i class="bi bi-shop"></i>
+            Vendor
 
         </a>
 
         <a href="{{ route('kontrak.pemimpin') }}"
            class="nav-link {{ request()->routeIs('kontrak.*') ? 'active' : '' }}">
 
-            <i class="bi bi-file-earmark-text"></i> Kontrak
+            <i class="bi bi-file-earmark-text"></i>
+            Kontrak
 
         </a>
 
         <a href="{{ route('mobilisasi.pemimpin') }}"
            class="nav-link {{ request()->routeIs('mobilisasi.*') ? 'active' : '' }}">
 
-            <i class="bi bi-box"></i> Mobilisasi
+            <i class="bi bi-box"></i>
+            Mobilisasi
 
         </a>
 
         <a href="{{ route('operasional.pemimpin') }}"
            class="nav-link {{ request()->routeIs('operasional.*') ? 'active' : '' }}">
 
-            <i class="bi bi-clock-history"></i> Operasional
+            <i class="bi bi-clock-history"></i>
+            Operasional
 
         </a>
 
         <a href="{{ route('inspeksi.pemimpin') }}"
            class="nav-link {{ request()->routeIs('inspeksi.*') ? 'active' : '' }}">
 
-            <i class="bi bi-clipboard-check"></i> Inspeksi
+            <i class="bi bi-clipboard-check"></i>
+            Inspeksi
 
         </a>
 
         <a href="{{ route('maintenance.pemimpin') }}"
-            class="nav-link {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
-            <i class="bi bi-tools"></i> Maintenance
-        </a>
+           class="nav-link {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
 
-        <a href="{{ route('tagihan.pemimpin') }}"
-            class="nav-link {{ request()->routeIs('tagihan.*') ? 'active' : '' }}">
-            <i class="bi bi-receipt"></i> Tagihan & Faktur
+            <i class="bi bi-tools"></i>
+            Maintenance
+
         </a>
 
         <a href="{{ route('material.pemimpin') }}"
-            class="nav-link {{ request()->routeIs('material.*') ? 'active' : '' }}">
-            <i class="bi bi-box-seam"></i> Material Request
+           class="nav-link {{ request()->routeIs('material.*') ? 'active' : '' }}">
+
+            <i class="bi bi-box-seam"></i>
+            Material Request
+
+        </a>
+
+        <a href="{{ route('tagihan.pemimpin') }}"
+           class="nav-link {{ request()->routeIs('tagihan.*') ? 'active' : '' }}">
+
+            <i class="bi bi-receipt"></i>
+            Tagihan & Faktur
+
         </a>
 
         <a href="{{ route('laporan.pemimpin') }}"
-            class="nav-link {{ request()->routeIs('laporan.pemimpin') ? 'active' : '' }}">
-            <i class="bi bi-bar-chart"></i> Executive Dashboard
+           class="nav-link {{ request()->routeIs('laporan.pemimpin') ? 'active' : '' }}">
+
+            <i class="bi bi-bar-chart-line"></i>
+            Executive Dashboard
+
         </a>
 
     </div>
 
-    <div class="mt-auto pt-3 border-top border-secondary">
+    <div class="user-box">
 
-        <div class="d-flex align-items-center gap-2 mb-2">
+        <div class="d-flex align-items-center gap-2 mb-3">
 
-            <i class="bi bi-person-circle fs-5"></i>
+            <i class="bi bi-person-circle fs-3"></i>
 
             <div>
 
-                <strong>{{ Auth::user()->name }}</strong><br>
+                <strong>
 
-                <small class="text-light">
-                    {{ auth()->user()->role }}
+                    {{ Auth::user()->name }}
+
+                </strong><br>
+
+                <small class="text-secondary">
+
+                    Pemimpin
+
                 </small>
 
             </div>
@@ -336,8 +448,9 @@
 
             @csrf
 
-            <button class="btn btn-sm btn-danger w-100">
+            <button class="btn btn-danger w-100">
 
+                <i class="bi bi-box-arrow-right me-2"></i>
                 Logout
 
             </button>
@@ -362,7 +475,7 @@
 
             <div class="subtitle">
 
-                Dashboard sistem Rakentra
+                Dashboard monitoring perusahaan Rakentra
 
             </div>
 
@@ -376,7 +489,7 @@
 
             <div class="role-btn">
 
-                {{ auth()->user()->role }}
+                Pemimpin
 
             </div>
 
@@ -401,6 +514,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 </html>
