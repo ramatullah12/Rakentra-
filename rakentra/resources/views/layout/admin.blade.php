@@ -22,6 +22,12 @@
 
     <style>
 
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
         body{
             background:linear-gradient(135deg,#0f172a,#1e293b);
             font-family:'Inter',sans-serif;
@@ -94,6 +100,7 @@
             transition:0.2s;
             font-size:14px;
             margin-bottom:5px;
+            text-decoration:none;
         }
 
         .nav-link i{
@@ -115,6 +122,9 @@
         .content{
             margin-left:260px;
             min-height:100vh;
+            position:relative;
+            z-index:1;
+            overflow-y:auto;
         }
 
         .topbar{
@@ -124,18 +134,18 @@
             padding:15px 25px;
             position:sticky;
             top:0;
-            z-index:999;
+            z-index:100;
         }
 
         .title{
             color:#fff;
             font-weight:700;
-            font-size:20px;
+            font-size:28px;
         }
 
         .subtitle{
             color:#94a3b8;
-            font-size:13px;
+            font-size:14px;
         }
 
         .search-box{
@@ -183,11 +193,32 @@
             border-top:1px solid rgba(255,255,255,0.08);
         }
 
+        .dashboard-content{
+            position:relative;
+            z-index:10;
+        }
+
         .card{
-            background:rgba(255,255,255,0.05);
+            background:#1e293b;
             border:none;
             border-radius:20px;
             color:#fff;
+            box-shadow:0 4px 20px rgba(0,0,0,0.25);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+        }
+
+        .card-title{
+            color:#94a3b8;
+            font-size:14px;
+        }
+
+        .card-value{
+            font-size:30px;
+            font-weight:700;
         }
 
         .form-control,
@@ -256,22 +287,26 @@
             font-size:12px;
         }
 
+        .btn-primary{
+            background:#2563eb;
+            border:none;
+            border-radius:12px;
+        }
+
         .btn-warning{
             background:#facc15;
             border:none;
+            border-radius:12px;
         }
 
         .btn-danger{
             border:none;
-        }
-
-        .btn-primary{
-            background:#2563eb;
-            border:none;
+            border-radius:12px;
         }
 
         .btn-success{
             border:none;
+            border-radius:12px;
         }
 
         @media(max-width:992px){
@@ -512,7 +547,7 @@
 
     </div>
 
-    <div class="p-4">
+    <div class="container-fluid p-4 dashboard-content">
 
         @yield('content')
 
