@@ -9,6 +9,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\MobilisasiController;
 
 Route::get('/', function () {
 
@@ -117,6 +118,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/kontrak/delete/{id}', [KontrakController::class, 'destroy'])
         ->name('kontrak.delete');
 
+    Route::get('/mobilisasi', [MobilisasiController::class, 'index'])
+        ->name('mobilisasi.index');
+
+    Route::get('/mobilisasi/create', [MobilisasiController::class, 'create'])
+        ->name('mobilisasi.create');
+
+    Route::post('/mobilisasi/store', [MobilisasiController::class, 'store'])
+        ->name('mobilisasi.store');
+
+    Route::get('/mobilisasi/edit/{id}', [MobilisasiController::class, 'edit'])
+        ->name('mobilisasi.edit');
+
+    Route::put('/mobilisasi/update/{id}', [MobilisasiController::class, 'update'])
+        ->name('mobilisasi.update');
+
+    Route::delete('/mobilisasi/delete/{id}', [MobilisasiController::class, 'destroy'])
+        ->name('mobilisasi.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -148,6 +167,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/kontrak-pemimpin', [KontrakController::class, 'index'])
         ->name('kontrak.pemimpin');
+
+    Route::get('/mobilisasi-pemimpin', [MobilisasiController::class, 'index'])
+        ->name('mobilisasi.pemimpin');
 
 });
 

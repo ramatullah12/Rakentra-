@@ -12,8 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mobilisasis', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('kontrak_id')
+                ->constrained('kontraks')
+                ->onDelete('cascade');
+
+            $table->foreignId('vendor_id')
+                ->constrained('vendors')
+                ->onDelete('cascade');
+
+            $table->date('tanggal_kirim');
+
+            $table->date('tanggal_kembali')
+                ->nullable();
+
+            $table->string('lokasi_proyek');
+
+            $table->enum('status', [
+                'dijadwalkan',
+                'dikirim',
+                'sampai',
+                'pengembalian',
+                'selesai'
+            ])->default('dijadwalkan');
+
+            $table->text('keterangan')
+                ->nullable();
+
             $table->timestamps();
+
         });
     }
 

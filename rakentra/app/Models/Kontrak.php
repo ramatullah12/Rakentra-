@@ -22,4 +22,8 @@ class Kontrak extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+    public function mobilisasi()
+    {
+        return $this->hasOne(Mobilisasi::class);
+    }
 }

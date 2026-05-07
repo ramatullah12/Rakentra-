@@ -209,7 +209,15 @@
             class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
             <i class="bi bi-cart"></i> Vendor
         </a>
+        <a href="{{ route('kontrak.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('kontrak.*') ? 'active' : '' }}">
+            <i class="bi bi-file-earmark-text"></i> Kontrak
+        </a>
 
+        <a href="{{ route('mobilisasi.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('mobilisasi.*') ? 'active' : '' }}">
+            <i class="bi bi-box"></i> Mobilisasi
+        </a>
         <a href="#" class="nav-link">
             <i class="bi bi-bar-chart"></i> Laporan
         </a>
