@@ -218,6 +218,11 @@
             class="nav-link {{ request()->routeIs('mobilisasi.*') ? 'active' : '' }}">
             <i class="bi bi-box"></i> Mobilisasi
         </a>
+
+        <a href="{{ route('operasional.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('operasional.*') ? 'active' : '' }}">
+            <i class="bi bi-clock-history"></i> Operasional
+        </a>
         <a href="#" class="nav-link">
             <i class="bi bi-bar-chart"></i> Laporan
         </a>

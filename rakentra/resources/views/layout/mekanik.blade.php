@@ -142,17 +142,17 @@
     <div class="nav flex-column gap-1">
 
         <a href="{{ route('dashboard.mekanik') }}"
-           class="nav-link {{ request()->routeIs('dashboard.mekanik') ? 'active' : '' }}">
+            class="nav-link {{ request()->routeIs('dashboard.mekanik') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
 
-        <a href="{{ url('/mekanik/alat') }}"
-           class="nav-link {{ request()->is('mekanik/alat*') ? 'active' : '' }}">
-            <i class="bi bi-truck"></i> Alat Berat
+        <a href="{{ url('alat.mekanik') }}"
+           class="nav-link {{ request()->routeIs('alat.mekanik') ? 'active' : '' }}">
+            <i class="bi bi-clock-history"></i> Alat Berat
         </a>
 
-        <a href="{{ url('/mekanik/operasional') }}"
-           class="nav-link {{ request()->is('mekanik/operasional*') ? 'active' : '' }}">
+        <a href="{{ route('operasional.mekanik') }}"
+            class="nav-link {{ request()->routeIs('operasional.mekanik') ? 'active' : '' }}">
             <i class="bi bi-clock-history"></i> Operasional
         </a>
 

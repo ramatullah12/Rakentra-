@@ -25,4 +25,9 @@ class Mobilisasi extends Model
     {
         return $this->belongsTo(Vendor::class);
     }
+
+    public function operasionals()
+    {
+        return $this->hasMany(Operasional::class);
+    }
 }

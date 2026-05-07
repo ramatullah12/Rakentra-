@@ -253,7 +253,10 @@
             class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
             <i class="bi bi-cart"></i> Vendor
         </a>
-        <a href="#" class="nav-link"><i class="bi bi-clock"></i> Operasional</a>
+        <a href="{{ route('operasional.index') }}"
+            class="nav-link {{ request()->routeIs('operasional.*') ? 'active' : '' }}">
+            <i class="bi bi-clock"></i> Operasional
+        </a>
         <a href="#" class="nav-link"><i class="bi bi-currency-dollar"></i> Biaya</a>
         <a href="#" class="nav-link"><i class="bi bi-wrench"></i> Maintenance</a>
         <a href="#" class="nav-link"><i class="bi bi-receipt"></i> Tagihan & Faktur</a>

@@ -10,6 +10,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\MobilisasiController;
+use App\Http\Controllers\OperasionalController;
 
 Route::get('/', function () {
 
@@ -136,12 +137,36 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/mobilisasi/delete/{id}', [MobilisasiController::class, 'destroy'])
         ->name('mobilisasi.delete');
 
+    Route::get('/operasional', [OperasionalController::class, 'index'])
+        ->name('operasional.index');
+
+    Route::get('/operasional/create', [OperasionalController::class, 'create'])
+        ->name('operasional.create');
+
+    Route::post('/operasional/store', [OperasionalController::class, 'store'])
+        ->name('operasional.store');
+
+    Route::get('/operasional/edit/{id}', [OperasionalController::class, 'edit'])
+        ->name('operasional.edit');
+
+    Route::put('/operasional/update/{id}', [OperasionalController::class, 'update'])
+        ->name('operasional.update');
+
+    Route::delete('/operasional/delete/{id}', [OperasionalController::class, 'destroy'])
+        ->name('operasional.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
 
     Route::get('/mekanik', [DashboardController::class, 'mekanik'])
         ->name('dashboard.mekanik');
+
+    Route::get('/operasional-mekanik', [OperasionalController::class, 'index'])
+        ->name('operasional.mekanik');
+
+    Route::put('/operasional-mekanik/update/{id}', [OperasionalController::class, 'update'])
+        ->name('operasional.mekanik.update');
 
 });
 
@@ -170,6 +195,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/mobilisasi-pemimpin', [MobilisasiController::class, 'index'])
         ->name('mobilisasi.pemimpin');
+
+    Route::get('/operasional-pemimpin', [OperasionalController::class, 'index'])
+        ->name('operasional.pemimpin');
 
 });
 
