@@ -291,11 +291,9 @@
 
         </a>
 
-        <a href="#"
-           class="nav-link">
-
+        <a href="{{ route('maintenance.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
             <i class="bi bi-tools"></i> Maintenance
-
         </a>
 
         <a href="{{ route('tagihan.pemimpin') }}"

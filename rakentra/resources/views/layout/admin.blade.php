@@ -301,20 +301,10 @@
 
         </a>
 
-        <a href="#"
-           class="nav-link">
-
-            <i class="bi bi-currency-dollar"></i> Biaya
-
-        </a>
-
-        <a href="#"
-           class="nav-link">
-
+        <a href="{{ route('maintenance.index') }}"
+            class="nav-link {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
             <i class="bi bi-wrench"></i> Maintenance
-
         </a>
-
         <a href="{{ route('tagihan.index') }}"
             class="nav-link {{ request()->routeIs('tagihan.*') ? 'active' : '' }}">
             <i class="bi bi-receipt"></i> Tagihan & Faktur

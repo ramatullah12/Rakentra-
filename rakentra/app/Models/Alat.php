@@ -23,4 +23,9 @@ class Alat extends Model
     {
         return $this->hasMany(Inspeksi::class);
     }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
 }

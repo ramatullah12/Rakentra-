@@ -26,4 +26,8 @@ class Inspeksi extends Model
     {
         return $this->belongsTo(Operasional::class);
     }
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
 }

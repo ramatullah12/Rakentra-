@@ -13,6 +13,7 @@ use App\Http\Controllers\MobilisasiController;
 use App\Http\Controllers\OperasionalController;
 use App\Http\Controllers\InspeksiController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\MaintenanceController;
 
 Route::get('/', function () {
 
@@ -187,6 +188,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/tagihan/cetak/{id}', [TagihanController::class, 'cetak'])
         ->name('tagihan.cetak');
 
+    Route::get('/maintenance', [MaintenanceController::class, 'index'])
+        ->name('maintenance.index');
+
+    Route::delete('/maintenance/delete/{id}', [MaintenanceController::class, 'destroy'])
+        ->name('maintenance.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -217,6 +224,21 @@ Route::middleware(['auth', 'role:mekanik'])->group(function () {
 
     Route::put('/inspeksi/update/{id}', [InspeksiController::class, 'update'])
         ->name('inspeksi.update');
+
+    Route::get('/maintenance-mekanik', [MaintenanceController::class, 'mekanik'])
+        ->name('maintenance.mekanik');
+
+    Route::get('/maintenance/create', [MaintenanceController::class, 'create'])
+        ->name('maintenance.create');
+
+    Route::post('/maintenance/store', [MaintenanceController::class, 'store'])
+        ->name('maintenance.store');
+
+    Route::get('/maintenance/edit/{id}', [MaintenanceController::class, 'edit'])
+        ->name('maintenance.edit');
+
+    Route::put('/maintenance/update/{id}', [MaintenanceController::class, 'update'])
+        ->name('maintenance.update');
 
 });
 
@@ -260,6 +282,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/tagihan/faktur-pemimpin/{id}', [TagihanController::class, 'faktur'])
         ->name('tagihan.faktur.pemimpin');
+
+    Route::get('/maintenance-pemimpin', [MaintenanceController::class, 'pemimpin'])
+        ->name('maintenance.pemimpin');
 
 });
 

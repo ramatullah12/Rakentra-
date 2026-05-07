@@ -205,10 +205,9 @@
 
         </a>
 
-        <a href="#"
-           class="nav-link">
+        <a href="{{ route('maintenance.mekanik') }}"
+            class="nav-link {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
             <i class="bi bi-tools"></i> Maintenance
-
         </a>
 
         <a href="#"
