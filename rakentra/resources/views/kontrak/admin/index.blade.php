@@ -6,427 +6,181 @@
 
 <div class="container-fluid">
 
+    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
-            <h2 class="fw-bold text-white mb-1">
-                Data Kontrak
-            </h2>
-
-            <p class="text-secondary mb-0">
-                Manajemen kontrak penyewaan alat berat
-            </p>
+            <h4 class="fw-bold text-white mb-1">Manajemen Kontrak</h4>
+            <small class="text-secondary"><i class="bi bi-file-earmark-text me-1"></i>Kelola dokumen kontrak dan kesepakatan sewa</small>
         </div>
-
-        <a href="{{ route('kontrak.create') }}"
-           class="btn"
-           style="background:#2563eb;
-                  color:white;
-                  border:none;
-                  border-radius:14px;
-                  padding:12px 25px;
-                  font-weight:600;">
-
-            <i class="bi bi-plus-lg"></i> Tambah
-
+        <a href="{{ route('kontrak.create') }}" class="btn fw-semibold px-4"
+           style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;padding:10px 25px;">
+            <i class="bi bi-plus-lg me-2"></i>Buat Kontrak
         </a>
-
     </div>
 
+    {{-- Alert --}}
     @if(session('success'))
-
-        <div class="alert alert-success border-0 shadow-sm"
-             style="border-radius:14px;">
-
-            {{ session('success') }}
-
-        </div>
-
+    <div class="alert border-0 mb-4 d-flex align-items-center gap-3"
+         style="background:rgba(22,163,74,0.12);border-left:4px solid #16a34a !important;border-radius:14px;">
+        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+        <span class="text-white">{{ session('success') }}</span>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
-    <div class="card border-0 shadow-sm mb-4"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
-
+    {{-- Filter --}}
+    <div class="card border-0 mb-4" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
         <div class="card-body p-4">
-
             <form action="{{ route('kontrak.index') }}" method="GET">
-
                 <div class="row g-3">
-
                     <div class="col-md-5">
-
-                        <input type="text"
-                               name="search"
-                               value="{{ request('search') }}"
-                               class="form-control text-white"
-                               placeholder="Cari nomor kontrak..."
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:12px;
-                                      height:55px;">
-
+                        <div class="input-group" style="background:#0f172a;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
+                            <span class="input-group-text border-0" style="background:transparent;color:#94a3b8;">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                   class="form-control border-0 text-white"
+                                   style="background:transparent;box-shadow:none;height:50px;"
+                                   placeholder="Cari nomor kontrak atau pelanggan...">
+                        </div>
                     </div>
-
                     <div class="col-md-3">
-
-                        <select name="status"
-                                class="form-select text-white"
-                                style="background:#1e293b;
-                                       border:none;
-                                       border-radius:12px;
-                                       height:55px;">
-
-                            <option value="">
-                                Semua Status
-                            </option>
-
-                            <option value="aktif"
-                                {{ request('status') == 'aktif' ? 'selected' : '' }}>
-                                Aktif
-                            </option>
-
-                            <option value="selesai"
-                                {{ request('status') == 'selesai' ? 'selected' : '' }}>
-                                Selesai
-                            </option>
-
-                            <option value="dibatalkan"
-                                {{ request('status') == 'dibatalkan' ? 'selected' : '' }}>
-                                Dibatalkan
-                            </option>
-
+                        <select name="status" class="form-select"
+                                style="background:#0f172a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;height:50px;">
+                            <option value="">Semua Status</option>
+                            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                            <option value="dibatalkan" {{ request('status') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                         </select>
-
                     </div>
-
                     <div class="col-md-4 d-flex gap-2">
-
-                        <button type="submit"
-                                class="btn"
-                                style="background:#2563eb;
-                                       color:white;
-                                       border:none;
-                                       border-radius:12px;
-                                       width:70px;">
-
-                            <i class="bi bi-search"></i>
-
+                        <button type="submit" class="btn fw-semibold flex-fill"
+                                style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;height:50px;">
+                            <i class="bi bi-funnel me-1"></i>Filter
                         </button>
-
-                        <a href="{{ route('kontrak.index') }}"
-                           class="btn btn-outline-light"
-                           style="border-radius:12px;">
-
-                            Reset
-
+                        <a href="{{ route('kontrak.index') }}" class="btn d-flex align-items-center justify-content-center"
+                           style="background:rgba(255,255,255,0.07);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:12px;width:50px;height:50px;">
+                            <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
-
                     </div>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
-    <div class="card border-0 shadow-sm"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
+    {{-- Table --}}
+    <div class="card border-0 shadow-sm" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr style="background:rgba(15,23,42,0.8);">
+                            <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">NO KONTRAK</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">PIHAK KONTRAK</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">TGL & DURASI</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">NILAI KONTRAK</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">DOKUMEN</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">STATUS</th>
+                            <th class="text-secondary fw-normal py-3 text-center" style="font-size:11px;letter-spacing:1px;">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($kontraks as $i => $kontrak)
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);transition:0.2s;"
+                            onmouseover="this.style.background='rgba(37,99,235,0.05)'"
+                            onmouseout="this.style.background='transparent'">
 
-        <div class="card-body p-0 table-responsive">
-
-            <table class="table align-middle mb-0">
-
-                <thead>
-
-                    <tr style="background:#1e293b;">
-
-                        <th class="text-secondary border-0 py-4 ps-4">
-                            No
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Nomor Kontrak
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Pelanggan
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Alat
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Tanggal
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Durasi
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Nilai
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            PO
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            SPK
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            PDF
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Status
-                        </th>
-
-                        <th class="text-secondary border-0 py-4 text-center">
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @forelse($kontraks as $i => $kontrak)
-
-                        <tr style="background:rgba(255,255,255,0.03);
-                                   border-bottom:1px solid rgba(255,255,255,0.05);">
-
-                            <td class="text-white fw-semibold py-4 ps-4">
-                                {{ $kontraks->firstItem() + $i }}
+                            <td class="ps-4">
+                                <div class="text-white fw-bold" style="font-size:14px;">{{ $kontrak->nomor_kontrak }}</div>
+                                <small class="text-secondary" style="font-size:11px;">#ID-{{ $kontrak->id }}</small>
                             </td>
 
-                            <td class="text-white fw-semibold py-4">
-                                {{ $kontrak->nomor_kontrak }}
+                            <td>
+                                <div class="text-white fw-semibold" style="font-size:14px;">{{ $kontrak->booking->pelanggan->nama }}</div>
+                                <div class="text-secondary" style="font-size:12px;"><i class="bi bi-truck me-1"></i>{{ $kontrak->booking->alat->nama_alat }}</div>
                             </td>
 
-                            <td class="text-white py-4">
-                                {{ $kontrak->booking->pelanggan->nama }}
+                            <td>
+                                <div class="text-white fw-semibold" style="font-size:13px;">{{ \Carbon\Carbon::parse($kontrak->tanggal_kontrak)->format('d M Y') }}</div>
+                                <small class="text-info" style="font-size:11px;"><i class="bi bi-clock-history me-1"></i>{{ $kontrak->durasi }} Hari</small>
                             </td>
 
-                            <td class="text-secondary py-4">
-                                {{ $kontrak->booking->alat->nama_alat }}
+                            <td>
+                                <span class="text-success fw-bold" style="font-size:15px;">Rp {{ number_format($kontrak->nilai_kontrak,0,',','.') }}</span>
                             </td>
 
-                            <td class="text-secondary py-4">
-                                {{ $kontrak->tanggal_kontrak }}
-                            </td>
-
-                            <td class="text-secondary py-4">
-                                {{ $kontrak->durasi }} Hari
-                            </td>
-
-                            <td class="text-secondary py-4">
-                                Rp {{ number_format($kontrak->nilai_kontrak,0,',','.') }}
-                            </td>
-
-                            <td class="py-4">
-
-                                @if($kontrak->file_po)
-
-                                    <a href="{{ $kontrak->file_po }}"
-                                       target="_blank"
-                                       class="btn btn-sm"
-                                       style="background:#2563eb;
-                                              color:white;
-                                              border:none;
-                                              border-radius:10px;">
-
-                                        Lihat
-
+                            <td>
+                                <div class="d-flex gap-1">
+                                    @if($kontrak->file_po)
+                                        <a href="{{ $kontrak->file_po }}" target="_blank" class="btn btn-sm p-1" style="color:#3b82f6;" title="File PO">
+                                            <i class="bi bi-file-earmark-text fs-5"></i>
+                                        </a>
+                                    @endif
+                                    @if($kontrak->file_spk)
+                                        <a href="{{ $kontrak->file_spk }}" target="_blank" class="btn btn-sm p-1" style="color:#10b981;" title="File SPK">
+                                            <i class="bi bi-file-earmark-check fs-5"></i>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('kontrak.spk',$kontrak->id) }}" target="_blank" class="btn btn-sm p-1" style="color:#ef4444;" title="Download PDF">
+                                        <i class="bi bi-file-earmark-pdf fs-5"></i>
                                     </a>
-
-                                @else
-
-                                    <span class="text-secondary">
-                                        Tidak Ada
-                                    </span>
-
-                                @endif
-
+                                </div>
                             </td>
 
-                            <td class="py-4">
-
-                                @if($kontrak->file_spk)
-
-                                    <a href="{{ $kontrak->file_spk }}"
-                                       target="_blank"
-                                       class="btn btn-sm"
-                                       style="background:#16a34a;
-                                              color:white;
-                                              border:none;
-                                              border-radius:10px;">
-
-                                        Lihat
-
-                                    </a>
-
-                                @else
-
-                                    <span class="text-secondary">
-                                        Tidak Ada
-                                    </span>
-
-                                @endif
-
+                            <td>
+                                @php
+                                    $status = $kontrak->status;
+                                    $color = match($status) {
+                                        'aktif' => ['#16a34a', 'rgba(22,163,74,0.15)', 'bi-lightning-fill'],
+                                        'selesai' => ['#3b82f6', 'rgba(59,130,246,0.15)', 'bi-check-all'],
+                                        'dibatalkan' => ['#ef4444', 'rgba(239,68,68,0.15)', 'bi-x-octagon'],
+                                        default => ['#94a3b8', 'rgba(148,163,184,0.15)', 'bi-question-circle']
+                                    };
+                                @endphp
+                                <span class="badge px-3 py-2 d-inline-flex align-items-center gap-2"
+                                      style="background:{{ $color[1] }}; color:{{ $color[0] }}; border:1px solid {{ $color[0] }}40; border-radius:10px; font-size:11px;">
+                                    <i class="bi {{ $color[2] }}" style="font-size:10px;"></i>
+                                    {{ ucfirst($status) }}
+                                </span>
                             </td>
 
-                            <td class="py-4">
-
-                                <a href="{{ route('kontrak.spk',$kontrak->id) }}"
-                                   target="_blank"
-                                   class="btn"
-                                   style="background:#dc2626;
-                                          color:white;
-                                          border:none;
-                                          border-radius:10px;
-                                          width:42px;
-                                          height:42px;
-                                          display:flex;
-                                          align-items:center;
-                                          justify-content:center;">
-
-                                    <i class="bi bi-file-earmark-pdf"></i>
-
-                                </a>
-
-                            </td>
-
-                            <td class="py-4">
-
-                                @if($kontrak->status == 'aktif')
-
-                                    <span style="background:#16a34a;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Aktif
-
-                                    </span>
-
-                                @elseif($kontrak->status == 'selesai')
-
-                                    <span style="background:#2563eb;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Selesai
-
-                                    </span>
-
-                                @else
-
-                                    <span style="background:#dc2626;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Dibatalkan
-
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-                            <td class="py-4">
-
+                            <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-
                                     <a href="{{ route('kontrak.edit',$kontrak->id) }}"
-                                       class="btn"
-                                       style="background:#2563eb;
-                                              color:white;
-                                              border:none;
-                                              border-radius:10px;
-                                              width:42px;
-                                              height:42px;
-                                              display:flex;
-                                              align-items:center;
-                                              justify-content:center;">
-
-                                        <i class="bi bi-pencil"></i>
-
+                                       class="btn btn-sm d-flex align-items-center justify-content-center"
+                                       style="width:34px;height:34px;background:rgba(37,99,235,0.1);color:#3b82f6;border:1px solid rgba(37,99,235,0.2);border-radius:8px;">
+                                        <i class="bi bi-pencil-fill" style="font-size:12px;"></i>
                                     </a>
-
-                                    <form action="{{ route('kontrak.delete',$kontrak->id) }}"
-                                          method="POST">
-
+                                    <form action="{{ route('kontrak.destroy',$kontrak->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-
-                                        <button type="submit"
-                                                onclick="return confirm('Yakin hapus data?')"
-                                                class="btn"
-                                                style="background:#ef4444;
-                                                       color:white;
-                                                       border:none;
-                                                       border-radius:10px;
-                                                       width:42px;
-                                                       height:42px;
-                                                       display:flex;
-                                                       align-items:center;
-                                                       justify-content:center;">
-
-                                            <i class="bi bi-trash"></i>
-
+                                        <button type="submit" class="btn btn-sm d-flex align-items-center justify-content-center"
+                                                style="width:34px;height:34px;background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.2);border-radius:8px;"
+                                                onclick="return confirm('Yakin ingin menghapus kontrak ini?')">
+                                            <i class="bi bi-trash-fill" style="font-size:12px;"></i>
                                         </button>
-
                                     </form>
-
                                 </div>
-
                             </td>
 
                         </tr>
-
-                    @empty
-
+                        @empty
                         <tr>
-
-                            <td colspan="12"
-                                class="text-center text-secondary py-5">
-
-                                Data kontrak tidak tersedia
-
+                            <td colspan="7" class="text-center text-secondary py-5">
+                                <i class="bi bi-file-earmark-x d-block mb-2" style="font-size:40px;opacity:0.3;"></i>
+                                <span style="font-size:14px;">Belum ada data kontrak yang tersimpan</span>
                             </td>
-
                         </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            @if(method_exists($kontraks, 'links'))
+            <div class="p-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                {{ $kontraks->withQueryString()->links() }}
+            </div>
+            @endif
         </div>
-
-    </div>
-
-    <div class="mt-4">
-
-        {{ $kontraks->withQueryString()->links() }}
-
     </div>
 
 </div>

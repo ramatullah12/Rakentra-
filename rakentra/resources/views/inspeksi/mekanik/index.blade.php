@@ -6,352 +6,176 @@
 
 <div class="container-fluid">
 
+    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
-
-            <h2 class="fw-bold text-white mb-1">
-                Data Inspeksi
-            </h2>
-
-            <p class="text-secondary mb-0">
-                Monitoring hasil inspeksi alat berat
-            </p>
-
+            <h4 class="fw-bold text-white mb-1">Hasil Inspeksi Unit</h4>
+            <small class="text-secondary"><i class="bi bi-clipboard2-pulse me-1"></i>Catatan kondisi harian dan berkala alat berat</small>
         </div>
-
-        <a href="{{ route('inspeksi.create') }}"
-           class="btn"
-           style="background:#2563eb;
-                  color:white;
-                  border:none;
-                  border-radius:14px;
-                  padding:12px 25px;
-                  font-weight:600;">
-
-            <i class="bi bi-plus-lg"></i> Tambah Inspeksi
-
+        <a href="{{ route('inspeksi.mekanik.create') }}" class="btn fw-semibold px-4"
+           style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;padding:10px 25px;">
+            <i class="bi bi-plus-lg me-2"></i>Tambah Inspeksi
         </a>
-
     </div>
 
+    {{-- Alert --}}
     @if(session('success'))
-
-        <div class="alert alert-success border-0 shadow-sm"
-             style="border-radius:14px;">
-
-            {{ session('success') }}
-
-        </div>
-
+    <div class="alert border-0 mb-4 d-flex align-items-center gap-3"
+         style="background:rgba(22,163,74,0.12);border-left:4px solid #16a34a !important;border-radius:14px;">
+        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+        <span class="text-white">{{ session('success') }}</span>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
-    <div class="card border-0 shadow-sm mb-4"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
-
+    {{-- Filter --}}
+    <div class="card border-0 mb-4" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
         <div class="card-body p-4">
-
-            <form action="{{ route('inspeksi.mekanik') }}"
-                  method="GET">
-
+            <form action="{{ route('inspeksi.mekanik') }}" method="GET">
                 <div class="row g-3">
-
-                    <div class="col-md-8">
-
-                        <input type="text"
-                               name="search"
-                               value="{{ request('search') }}"
-                               class="form-control text-white"
-                               placeholder="Cari alat..."
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:12px;
-                                      height:55px;">
-
+                    <div class="col-md-9">
+                        <div class="input-group" style="background:#0f172a;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
+                            <span class="input-group-text border-0" style="background:transparent;color:#94a3b8;">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                   class="form-control border-0 text-white"
+                                   style="background:transparent;box-shadow:none;height:50px;"
+                                   placeholder="Cari unit alat...">
+                        </div>
                     </div>
-
-                    <div class="col-md-4 d-flex gap-2">
-
-                        <button type="submit"
-                                class="btn"
-                                style="background:#2563eb;
-                                       color:white;
-                                       border:none;
-                                       border-radius:12px;
-                                       width:70px;">
-
-                            <i class="bi bi-search"></i>
-
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn fw-semibold flex-fill"
+                                style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;height:50px;">
+                            <i class="bi bi-search me-1"></i>Cari
                         </button>
-
-                        <a href="{{ route('inspeksi.mekanik') }}"
-                           class="btn btn-outline-light"
-                           style="border-radius:12px;">
-
-                            Reset
-
+                        <a href="{{ route('inspeksi.mekanik') }}" class="btn d-flex align-items-center justify-content-center"
+                           style="background:rgba(255,255,255,0.07);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:12px;width:50px;height:50px;">
+                            <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
-
                     </div>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
-    <div class="card border-0 shadow-sm"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
+    {{-- Table --}}
+    <div class="card border-0 shadow-sm" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr style="background:rgba(15,23,42,0.8);">
+                            <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">UNIT ALAT</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">TGL INSPEKSI</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">KONDISI</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">HASIL TEMUAN</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">DOKUMENTASI</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">STATUS</th>
+                            <th class="text-secondary fw-normal py-3 text-center" style="font-size:11px;letter-spacing:1px;">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($inspeksis as $i => $inspeksi)
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);transition:0.2s;"
+                            onmouseover="this.style.background='rgba(37,99,235,0.05)'"
+                            onmouseout="this.style.background='transparent'">
 
-        <div class="card-body p-0 table-responsive">
-
-            <table class="table align-middle mb-0">
-
-                <thead>
-
-                    <tr style="background:#1e293b;">
-
-                        <th class="text-secondary border-0 py-4 ps-4">
-                            No
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Alat
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Tanggal
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Kondisi
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Hasil Inspeksi
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Foto Kerusakan
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Status
-                        </th>
-
-                        <th class="text-secondary border-0 py-4 text-center">
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @forelse($inspeksis as $i => $inspeksi)
-
-                        <tr style="background:rgba(255,255,255,0.03);
-                                   border-bottom:1px solid rgba(255,255,255,0.05);">
-
-                            <td class="text-white fw-semibold py-4 ps-4">
-
-                                {{ $inspeksis->firstItem() + $i }}
-
+                            <td class="ps-4">
+                                <div class="text-white fw-bold" style="font-size:14px;">{{ $inspeksi->alat->nama_alat }}</div>
+                                <code class="text-info" style="font-size:11px;">{{ $inspeksi->alat->kode_alat }}</code>
                             </td>
 
-                            <td class="text-white fw-semibold py-4">
-
-                                {{ $inspeksi->alat->nama_alat }}
-
+                            <td>
+                                <div class="text-white fw-semibold" style="font-size:13px;">{{ \Carbon\Carbon::parse($inspeksi->tanggal_inspeksi)->format('d M Y') }}</div>
+                                <small class="text-secondary" style="font-size:11px;">#{{ $inspeksi->id }}</small>
                             </td>
 
-                            <td class="text-secondary py-4">
-
-                                {{ $inspeksi->tanggal_inspeksi }}
-
+                            <td>
+                                @php
+                                    $kondisi = $inspeksi->kondisi_alat;
+                                    $kColor = match($kondisi) {
+                                        'baik' => ['#16a34a', 'rgba(22,163,74,0.15)', 'bi-shield-check'],
+                                        'rusak_ringan' => ['#f59e0b', 'rgba(245,158,11,0.15)', 'bi-shield-exclamation'],
+                                        'rusak_berat' => ['#ef4444', 'rgba(239,68,68,0.15)', 'bi-shield-slash'],
+                                        default => ['#94a3b8', 'rgba(148,163,184,0.15)', 'bi-question-circle']
+                                    };
+                                @endphp
+                                <span class="badge px-3 py-2 d-inline-flex align-items-center gap-2"
+                                      style="background:{{ $kColor[1] }}; color:{{ $kColor[0] }}; border:1px solid {{ $kColor[0] }}40; border-radius:10px; font-size:11px;">
+                                    <i class="bi {{ $kColor[2] }}" style="font-size:10px;"></i>
+                                    {{ str_replace('_', ' ', ucfirst($kondisi)) }}
+                                </span>
                             </td>
 
-                            <td class="py-4">
-
-                                @if($inspeksi->kondisi_alat == 'baik')
-
-                                    <span style="background:#16a34a;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Baik
-
-                                    </span>
-
-                                @elseif($inspeksi->kondisi_alat == 'rusak_ringan')
-
-                                    <span style="background:#f59e0b;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Rusak Ringan
-
-                                    </span>
-
-                                @else
-
-                                    <span style="background:#dc2626;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Rusak Berat
-
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-                            <td class="text-secondary py-4">
-
+                            <td class="text-secondary" style="font-size:13px;">
                                 {{ Str::limit($inspeksi->hasil_inspeksi, 40) }}
-
                             </td>
 
-                            <td class="py-4">
-
+                            <td>
                                 @if($inspeksi->foto_kerusakan)
-
-                                    <a href="{{ $inspeksi->foto_kerusakan }}"
-                                       target="_blank">
-
-                                        <img src="{{ $inspeksi->foto_kerusakan }}"
-                                             width="80"
-                                             height="60"
-                                             style="object-fit:cover;
-                                                    border-radius:10px;">
-
-                                    </a>
-
+                                    <div class="position-relative" style="width:45px;height:45px;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
+                                        <img src="{{ $inspeksi->foto_kerusakan }}" class="w-100 h-100" style="object-fit:cover;">
+                                        <a href="{{ $inspeksi->foto_kerusakan }}" target="_blank" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 opacity-0 hover-opacity-100 transition-2">
+                                            <i class="bi bi-eye text-white"></i>
+                                        </a>
+                                    </div>
                                 @else
-
-                                    <span class="text-secondary">
-                                        Tidak ada foto
-                                    </span>
-
+                                    <small class="text-secondary">N/A</small>
                                 @endif
-
                             </td>
 
-                            <td class="py-4">
-
-                                @if($inspeksi->status == 'pending')
-
-                                    <span style="background:#64748b;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Pending
-
-                                    </span>
-
-                                @elseif($inspeksi->status == 'proses')
-
-                                    <span style="background:#2563eb;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Proses
-
-                                    </span>
-
-                                @else
-
-                                    <span style="background:#16a34a;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Selesai
-
-                                    </span>
-
-                                @endif
-
+                            <td>
+                                @php
+                                    $status = $inspeksi->status;
+                                    $sColor = match($status) {
+                                        'pending' => ['#94a3b8', 'rgba(148,163,184,0.15)', 'bi-hourglass-split'],
+                                        'proses' => ['#3b82f6', 'rgba(59,130,246,0.15)', 'bi-gear'],
+                                        'selesai' => ['#16a34a', 'rgba(22,163,74,0.15)', 'bi-check2-square'],
+                                        default => ['#94a3b8', 'rgba(148,163,184,0.15)', 'bi-question-circle']
+                                    };
+                                @endphp
+                                <span class="badge px-3 py-2 d-inline-flex align-items-center gap-2"
+                                      style="background:{{ $sColor[1] }}; color:{{ $sColor[0] }}; border:1px solid {{ $sColor[0] }}40; border-radius:10px; font-size:11px;">
+                                    <i class="bi {{ $sColor[2] }}" style="font-size:10px;"></i>
+                                    {{ ucfirst($status) }}
+                                </span>
                             </td>
 
-                            <td class="py-4">
-
-                                <div class="d-flex justify-content-center gap-2">
-
-                                    <a href="{{ route('inspeksi.edit', $inspeksi->id) }}"
-                                       class="btn"
-                                       style="background:#2563eb;
-                                              color:white;
-                                              border:none;
-                                              border-radius:10px;
-                                              width:42px;
-                                              height:42px;
-                                              display:flex;
-                                              align-items:center;
-                                              justify-content:center;">
-
-                                        <i class="bi bi-pencil"></i>
-
-                                    </a>
-
-                                </div>
-
+                            <td class="text-center">
+                                <a href="{{ route('inspeksi.mekanik.edit', $inspeksi->id) }}"
+                                   class="btn btn-sm d-flex align-items-center justify-content-center mx-auto"
+                                   style="width:34px;height:34px;background:rgba(37,99,235,0.1);color:#3b82f6;border:1px solid rgba(37,99,235,0.2);border-radius:8px;"
+                                   title="Edit Data">
+                                    <i class="bi bi-pencil-fill" style="font-size:12px;"></i>
+                                </a>
                             </td>
 
                         </tr>
-
-                    @empty
-
+                        @empty
                         <tr>
-
-                            <td colspan="8"
-                                class="text-center text-secondary py-5">
-
-                                Data inspeksi tidak tersedia
-
+                            <td colspan="7" class="text-center text-secondary py-5">
+                                <i class="bi bi-journal-x d-block mb-2" style="font-size:40px;opacity:0.3;"></i>
+                                <span style="font-size:14px;">Belum ada riwayat inspeksi</span>
                             </td>
-
                         </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            @if(method_exists($inspeksis, 'links'))
+            <div class="p-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                {{ $inspeksis->withQueryString()->links() }}
+            </div>
+            @endif
         </div>
-
-    </div>
-
-    <div class="mt-4">
-
-        {{ $inspeksis->withQueryString()->links() }}
-
     </div>
 
 </div>
+
+<style>
+.hover-opacity-100:hover { opacity: 1 !important; }
+.transition-2 { transition: 0.2s; }
+</style>
 
 @endsection

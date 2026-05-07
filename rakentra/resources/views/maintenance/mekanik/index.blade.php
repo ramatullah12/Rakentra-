@@ -6,386 +6,201 @@
 
 <div class="container-fluid">
 
+    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
-
-            <h2 class="fw-bold text-white mb-1">
-                Data Maintenance
-            </h2>
-
-            <p class="text-secondary mb-0">
-                Monitoring dan pengelolaan maintenance alat berat
-            </p>
-
+            <h4 class="fw-bold text-white mb-1">Manajemen Maintenance</h4>
+            <small class="text-secondary"><i class="bi bi-gear-wide-connected me-1"></i>Kelola riwayat dan proses perbaikan unit</small>
         </div>
-
-        <a href="{{ route('maintenance.create') }}"
-           class="btn px-4 py-2"
-           style="background:#2563eb;
-                  color:white;
-                  border:none;
-                  border-radius:12px;
-                  font-weight:600;">
-
-            <i class="bi bi-plus-circle me-2"></i>
-            Tambah Maintenance
-
+        <a href="{{ route('maintenance.mekanik.create') }}" class="btn fw-semibold px-4"
+           style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;padding:10px 25px;">
+            <i class="bi bi-plus-circle me-2"></i>Tambah Maintenance
         </a>
-
     </div>
 
+    {{-- Alert --}}
     @if(session('success'))
-
-        <div class="alert alert-success border-0 shadow-sm"
-             style="border-radius:14px;">
-
-            {{ session('success') }}
-
-        </div>
-
+    <div class="alert border-0 mb-4 d-flex align-items-center gap-3"
+         style="background:rgba(22,163,74,0.12);border-left:4px solid #16a34a !important;border-radius:14px;">
+        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+        <span class="text-white">{{ session('success') }}</span>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
-    <div class="row mb-4">
-
-        <div class="col-md-4 mb-3">
-
-            <div class="card border-0 shadow-sm"
-                 style="background:rgba(255,255,255,0.05);
-                        border-radius:20px;">
-
-                <div class="card-body">
-
-                    <h6 class="text-secondary">
-                        Total Maintenance
-                    </h6>
-
-                    <h2 class="fw-bold text-white">
-
-                        {{ $maintenances->count() }}
-
-                    </h2>
-
+    {{-- Stats Cards --}}
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 p-3 h-100" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width:48px;height:48px;background:rgba(148,163,184,0.1);color:#94a3b8;">
+                        <i class="bi bi-collection fs-4"></i>
+                    </div>
+                    <div>
+                        <small class="text-secondary d-block" style="font-size:12px;font-weight:600;">TOTAL RIWAYAT</small>
+                        <h3 class="text-white fw-bold mb-0">{{ $maintenances->total() }}</h3>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
-        <div class="col-md-4 mb-3">
-
-            <div class="card border-0 shadow-sm"
-                 style="background:rgba(255,255,255,0.05);
-                        border-radius:20px;">
-
-                <div class="card-body">
-
-                    <h6 class="text-secondary">
-                        Diproses
-                    </h6>
-
-                    <h2 class="fw-bold text-warning">
-
-                        {{ $maintenances->where('status','diproses')->count() }}
-
-                    </h2>
-
+        <div class="col-md-4">
+            <div class="card border-0 p-3 h-100" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width:48px;height:48px;background:rgba(245,158,11,0.1);color:#f59e0b;">
+                        <i class="bi bi-tools fs-4"></i>
+                    </div>
+                    <div>
+                        <small class="text-secondary d-block" style="font-size:12px;font-weight:600;">SEDANG DIPROSES</small>
+                        <h3 class="text-warning fw-bold mb-0">{{ $maintenances->where('status','diproses')->count() }}</h3>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
-        <div class="col-md-4 mb-3">
-
-            <div class="card border-0 shadow-sm"
-                 style="background:rgba(255,255,255,0.05);
-                        border-radius:20px;">
-
-                <div class="card-body">
-
-                    <h6 class="text-secondary">
-                        Selesai
-                    </h6>
-
-                    <h2 class="fw-bold text-success">
-
-                        {{ $maintenances->where('status','selesai')->count() }}
-
-                    </h2>
-
+        <div class="col-md-4">
+            <div class="card border-0 p-3 h-100" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width:48px;height:48px;background:rgba(22,163,74,0.1);color:#16a34a;">
+                        <i class="bi bi-patch-check fs-4"></i>
+                    </div>
+                    <div>
+                        <small class="text-secondary d-block" style="font-size:12px;font-weight:600;">SELESAI</small>
+                        <h3 class="text-success fw-bold mb-0">{{ $maintenances->where('status','selesai')->count() }}</h3>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
-    <div class="card border-0 shadow-sm mb-4"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
-
+    {{-- Filter --}}
+    <div class="card border-0 mb-4" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
         <div class="card-body p-4">
-
-            <form action="{{ route('maintenance.mekanik') }}"
-                  method="GET">
-
+            <form action="{{ route('maintenance.mekanik') }}" method="GET">
                 <div class="row g-3">
-
-                    <div class="col-md-8">
-
-                        <input type="text"
-                               name="search"
-                               value="{{ request('search') }}"
-                               class="form-control text-white"
-                               placeholder="Cari nama alat..."
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:12px;
-                                      height:55px;">
-
+                    <div class="col-md-9">
+                        <div class="input-group" style="background:#0f172a;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
+                            <span class="input-group-text border-0" style="background:transparent;color:#94a3b8;">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                   class="form-control border-0 text-white"
+                                   style="background:transparent;box-shadow:none;height:50px;"
+                                   placeholder="Cari berdasarkan nama unit...">
+                        </div>
                     </div>
-
-                    <div class="col-md-4 d-flex gap-2">
-
-                        <button type="submit"
-                                class="btn"
-                                style="background:#2563eb;
-                                       color:white;
-                                       border:none;
-                                       border-radius:12px;
-                                       width:70px;">
-
-                            <i class="bi bi-search"></i>
-
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn fw-semibold flex-fill"
+                                style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:12px;height:50px;">
+                            <i class="bi bi-search me-1"></i>Cari
                         </button>
-
-                        <a href="{{ route('maintenance.mekanik') }}"
-                           class="btn btn-outline-light"
-                           style="border-radius:12px;">
-
-                            Reset
-
+                        <a href="{{ route('maintenance.mekanik') }}" class="btn d-flex align-items-center justify-content-center"
+                           style="background:rgba(255,255,255,0.07);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:12px;width:50px;height:50px;">
+                            <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
-
                     </div>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
-    <div class="card border-0 shadow-sm"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
+    {{-- Table --}}
+    <div class="card border-0 shadow-sm" style="background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,255,255,0.07);">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr style="background:rgba(15,23,42,0.8);">
+                            <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">ALAT BERAT</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">JENIS & TANGGAL</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">BIAYA</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">STATUS</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">DOKUMENTASI</th>
+                            <th class="text-secondary fw-normal py-3 text-center" style="font-size:11px;letter-spacing:1px;">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($maintenances as $i => $maintenance)
+                        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);transition:0.2s;"
+                            onmouseover="this.style.background='rgba(37,99,235,0.05)'"
+                            onmouseout="this.style.background='transparent'">
 
-        <div class="card-body p-0 table-responsive">
-
-            <table class="table align-middle mb-0">
-
-                <thead>
-
-                    <tr style="background:#1e293b;">
-
-                        <th class="text-secondary border-0 py-4 ps-4">
-                            No
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Nama Alat
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Jenis Maintenance
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Tanggal
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Biaya
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Status
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Foto
-                        </th>
-
-                        <th class="text-secondary border-0 py-4 text-center">
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @forelse($maintenances as $i => $maintenance)
-
-                        <tr style="background:rgba(255,255,255,0.03);
-                                   border-bottom:1px solid rgba(255,255,255,0.05);">
-
-                            <td class="text-white fw-semibold py-4 ps-4">
-
-                                {{ $maintenances->firstItem() + $i }}
-
+                            <td class="ps-4">
+                                <div class="text-white fw-bold" style="font-size:14px;">{{ $maintenance->alat->nama_alat }}</div>
+                                <code class="text-info" style="font-size:11px;">{{ $maintenance->alat->kode_alat }}</code>
                             </td>
 
-                            <td class="text-white fw-semibold py-4">
-
-                                {{ $maintenance->alat->nama_alat }}
-
+                            <td>
+                                <div class="text-white fw-semibold" style="font-size:13px;">{{ $maintenance->jenis_maintenance }}</div>
+                                <small class="text-secondary" style="font-size:11px;">{{ \Carbon\Carbon::parse($maintenance->tanggal_maintenance)->format('d M Y') }}</small>
                             </td>
 
-                            <td class="text-secondary py-4">
-
-                                {{ $maintenance->jenis_maintenance }}
-
+                            <td>
+                                <span class="text-success fw-bold" style="font-size:14px;">Rp {{ number_format($maintenance->biaya,0,',','.') }}</span>
                             </td>
 
-                            <td class="text-secondary py-4">
-
-                                {{ $maintenance->tanggal_maintenance }}
-
+                            <td>
+                                @php
+                                    $status = $maintenance->status;
+                                    $color = match($status) {
+                                        'pending' => ['#ef4444', 'rgba(239,68,68,0.15)', 'bi-clock'],
+                                        'diproses' => ['#f59e0b', 'rgba(245,158,11,0.15)', 'bi-tools'],
+                                        'selesai' => ['#16a34a', 'rgba(22,163,74,0.15)', 'bi-patch-check-fill'],
+                                        default => ['#94a3b8', 'rgba(148,163,184,0.15)', 'bi-question-circle']
+                                    };
+                                @endphp
+                                <span class="badge px-3 py-2 d-inline-flex align-items-center gap-2"
+                                      style="background:{{ $color[1] }}; color:{{ $color[0] }}; border:1px solid {{ $color[0] }}40; border-radius:10px; font-size:11px;">
+                                    <i class="bi {{ $color[2] }}" style="font-size:10px;"></i>
+                                    {{ ucfirst($status) }}
+                                </span>
                             </td>
 
-                            <td class="text-success fw-bold py-4">
-
-                                Rp {{ number_format($maintenance->biaya,0,',','.') }}
-
-                            </td>
-
-                            <td class="py-4">
-
-                                @if($maintenance->status == 'pending')
-
-                                    <span style="background:#dc2626;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Pending
-
-                                    </span>
-
-                                @elseif($maintenance->status == 'diproses')
-
-                                    <span style="background:#f59e0b;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Diproses
-
-                                    </span>
-
-                                @else
-
-                                    <span style="background:#16a34a;
-                                                 color:white;
-                                                 padding:8px 14px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Selesai
-
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-                            <td class="py-4">
-
+                            <td>
                                 @if($maintenance->foto_perbaikan)
-
-                                    <a href="{{ $maintenance->foto_perbaikan }}"
-                                       target="_blank">
-
-                                        <img src="{{ $maintenance->foto_perbaikan }}"
-                                             width="70"
-                                             height="70"
-                                             style="object-fit:cover;
-                                                    border-radius:12px;">
-
-                                    </a>
-
+                                    <div class="position-relative" style="width:45px;height:45px;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
+                                        <img src="{{ $maintenance->foto_perbaikan }}" class="w-100 h-100" style="object-fit:cover;">
+                                        <a href="{{ $maintenance->foto_perbaikan }}" target="_blank" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 opacity-0 hover-opacity-100 transition-2">
+                                            <i class="bi bi-eye text-white"></i>
+                                        </a>
+                                    </div>
                                 @else
-
-                                    <span class="text-secondary">
-
-                                        Tidak ada
-
-                                    </span>
-
+                                    <small class="text-secondary">N/A</small>
                                 @endif
-
                             </td>
 
-                            <td class="py-4 text-center">
-
-                                <div class="d-flex justify-content-center gap-2">
-
-                                    <a href="{{ route('maintenance.edit', $maintenance->id) }}"
-                                       class="btn btn-sm"
-                                       style="background:#f59e0b;
-                                              color:white;
-                                              border:none;
-                                              border-radius:10px;">
-
-                                        <i class="bi bi-pencil-square"></i>
-
-                                    </a>
-
-                                </div>
-
+                            <td class="text-center">
+                                <a href="{{ route('maintenance.mekanik.edit', $maintenance->id) }}"
+                                   class="btn btn-sm d-flex align-items-center justify-content-center mx-auto"
+                                   style="width:34px;height:34px;background:rgba(245,158,11,0.1);color:#f59e0b;border:1px solid rgba(245,158,11,0.2);border-radius:8px;"
+                                   title="Update Data">
+                                    <i class="bi bi-pencil-square" style="font-size:12px;"></i>
+                                </a>
                             </td>
 
                         </tr>
-
-                    @empty
-
+                        @empty
                         <tr>
-
-                            <td colspan="8"
-                                class="text-center text-secondary py-5">
-
-                                Data maintenance tidak tersedia
-
+                            <td colspan="6" class="text-center text-secondary py-5">
+                                <i class="bi bi-clipboard-x d-block mb-2" style="font-size:40px;opacity:0.3;"></i>
+                                <span style="font-size:14px;">Belum ada tugas maintenance</span>
                             </td>
-
                         </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            @if(method_exists($maintenances, 'links'))
+            <div class="p-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                {{ $maintenances->withQueryString()->links() }}
+            </div>
+            @endif
         </div>
-
-    </div>
-
-    <div class="mt-4">
-
-        {{ $maintenances->withQueryString()->links() }}
-
     </div>
 
 </div>
+
+<style>
+.hover-opacity-100:hover { opacity: 1 !important; }
+.transition-2 { transition: 0.2s; }
+</style>
 
 @endsection

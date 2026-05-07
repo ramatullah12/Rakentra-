@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KontrakController extends Controller
 {
@@ -83,27 +84,27 @@ class KontrakController extends Controller
 
         if ($request->hasFile('file_po')) {
 
-            $uploadPo = Cloudinary::upload(
+            $uploadPo = Cloudinary::uploadApi()->upload(
                 $request->file('file_po')->getRealPath(),
                 [
                     'folder' => 'po'
                 ]
             );
 
-            $filePo = $uploadPo->getSecurePath();
+            $filePo = $uploadPo['secure_url'];
 
         }
 
         if ($request->hasFile('file_spk')) {
 
-            $uploadSpk = Cloudinary::upload(
+            $uploadSpk = Cloudinary::uploadApi()->upload(
                 $request->file('file_spk')->getRealPath(),
                 [
                     'folder' => 'spk'
                 ]
             );
 
-            $fileSpk = $uploadSpk->getSecurePath();
+            $fileSpk = $uploadSpk['secure_url'];
 
         }
 
@@ -166,27 +167,27 @@ class KontrakController extends Controller
 
         if ($request->hasFile('file_po')) {
 
-            $uploadPo = Cloudinary::upload(
+            $uploadPo = Cloudinary::uploadApi()->upload(
                 $request->file('file_po')->getRealPath(),
                 [
                     'folder' => 'po'
                 ]
             );
 
-            $filePo = $uploadPo->getSecurePath();
+            $filePo = $uploadPo['secure_url'];
 
         }
 
         if ($request->hasFile('file_spk')) {
 
-            $uploadSpk = Cloudinary::upload(
+            $uploadSpk = Cloudinary::uploadApi()->upload(
                 $request->file('file_spk')->getRealPath(),
                 [
                     'folder' => 'spk'
                 ]
             );
 
-            $fileSpk = $uploadSpk->getSecurePath();
+            $fileSpk = $uploadSpk['secure_url'];
 
         }
 
@@ -221,5 +222,22 @@ class KontrakController extends Controller
                 'success',
                 'Kontrak berhasil dihapus'
             );
+    }
+
+    public function spk($id)
+    {
+        $kontrak = Kontrak::with([
+            'booking.pelanggan',
+            'booking.alat'
+        ])->findOrFail($id);
+
+        $pdf = Pdf::loadView(
+            'kontrak.pdf.spk',
+            compact('kontrak')
+        );
+
+        return $pdf->download(
+            'SPK-' . $kontrak->nomor_kontrak . '.pdf'
+        );
     }
 }

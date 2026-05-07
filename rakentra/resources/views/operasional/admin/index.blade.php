@@ -357,7 +357,7 @@
 
                                     </a>
 
-                                    <form action="{{ route('operasional.delete',$operasional->id) }}"
+                                    <form action="{{ route('operasional.destroy',$operasional->id) }}"
                                           method="POST">
 
                                         @csrf

@@ -357,7 +357,7 @@
 
                                     </a>
 
-                                    <form action="{{ route('mobilisasi.delete',$mobilisasi->id) }}"
+                                    <form action="{{ route('mobilisasi.destroy',$mobilisasi->id) }}"
                                           method="POST">
 
                                         @csrf

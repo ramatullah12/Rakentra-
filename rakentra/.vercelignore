@@ -1,0 +1,10 @@
+/node_modules
+/vendor
+/storage/*.key
+.env
+.phpunit.result.cache
+docker-compose.yml
+Docker-compose.override.yml
+phpright.json
+phpunit.xml
+tests

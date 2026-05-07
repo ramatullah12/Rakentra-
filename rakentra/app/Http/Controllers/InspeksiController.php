@@ -146,14 +146,14 @@ class InspeksiController extends Controller
 
         if ($request->hasFile('foto_kerusakan')) {
 
-            $upload = Cloudinary::upload(
+            $upload = Cloudinary::uploadApi()->upload(
                 $request->file('foto_kerusakan')->getRealPath(),
                 [
                     'folder' => 'rakentra/inspeksi'
                 ]
             );
 
-            $foto = $upload->getSecurePath();
+            $foto = $upload['secure_url'];
         }
 
         Inspeksi::create([
@@ -219,14 +219,14 @@ class InspeksiController extends Controller
 
         if ($request->hasFile('foto_kerusakan')) {
 
-            $upload = Cloudinary::upload(
+            $upload = Cloudinary::uploadApi()->upload(
                 $request->file('foto_kerusakan')->getRealPath(),
                 [
                     'folder' => 'rakentra/inspeksi'
                 ]
             );
 
-            $foto = $upload->getSecurePath();
+            $foto = $upload['secure_url'];
         }
 
         $inspeksi->update([

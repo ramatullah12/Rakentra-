@@ -84,6 +84,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('kontrak', KontrakController::class)
         ->except(['show']);
 
+    Route::get('/kontrak/spk/{id}', [KontrakController::class, 'spk'])
+        ->name('kontrak.spk');
+
     Route::resource('mobilisasi', MobilisasiController::class)
         ->except(['show']);
 
@@ -167,82 +170,103 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:mekanik'])->group(function () {
+Route::middleware(['auth', 'role:mekanik'])->prefix('mekanik')->group(function () {
 
-    Route::get('/mekanik', [DashboardController::class, 'mekanik'])
+    Route::get('/', [DashboardController::class, 'mekanik'])
         ->name('dashboard.mekanik');
 
-    Route::get('/alat-mekanik', [AlatController::class, 'mekanik'])
+    Route::get('/alat', [AlatController::class, 'mekanik'])
         ->name('alat.mekanik');
 
-    Route::get('/operasional-mekanik', [OperasionalController::class, 'index'])
+    Route::get('/operasional', [OperasionalController::class, 'index'])
         ->name('operasional.mekanik');
 
-    Route::put('/operasional-mekanik/update/{id}', [OperasionalController::class, 'update'])
+    Route::put('/operasional/update/{id}', [OperasionalController::class, 'update'])
         ->name('operasional.mekanik.update');
 
     Route::resource('inspeksi', InspeksiController::class)
+        ->names([
+            'index' => 'inspeksi.mekanik.index',
+            'create' => 'inspeksi.mekanik.create',
+            'store' => 'inspeksi.mekanik.store',
+            'edit' => 'inspeksi.mekanik.edit',
+            'update' => 'inspeksi.mekanik.update',
+        ])
         ->except(['show', 'destroy']);
 
-    Route::get('/inspeksi-mekanik', [InspeksiController::class, 'mekanik'])
+    Route::get('/daftar-inspeksi', [InspeksiController::class, 'mekanik'])
         ->name('inspeksi.mekanik');
 
     Route::resource('maintenance', MaintenanceController::class)
+        ->names([
+            'index' => 'maintenance.mekanik.index',
+            'create' => 'maintenance.mekanik.create',
+            'store' => 'maintenance.mekanik.store',
+            'edit' => 'maintenance.mekanik.edit',
+            'update' => 'maintenance.mekanik.update',
+        ])
         ->except(['show', 'destroy']);
 
-    Route::get('/maintenance-mekanik', [MaintenanceController::class, 'mekanik'])
+    Route::get('/daftar-maintenance', [MaintenanceController::class, 'mekanik'])
         ->name('maintenance.mekanik');
 
     Route::resource('material', MaterialRequestController::class)
+        ->names([
+            'index' => 'material.mekanik.index',
+            'create' => 'material.mekanik.create',
+            'store' => 'material.mekanik.store',
+            'edit' => 'material.mekanik.edit',
+            'update' => 'material.mekanik.update',
+        ])
         ->except(['show', 'destroy']);
 
-    Route::get('/material-mekanik', [MaterialRequestController::class, 'mekanik'])
+    Route::get('/daftar-material', [MaterialRequestController::class, 'mekanik'])
         ->name('material.mekanik');
 
 });
 
-Route::middleware(['auth', 'role:pemimpin'])->group(function () {
+Route::middleware(['auth', 'role:pemimpin'])->prefix('pemimpin')->group(function () {
 
-    Route::get('/pemimpin', [DashboardController::class, 'pemimpin'])
+    Route::get('/', [DashboardController::class, 'pemimpin'])
         ->name('dashboard.pemimpin');
 
-    Route::get('/alat-pemimpin', [AlatController::class, 'pemimpin'])
+    Route::get('/alat', [AlatController::class, 'pemimpin'])
         ->name('alat.pemimpin');
 
     Route::resource('user', UserController::class)
         ->only(['index', 'edit', 'update']);
 
-    Route::get('/vendor-pemimpin', [VendorController::class, 'index'])
+    Route::get('/vendor', [VendorController::class, 'index'])
         ->name('vendor.pemimpin');
 
-    Route::get('/booking-pemimpin', [BookingController::class, 'index'])
+    Route::get('/booking', [BookingController::class, 'index'])
         ->name('booking.pemimpin');
 
-    Route::get('/kontrak-pemimpin', [KontrakController::class, 'index'])
+    Route::get('/kontrak', [KontrakController::class, 'index'])
         ->name('kontrak.pemimpin');
 
-    Route::get('/mobilisasi-pemimpin', [MobilisasiController::class, 'index'])
+    Route::get('/mobilisasi', [MobilisasiController::class, 'index'])
         ->name('mobilisasi.pemimpin');
 
-    Route::get('/operasional-pemimpin', [OperasionalController::class, 'index'])
+    Route::get('/operasional', [OperasionalController::class, 'index'])
         ->name('operasional.pemimpin');
 
-    Route::get('/inspeksi-pemimpin', [InspeksiController::class, 'pemimpin'])
+    Route::get('/inspeksi', [InspeksiController::class, 'pemimpin'])
         ->name('inspeksi.pemimpin');
 
-    Route::get('/maintenance-pemimpin', [MaintenanceController::class, 'pemimpin'])
+    Route::get('/maintenance', [MaintenanceController::class, 'pemimpin'])
         ->name('maintenance.pemimpin');
 
-    Route::get('/material-pemimpin', [MaterialRequestController::class, 'pemimpin'])
+    Route::get('/material', [MaterialRequestController::class, 'pemimpin'])
         ->name('material.pemimpin');
 
-    Route::get('/tagihan-pemimpin', [TagihanController::class, 'pemimpin'])
+    Route::get('/tagihan', [TagihanController::class, 'pemimpin'])
         ->name('tagihan.pemimpin');
 
-    Route::get('/tagihan/faktur-pemimpin/{id}', [TagihanController::class, 'faktur'])
+    Route::get('/tagihan/faktur/{id}', [TagihanController::class, 'faktur'])
         ->name('tagihan.faktur.pemimpin');
 
-    Route::get('/laporan-pemimpin', [LaporanController::class, 'pemimpin'])
+    Route::get('/laporan', [LaporanController::class, 'pemimpin'])
         ->name('laporan.pemimpin');
 
 });

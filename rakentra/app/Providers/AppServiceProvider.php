@@ -19,6 +19,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (config('app.env') === 'production' && isset($_SERVER['VERCEL_URL'])) {
+            config(['session.driver' => 'cookie']);
+            config(['logging.default' => 'stderr']);
+            config(['view.compiled' => '/tmp/storage/framework/views']);
+            
+            if (!is_dir('/tmp/storage/framework/views')) {
+                mkdir('/tmp/storage/framework/views', 0755, true);
+            }
+        }
     }
 }

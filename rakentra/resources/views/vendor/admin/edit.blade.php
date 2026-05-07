@@ -1,157 +1,136 @@
 @extends('layout.admin')
 
-@section('title', 'Edit Vendor')
+@section('title','Edit Vendor')
 
 @section('content')
 
 <div class="container-fluid">
 
-    <div class="mb-4">
-        <h2 class="fw-bold text-white mb-1">Edit Vendor</h2>
-        <p class="text-secondary mb-0">
-            Perbarui data vendor
-        </p>
+    {{-- Header --}}
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a href="{{ route('vendor.index') }}" class="btn d-flex align-items-center justify-content-center"
+           style="width:40px;height:40px;background:rgba(255,255,255,0.07);border-radius:12px;color:#94a3b8;border:1px solid rgba(255,255,255,0.08);">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <div>
+            <h4 class="fw-bold text-white mb-0">Edit Vendor</h4>
+            <small class="text-secondary">Update informasi mitra: <span class="text-white">{{ $vendor->nama_vendor }}</span></small>
+        </div>
     </div>
 
-    @if ($errors->any())
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
 
-        <div class="alert alert-danger border-0 shadow-sm"
-             style="border-radius:14px;">
+            @if ($errors->any())
+            <div class="alert border-0 mb-4 d-flex align-items-start gap-3"
+                 style="background:rgba(220,38,38,0.12);border-left:4px solid #dc2626 !important;border-radius:14px;">
+                <i class="bi bi-exclamation-triangle-fill text-danger mt-1"></i>
+                <div>
+                    <strong class="text-danger">Kesalahan Input:</strong>
+                    <ul class="mb-0 mt-1 text-danger" style="font-size:13px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endif
 
-            <ul class="mb-0">
+            <div class="card border-0" style="background:rgba(255,255,255,0.05);border-radius:24px;border:1px solid rgba(255,255,255,0.07);">
+                <div class="card-body p-4 p-md-5">
 
-                @foreach ($errors->all() as $error)
+                    <div class="d-flex align-items-center gap-3 mb-5 pb-3" style="border-bottom:1px solid rgba(255,255,255,0.07);">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle"
+                             style="width:55px;height:55px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);">
+                            <i class="bi bi-pencil-square text-white fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-white mb-0">Perbarui Data</h5>
+                            <small class="text-secondary">Ubah data vendor jika terdapat perubahan informasi</small>
+                        </div>
+                    </div>
 
-                    <li>{{ $error }}</li>
+                    <form action="{{ route('vendor.update', $vendor->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                @endforeach
+                        <div class="row g-4">
 
-            </ul>
+                            <div class="col-12">
+                                <label class="form-label text-secondary" style="font-size:13px;font-weight:600;letter-spacing:0.5px;">NAMA VENDOR <span class="text-danger">*</span></label>
+                                <div class="input-group" style="background:rgba(15,23,42,0.5);border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+                                    <span class="input-group-text border-0" style="background:transparent;color:#94a3b8;"><i class="bi bi-building"></i></span>
+                                    <input type="text" name="nama_vendor"
+                                           class="form-control border-0 text-white"
+                                           style="background:transparent;box-shadow:none;height:50px;"
+                                           value="{{ old('nama_vendor', $vendor->nama_vendor) }}">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label text-secondary" style="font-size:13px;font-weight:600;letter-spacing:0.5px;">NOMOR TELEPON / HP <span class="text-danger">*</span></label>
+                                <div class="input-group" style="background:rgba(15,23,42,0.5);border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+                                    <span class="input-group-text border-0" style="background:transparent;color:#94a3b8;"><i class="bi bi-telephone"></i></span>
+                                    <input type="text" name="hp"
+                                           class="form-control border-0 text-white"
+                                           style="background:transparent;box-shadow:none;height:50px;"
+                                           value="{{ old('hp', $vendor->hp) }}">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label text-secondary" style="font-size:13px;font-weight:600;letter-spacing:0.5px;">ALAMAT LENGKAP</label>
+                                <div style="background:rgba(15,23,42,0.5);border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+                                    <textarea name="alamat" rows="4"
+                                              class="form-control border-0 text-white p-3"
+                                              style="background:transparent;box-shadow:none;">{{ old('alamat', $vendor->alamat) }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label text-secondary" style="font-size:13px;font-weight:600;letter-spacing:0.5px;">STATUS MITRA</label>
+                                <div class="row g-2">
+                                    @foreach(['aktif' => ['Aktif','#16a34a'], 'nonaktif' => ['Nonaktif','#ef4444']] as $val => $opt)
+                                    <div class="col-6">
+                                        <input type="radio" name="status" id="st_{{ $val }}" value="{{ $val }}"
+                                               class="d-none status-radio"
+                                               {{ old('status', $vendor->status) == $val ? 'checked' : '' }}>
+                                        <label for="st_{{ $val }}" class="d-flex align-items-center justify-content-center p-3 rounded-3 gap-2 status-label"
+                                               style="border:2px solid rgba(255,255,255,0.08);cursor:pointer;transition:0.2s;background:rgba(255,255,255,0.03);">
+                                            <div class="rounded-circle" style="width:10px;height:10px;background:{{ $opt[1] }};"></div>
+                                            <span class="text-white fw-semibold" style="font-size:14px;">{{ $opt[0] }}</span>
+                                        </label>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-3" style="border-top:1px solid rgba(255,255,255,0.07);">
+                            <a href="{{ route('vendor.index') }}" class="btn px-4"
+                               style="background:rgba(255,255,255,0.07);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:12px;height:45px;display:flex;align-items:center;">
+                                <i class="bi bi-x-lg me-2"></i>Batal
+                            </a>
+                            <button type="submit" class="btn px-5 fw-bold"
+                                    style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;height:45px;box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.2);">
+                                <i class="bi bi-floppy-fill me-2"></i>Update Vendor
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
 
         </div>
-
-    @endif
-
-    <div class="card border-0 shadow-sm"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:20px;">
-
-        <div class="card-body p-4">
-
-            <form action="{{ route('vendor.update', $vendor->id) }}" method="POST">
-
-                @csrf
-                @method('PUT')
-
-                <div class="mb-4">
-
-                    <label class="form-label text-white fw-semibold mb-2">
-                        Nama Vendor
-                    </label>
-
-                    <input type="text"
-                           name="nama_vendor"
-                           value="{{ old('nama_vendor', $vendor->nama_vendor) }}"
-                           class="form-control text-white"
-                           placeholder="Masukkan nama vendor"
-                           style="background:#1e293b;
-                                  border:none;
-                                  border-radius:14px;
-                                  height:55px;">
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label class="form-label text-white fw-semibold mb-2">
-                        Nomor HP
-                    </label>
-
-                    <input type="text"
-                           name="hp"
-                           value="{{ old('hp', $vendor->hp) }}"
-                           class="form-control text-white"
-                           placeholder="Masukkan nomor HP"
-                           style="background:#1e293b;
-                                  border:none;
-                                  border-radius:14px;
-                                  height:55px;">
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label class="form-label text-white fw-semibold mb-2">
-                        Alamat
-                    </label>
-
-                    <textarea name="alamat"
-                              rows="5"
-                              class="form-control text-white"
-                              placeholder="Masukkan alamat vendor"
-                              style="background:#1e293b;
-                                     border:none;
-                                     border-radius:14px;">{{ old('alamat', $vendor->alamat) }}</textarea>
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label class="form-label text-white fw-semibold mb-2">
-                        Status
-                    </label>
-
-                    <select name="status"
-                            class="form-select text-white"
-                            style="background:#1e293b;
-                                   border:none;
-                                   border-radius:14px;
-                                   height:55px;">
-
-                        <option value="aktif"
-                            {{ old('status', $vendor->status) == 'aktif' ? 'selected' : '' }}>
-                            Aktif
-                        </option>
-
-                        <option value="nonaktif"
-                            {{ old('status', $vendor->status) == 'nonaktif' ? 'selected' : '' }}>
-                            Nonaktif
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                    <a href="{{ route('vendor.index') }}"
-                       class="btn btn-outline-light px-4 py-2"
-                       style="border-radius:12px;">
-
-                        Kembali
-
-                    </a>
-
-                    <button type="submit"
-                            class="btn px-5 py-2"
-                            style="background:#2563eb;
-                                   color:white;
-                                   border:none;
-                                   border-radius:12px;
-                                   font-weight:600;">
-
-                        Update
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
     </div>
-
 </div>
+
+<style>
+.status-radio:checked + .status-label {
+    border-color: #f59e0b !important;
+    background: rgba(245,158,11,0.1) !important;
+}
+</style>
 
 @endsection

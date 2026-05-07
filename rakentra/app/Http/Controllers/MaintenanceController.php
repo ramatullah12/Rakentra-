@@ -139,14 +139,14 @@ class MaintenanceController extends Controller
 
         if ($request->hasFile('foto_perbaikan')) {
 
-            $upload = Cloudinary::upload(
+            $upload = Cloudinary::uploadApi()->upload(
                 $request->file('foto_perbaikan')->getRealPath(),
                 [
                     'folder' => 'rakentra/maintenance'
                 ]
             );
 
-            $foto = $upload->getSecurePath();
+            $foto = $upload['secure_url'];
         }
 
         Maintenance::create([
@@ -211,14 +211,14 @@ class MaintenanceController extends Controller
 
         if ($request->hasFile('foto_perbaikan')) {
 
-            $upload = Cloudinary::upload(
+            $upload = Cloudinary::uploadApi()->upload(
                 $request->file('foto_perbaikan')->getRealPath(),
                 [
                     'folder' => 'rakentra/maintenance'
                 ]
             );
 
-            $foto = $upload->getSecurePath();
+            $foto = $upload['secure_url'];
         }
 
         $maintenance->update([

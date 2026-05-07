@@ -20,7 +20,7 @@
 
         </div>
 
-        <a href="{{ route('material.create') }}"
+        <a href="{{ route('material.mekanik.create') }}"
            class="btn px-4 py-2"
            style="background:#2563eb;
                   color:white;
@@ -357,7 +357,7 @@
 
                                 <div class="d-flex justify-content-center gap-2">
 
-                                    <a href="{{ route('material.edit', $material->id) }}"
+                                    <a href="{{ route('material.mekanik.edit', $material->id) }}"
                                        class="btn btn-sm"
                                        style="background:#f59e0b;
                                               color:white;
