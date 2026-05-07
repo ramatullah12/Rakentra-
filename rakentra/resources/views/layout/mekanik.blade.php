@@ -210,11 +210,9 @@
             <i class="bi bi-tools"></i> Maintenance
         </a>
 
-        <a href="#"
-           class="nav-link">
-
-            <i class="bi bi-box-seam"></i> Material
-
+        <a href="{{ route('material.mekanik') }}"
+            class="nav-link {{ request()->routeIs('material.*') ? 'active' : '' }}">
+            <i class="bi bi-box-seam"></i> Material Request
         </a>
 
     </div>

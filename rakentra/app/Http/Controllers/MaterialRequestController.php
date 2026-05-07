@@ -2,64 +2,192 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Maintenance;
 use App\Models\MaterialRequest;
 use Illuminate\Http\Request;
 
 class MaterialRequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = MaterialRequest::with([
+            'maintenance.alat'
+        ]);
+
+        if ($request->search) {
+
+            $query->where(
+                'nama_material',
+                'like',
+                '%' . $request->search . '%'
+            );
+
+        }
+
+        $materials = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'material.admin.index',
+            compact('materials')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function mekanik(Request $request)
+    {
+        $query = MaterialRequest::with([
+            'maintenance.alat'
+        ]);
+
+        if ($request->search) {
+
+            $query->where(
+                'nama_material',
+                'like',
+                '%' . $request->search . '%'
+            );
+
+        }
+
+        $materials = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'material.mekanik.index',
+            compact('materials')
+        );
+    }
+
+    public function pemimpin(Request $request)
+    {
+        $query = MaterialRequest::with([
+            'maintenance.alat'
+        ]);
+
+        if ($request->search) {
+
+            $query->where(
+                'nama_material',
+                'like',
+                '%' . $request->search . '%'
+            );
+
+        }
+
+        $materials = $query
+            ->latest()
+            ->paginate(10);
+
+        return view(
+            'material.pemimpin.index',
+            compact('materials')
+        );
+    }
+
     public function create()
     {
-        //
+        $maintenances = Maintenance::with('alat')->get();
+
+        return view(
+            'material.mekanik.create',
+            compact('maintenances')
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'maintenance_id' => 'required',
+            'nama_material' => 'required',
+            'jumlah' => 'required',
+            'satuan' => 'required',
+            'harga' => 'required',
+            'supplier' => 'nullable',
+            'status' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        MaterialRequest::create([
+            'maintenance_id' => $request->maintenance_id,
+            'nama_material' => $request->nama_material,
+            'jumlah' => $request->jumlah,
+            'satuan' => $request->satuan,
+            'harga' => $request->harga,
+            'supplier' => $request->supplier,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()
+            ->route('material.mekanik')
+            ->with(
+                'success',
+                'Material request berhasil ditambahkan'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(MaterialRequest $materialRequest)
+    public function edit($id)
     {
-        //
+        $material = MaterialRequest::findOrFail($id);
+
+        $maintenances = Maintenance::with('alat')->get();
+
+        return view(
+            'material.mekanik.edit',
+            compact(
+                'material',
+                'maintenances'
+            )
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MaterialRequest $materialRequest)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'maintenance_id' => 'required',
+            'nama_material' => 'required',
+            'jumlah' => 'required',
+            'satuan' => 'required',
+            'harga' => 'required',
+            'supplier' => 'nullable',
+            'status' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        $material = MaterialRequest::findOrFail($id);
+
+        $material->update([
+            'maintenance_id' => $request->maintenance_id,
+            'nama_material' => $request->nama_material,
+            'jumlah' => $request->jumlah,
+            'satuan' => $request->satuan,
+            'harga' => $request->harga,
+            'supplier' => $request->supplier,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()
+            ->route('material.mekanik')
+            ->with(
+                'success',
+                'Material request berhasil diupdate'
+            );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, MaterialRequest $materialRequest)
+    public function destroy($id)
     {
-        //
-    }
+        $material = MaterialRequest::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MaterialRequest $materialRequest)
-    {
-        //
+        $material->delete();
+
+        return redirect()
+            ->route('material.index')
+            ->with(
+                'success',
+                'Material request berhasil dihapus'
+            );
     }
 }

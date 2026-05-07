@@ -301,6 +301,11 @@
             <i class="bi bi-receipt"></i> Tagihan & Faktur
         </a>
 
+        <a href="{{ route('material.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('material.*') ? 'active' : '' }}">
+            <i class="bi bi-box-seam"></i> Material Request
+        </a>
+
         <a href="#"
            class="nav-link">
 

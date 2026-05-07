@@ -28,4 +28,9 @@ class Maintenance extends Model
     {
         return $this->belongsTo(Inspeksi::class);
     }
+
+    public function materialRequests()
+    {
+        return $this->hasMany(MaterialRequest::class);
+    }
 }

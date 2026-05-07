@@ -14,6 +14,7 @@ use App\Http\Controllers\OperasionalController;
 use App\Http\Controllers\InspeksiController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\MaterialRequestController;
 
 Route::get('/', function () {
 
@@ -194,6 +195,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/maintenance/delete/{id}', [MaintenanceController::class, 'destroy'])
         ->name('maintenance.delete');
 
+    Route::get('/material', [MaterialRequestController::class, 'index'])
+        ->name('material.index');
+
+    Route::delete('/material/delete/{id}', [MaterialRequestController::class, 'destroy'])
+        ->name('material.delete');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -240,6 +247,21 @@ Route::middleware(['auth', 'role:mekanik'])->group(function () {
     Route::put('/maintenance/update/{id}', [MaintenanceController::class, 'update'])
         ->name('maintenance.update');
 
+    Route::get('/material-mekanik', [MaterialRequestController::class, 'mekanik'])
+        ->name('material.mekanik');
+
+    Route::get('/material/create', [MaterialRequestController::class, 'create'])
+        ->name('material.create');
+
+    Route::post('/material/store', [MaterialRequestController::class, 'store'])
+        ->name('material.store');
+
+    Route::get('/material/edit/{id}', [MaterialRequestController::class, 'edit'])
+        ->name('material.edit');
+
+    Route::put('/material/update/{id}', [MaterialRequestController::class, 'update'])
+        ->name('material.update');
+
 });
 
 Route::middleware(['auth', 'role:pemimpin'])->group(function () {
@@ -285,6 +307,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/maintenance-pemimpin', [MaintenanceController::class, 'pemimpin'])
         ->name('maintenance.pemimpin');
+
+    Route::get('/material-pemimpin', [MaterialRequestController::class, 'pemimpin'])
+        ->name('material.pemimpin');
 
 });
 
