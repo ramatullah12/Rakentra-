@@ -237,10 +237,16 @@
             <i class="bi bi-person"></i> Data Pelanggan
         </a>
 
-        <a href="#" class="nav-link"><i class="bi bi-calendar"></i> Booking</a>
+        <a href="{{ route('booking.index') }}"
+            class="nav-link {{ request()->routeIs('booking.*') ? 'active' : '' }}">
+            <i class="bi bi-calendar"></i> Booking
+        </a>
         <a href="#" class="nav-link"><i class="bi bi-file-earmark-text"></i> Kontrak</a>
         <a href="#" class="nav-link"><i class="bi bi-box"></i> Mobilisasi</a>
-        <a href="#" class="nav-link"><i class="bi bi-cart"></i> Vendor</a>
+        <a href="{{ route('vendor.index') }}"
+            class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
+            <i class="bi bi-cart"></i> Vendor
+        </a>
         <a href="#" class="nav-link"><i class="bi bi-clock"></i> Operasional</a>
         <a href="#" class="nav-link"><i class="bi bi-currency-dollar"></i> Biaya</a>
         <a href="#" class="nav-link"><i class="bi bi-wrench"></i> Maintenance</a>

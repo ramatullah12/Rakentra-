@@ -12,8 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('pelanggan_id')
+                ->constrained('pelanggans')
+                ->onDelete('cascade');
+
+            $table->foreignId('alat_id')
+                ->constrained('alats')
+                ->onDelete('cascade');
+
+            $table->date('tanggal_booking');
+
+            $table->date('tanggal_mulai');
+
+            $table->date('tanggal_selesai');
+
+            $table->text('keterangan')->nullable();
+
+            $table->enum('status', [
+                'pending',
+                'disetujui',
+                'berjalan',
+                'selesai',
+                'dibatalkan'
+            ])->default('pending');
+
             $table->timestamps();
+
         });
     }
 

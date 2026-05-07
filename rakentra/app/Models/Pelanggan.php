@@ -17,4 +17,9 @@ class Pelanggan extends Model
         'alamat',
         'status'
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

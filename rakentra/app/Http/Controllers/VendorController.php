@@ -7,59 +7,87 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Vendor::query();
+
+        if ($request->search) {
+            $query->where('nama_vendor', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $vendors = $query->latest()->paginate(10);
+
+        if (auth()->user()->role == 'pemimpin') {
+            return view('vendor.pemimpin.index', compact('vendors'));
+        }
+
+        return view('vendor.admin.index', compact('vendors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('vendor.admin.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_vendor' => 'required',
+            'hp' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        Vendor::create([
+            'nama_vendor' => $request->nama_vendor,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+            'status' => 'aktif'
+        ]);
+
+        return redirect()->route('vendor.index')
+            ->with('success', 'Vendor berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Vendor $vendor)
+    public function edit($id)
     {
-        //
+        $vendor = Vendor::findOrFail($id);
+
+        return view('vendor.admin.edit', compact('vendor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vendor $vendor)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_vendor' => 'required',
+            'hp' => 'required',
+            'alamat' => 'required',
+            'status' => 'required'
+        ]);
+
+        $vendor = Vendor::findOrFail($id);
+
+        $vendor->update([
+            'nama_vendor' => $request->nama_vendor,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('vendor.index')
+            ->with('success', 'Vendor berhasil diupdate');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Vendor $vendor)
+    public function destroy($id)
     {
-        //
-    }
+        $vendor = Vendor::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vendor $vendor)
-    {
-        //
+        $vendor->delete();
+
+        return redirect()->route('vendor.index')
+            ->with('success', 'Vendor berhasil dihapus');
     }
 }

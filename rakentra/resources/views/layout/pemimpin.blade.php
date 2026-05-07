@@ -200,8 +200,14 @@
             <i class="bi bi-truck"></i> Alat
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="{{ route('booking.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('booking.*') ? 'active' : '' }}">
             <i class="bi bi-calendar"></i> Booking
+        </a>
+
+        <a href="{{ route('vendor.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
+            <i class="bi bi-cart"></i> Vendor
         </a>
 
         <a href="#" class="nav-link">

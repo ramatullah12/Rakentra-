@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_vendor');
+            $table->string('hp');
+            $table->text('alamat');
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }

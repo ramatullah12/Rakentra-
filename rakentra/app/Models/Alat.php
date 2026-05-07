@@ -13,4 +13,9 @@ class Alat extends Model
         'hour_meter',
         'status'
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
