@@ -203,7 +203,7 @@
         }
     </style>
 </head>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
 
 <div class="sidebar d-flex flex-column">
@@ -306,11 +306,9 @@
             <i class="bi bi-box-seam"></i> Material Request
         </a>
 
-        <a href="#"
-           class="nav-link">
-
-            <i class="bi bi-bar-chart"></i> Laporan
-
+        <a href="{{ route('laporan.pemimpin') }}"
+            class="nav-link {{ request()->routeIs('laporan.pemimpin') ? 'active' : '' }}">
+            <i class="bi bi-bar-chart"></i> Executive Dashboard
         </a>
 
     </div>

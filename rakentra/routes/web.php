@@ -15,6 +15,7 @@ use App\Http\Controllers\InspeksiController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\MaterialRequestController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', function () {
 
@@ -201,6 +202,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/material/delete/{id}', [MaterialRequestController::class, 'destroy'])
         ->name('material.delete');
 
+    Route::get('/laporan-admin', [LaporanController::class, 'admin'])
+        ->name('laporan.admin');
+
+    Route::get('/laporan-maintenance-pdf', [LaporanController::class, 'maintenancePdf'])
+        ->name('laporan.maintenance.pdf');
+
+    Route::get('/laporan-material-pdf', [LaporanController::class, 'materialPdf'])
+        ->name('laporan.material.pdf');
+
+    Route::get('/laporan-operasional-pdf', [LaporanController::class, 'operasionalPdf'])
+        ->name('laporan.operasional.pdf');
+
 });
 
 Route::middleware(['auth', 'role:mekanik'])->group(function () {
@@ -310,6 +323,9 @@ Route::middleware(['auth', 'role:pemimpin'])->group(function () {
 
     Route::get('/material-pemimpin', [MaterialRequestController::class, 'pemimpin'])
         ->name('material.pemimpin');
+
+    Route::get('/laporan-pemimpin', [LaporanController::class, 'pemimpin'])
+        ->name('laporan.pemimpin');
 
 });
 

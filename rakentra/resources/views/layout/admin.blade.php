@@ -221,7 +221,7 @@
         }
     </style>
 </head>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
 
 <div class="sidebar d-flex flex-column">
@@ -246,10 +246,9 @@
 
     <div class="nav flex-column gap-1">
 
-        <a href="{{ url('/admin') }}"
-           class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+        <a href="{{ route('dashboard.admin') }}"
+            class="nav-link {{ request()->routeIs('dashboard.admin') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Dashboard
-
         </a>
 
         <a href="{{ route('alat.admin') }}"
@@ -314,11 +313,9 @@
             <i class="bi bi-receipt"></i> Tagihan & Faktur
         </a>
 
-        <a href="#"
-           class="nav-link">
-
-            <i class="bi bi-bar-chart"></i> Laporan
-
+        <a href="{{ route('laporan.admin') }}"
+            class="nav-link {{ request()->routeIs('laporan.admin') ? 'active' : '' }}">
+            <i class="bi bi-bar-chart"></i> Dashboard Analytics
         </a>
 
     </div>
