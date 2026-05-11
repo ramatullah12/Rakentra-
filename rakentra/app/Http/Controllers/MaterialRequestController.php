@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Maintenance;
 use App\Models\MaterialRequest;
 use App\Models\Mekanik;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class MaterialRequestController extends Controller
@@ -13,7 +14,8 @@ class MaterialRequestController extends Controller
     {
         $query = MaterialRequest::with([
             'maintenance.alat',
-            'mekanik'
+            'mekanik',
+            'vendor'
         ]);
 
         if ($request->search) {
@@ -52,7 +54,8 @@ class MaterialRequestController extends Controller
     {
         $query = MaterialRequest::with([
             'maintenance.alat',
-            'mekanik'
+            'mekanik',
+            'vendor'
         ]);
 
         if ($request->search) {
@@ -79,7 +82,8 @@ class MaterialRequestController extends Controller
     {
         $query = MaterialRequest::with([
             'maintenance.alat',
-            'mekanik'
+            'mekanik',
+            'vendor'
         ]);
 
         if ($request->search) {
@@ -109,12 +113,14 @@ class MaterialRequestController extends Controller
         ])->get();
 
         $mekaniks = Mekanik::all();
+        $vendors = Vendor::all();
 
         return view(
             'material.mekanik.create',
             compact(
                 'maintenances',
-                'mekaniks'
+                'mekaniks',
+                'vendors'
             )
         );
     }
@@ -124,18 +130,19 @@ class MaterialRequestController extends Controller
         $request->validate([
             'maintenance_id' => 'required',
             'mekanik_id' => 'required',
+            'vendor_id' => 'nullable',
             'nama_material' => 'required',
             'jumlah' => 'required',
             'satuan' => 'required',
             'harga' => 'required',
             'supplier' => 'nullable',
-            'status' => 'required',
             'keterangan' => 'nullable',
         ]);
 
         MaterialRequest::create([
             'maintenance_id' => $request->maintenance_id,
             'mekanik_id' => $request->mekanik_id,
+            'vendor_id' => $request->vendor_id,
             'nama_material' => $request->nama_material,
             'jumlah' => $request->jumlah,
             'satuan' => $request->satuan,
@@ -164,6 +171,7 @@ class MaterialRequestController extends Controller
         ])->get();
 
         $mekaniks = Mekanik::all();
+        $vendors = Vendor::all();
 
         if (auth()->user()->role == 'admin') {
             return view(
@@ -171,7 +179,8 @@ class MaterialRequestController extends Controller
                 compact(
                     'material',
                     'maintenances',
-                    'mekaniks'
+                    'mekaniks',
+                    'vendors'
                 )
             );
         }
@@ -181,7 +190,8 @@ class MaterialRequestController extends Controller
             compact(
                 'material',
                 'maintenances',
-                'mekaniks'
+                'mekaniks',
+                'vendors'
             )
         );
     }
@@ -191,6 +201,7 @@ class MaterialRequestController extends Controller
         $rules = [
             'maintenance_id' => 'required',
             'mekanik_id' => 'required',
+            'vendor_id' => 'nullable',
             'nama_material' => 'required',
             'jumlah' => 'required',
             'satuan' => 'required',
@@ -210,6 +221,7 @@ class MaterialRequestController extends Controller
         $data = [
             'maintenance_id' => $request->maintenance_id,
             'mekanik_id' => $request->mekanik_id,
+            'vendor_id' => $request->vendor_id,
             'nama_material' => $request->nama_material,
             'jumlah' => $request->jumlah,
             'satuan' => $request->satuan,

@@ -378,7 +378,7 @@
 
                             <td class="text-secondary py-4">
 
-                                {{ $material->supplier ?? '-' }}
+                                {{ $material->vendor->nama_vendor ?? $material->supplier ?? '-' }}
 
                             </td>
 

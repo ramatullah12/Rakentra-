@@ -9,6 +9,7 @@ class MaterialRequest extends Model
     protected $fillable = [
         'maintenance_id',
         'mekanik_id',
+        'vendor_id',
         'nama_material',
         'jumlah',
         'satuan',
@@ -26,6 +27,11 @@ class MaterialRequest extends Model
     public function mekanik()
     {
         return $this->belongsTo(Mekanik::class);
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
     }
 
     public function getTotalHargaAttribute()

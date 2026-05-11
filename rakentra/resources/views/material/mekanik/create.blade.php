@@ -219,18 +219,22 @@
                     <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Supplier
+                            Vendor / Supplier
                         </label>
 
-                        <input type="text"
-                               name="supplier"
-                               value="{{ old('supplier') }}"
-                               class="form-control text-white"
-                               placeholder="Masukkan supplier"
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:14px;
-                                      height:55px;">
+                        <select name="vendor_id"
+                                class="form-select text-white"
+                                style="background:#1e293b;
+                                       border:none;
+                                       border-radius:14px;
+                                       height:55px;">
+                            <option value="">-- Pilih Vendor --</option>
+                            @foreach($vendors as $vendor)
+                                <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>
+                                    {{ $vendor->nama_vendor }}
+                                </option>
+                            @endforeach
+                        </select>
 
                     </div>
 
