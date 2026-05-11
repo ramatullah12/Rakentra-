@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Kontrak;
 use App\Models\Mobilisasi;
-use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class MobilisasiController extends Controller
@@ -13,20 +12,19 @@ class MobilisasiController extends Controller
     {
         $query = Mobilisasi::with([
             'kontrak.booking.pelanggan',
-            'kontrak.booking.alat',
-            'vendor'
+            'kontrak.booking.alat'
         ]);
 
         if ($request->search) {
 
             $query->whereHas(
                 'kontrak',
-                function($q) use ($request){
+                function ($q) use ($request) {
 
                     $q->where(
                         'nomor_kontrak',
                         'like',
-                        '%'.$request->search.'%'
+                        '%' . $request->search . '%'
                     );
 
                 }
@@ -45,7 +43,7 @@ class MobilisasiController extends Controller
 
         $mobilisasis = $query->latest()->paginate(10);
 
-        if(auth()->user()->role == 'pemimpin'){
+        if (auth()->user()->role == 'pemimpin') {
 
             return view(
                 'mobilisasi.pemimpin.index',
@@ -69,14 +67,9 @@ class MobilisasiController extends Controller
         ->whereDoesntHave('mobilisasi')
         ->get();
 
-        $vendors = Vendor::all();
-
         return view(
             'mobilisasi.admin.create',
-            compact(
-                'kontraks',
-                'vendors'
-            )
+            compact('kontraks')
         );
     }
 
@@ -84,15 +77,15 @@ class MobilisasiController extends Controller
     {
         $request->validate([
             'kontrak_id' => 'required',
-            'vendor_id' => 'required',
-            'tanggal_kirim' => 'required',
+            'tanggal_kirim' => 'required|date',
+            'tanggal_kembali' => 'nullable|date',
             'lokasi_proyek' => 'required',
             'status' => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         Mobilisasi::create([
             'kontrak_id' => $request->kontrak_id,
-            'vendor_id' => $request->vendor_id,
             'tanggal_kirim' => $request->tanggal_kirim,
             'tanggal_kembali' => $request->tanggal_kembali,
             'lokasi_proyek' => $request->lokasi_proyek,
@@ -117,14 +110,11 @@ class MobilisasiController extends Controller
             'booking.alat'
         ])->get();
 
-        $vendors = Vendor::all();
-
         return view(
             'mobilisasi.admin.edit',
             compact(
                 'mobilisasi',
-                'kontraks',
-                'vendors'
+                'kontraks'
             )
         );
     }
@@ -133,17 +123,17 @@ class MobilisasiController extends Controller
     {
         $request->validate([
             'kontrak_id' => 'required',
-            'vendor_id' => 'required',
-            'tanggal_kirim' => 'required',
+            'tanggal_kirim' => 'required|date',
+            'tanggal_kembali' => 'nullable|date',
             'lokasi_proyek' => 'required',
             'status' => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         $mobilisasi = Mobilisasi::findOrFail($id);
 
         $mobilisasi->update([
             'kontrak_id' => $request->kontrak_id,
-            'vendor_id' => $request->vendor_id,
             'tanggal_kirim' => $request->tanggal_kirim,
             'tanggal_kembali' => $request->tanggal_kembali,
             'lokasi_proyek' => $request->lokasi_proyek,

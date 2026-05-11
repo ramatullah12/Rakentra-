@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Maintenance;
 use App\Models\MaterialRequest;
+use App\Models\Mekanik;
 use Illuminate\Http\Request;
 
 class MaterialRequestController extends Controller
@@ -11,7 +12,8 @@ class MaterialRequestController extends Controller
     public function index(Request $request)
     {
         $query = MaterialRequest::with([
-            'maintenance.alat'
+            'maintenance.alat',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -28,6 +30,18 @@ class MaterialRequestController extends Controller
             ->latest()
             ->paginate(10);
 
+        if (auth()->user()->role == 'mekanik') {
+
+            return $this->mekanik($request);
+
+        }
+
+        if (auth()->user()->role == 'pemimpin') {
+
+            return $this->pemimpin($request);
+
+        }
+
         return view(
             'material.admin.index',
             compact('materials')
@@ -37,7 +51,8 @@ class MaterialRequestController extends Controller
     public function mekanik(Request $request)
     {
         $query = MaterialRequest::with([
-            'maintenance.alat'
+            'maintenance.alat',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -63,7 +78,8 @@ class MaterialRequestController extends Controller
     public function pemimpin(Request $request)
     {
         $query = MaterialRequest::with([
-            'maintenance.alat'
+            'maintenance.alat',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -88,11 +104,18 @@ class MaterialRequestController extends Controller
 
     public function create()
     {
-        $maintenances = Maintenance::with('alat')->get();
+        $maintenances = Maintenance::with([
+            'alat'
+        ])->get();
+
+        $mekaniks = Mekanik::all();
 
         return view(
             'material.mekanik.create',
-            compact('maintenances')
+            compact(
+                'maintenances',
+                'mekaniks'
+            )
         );
     }
 
@@ -100,6 +123,7 @@ class MaterialRequestController extends Controller
     {
         $request->validate([
             'maintenance_id' => 'required',
+            'mekanik_id' => 'required',
             'nama_material' => 'required',
             'jumlah' => 'required',
             'satuan' => 'required',
@@ -111,6 +135,7 @@ class MaterialRequestController extends Controller
 
         MaterialRequest::create([
             'maintenance_id' => $request->maintenance_id,
+            'mekanik_id' => $request->mekanik_id,
             'nama_material' => $request->nama_material,
             'jumlah' => $request->jumlah,
             'satuan' => $request->satuan,
@@ -132,13 +157,18 @@ class MaterialRequestController extends Controller
     {
         $material = MaterialRequest::findOrFail($id);
 
-        $maintenances = Maintenance::with('alat')->get();
+        $maintenances = Maintenance::with([
+            'alat'
+        ])->get();
+
+        $mekaniks = Mekanik::all();
 
         return view(
             'material.mekanik.edit',
             compact(
                 'material',
-                'maintenances'
+                'maintenances',
+                'mekaniks'
             )
         );
     }
@@ -147,6 +177,7 @@ class MaterialRequestController extends Controller
     {
         $request->validate([
             'maintenance_id' => 'required',
+            'mekanik_id' => 'required',
             'nama_material' => 'required',
             'jumlah' => 'required',
             'satuan' => 'required',
@@ -160,6 +191,7 @@ class MaterialRequestController extends Controller
 
         $material->update([
             'maintenance_id' => $request->maintenance_id,
+            'mekanik_id' => $request->mekanik_id,
             'nama_material' => $request->nama_material,
             'jumlah' => $request->jumlah,
             'satuan' => $request->satuan,

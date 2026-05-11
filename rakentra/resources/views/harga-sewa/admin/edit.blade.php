@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Tambah Mobilisasi')
+@section('title', 'Edit Harga Sewa')
 
 @section('content')
 
@@ -9,11 +9,11 @@
     <div class="mb-4">
 
         <h2 class="fw-bold text-white mb-1">
-            Tambah Mobilisasi
+            Edit Harga Sewa
         </h2>
 
         <p class="text-secondary mb-0">
-            Tambahkan data pengiriman alat berat
+            Perbarui data harga sewa alat berat
         </p>
 
     </div>
@@ -43,20 +43,21 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('mobilisasi.store') }}"
+            <form action="{{ route('harga-sewa.update', $hargaSewa->id) }}"
                   method="POST">
 
                 @csrf
+                @method('PUT')
 
                 <div class="row">
 
                     <div class="col-md-12 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Kontrak
+                            Alat Berat
                         </label>
 
-                        <select name="kontrak_id"
+                        <select name="alat_id"
                                 required
                                 class="form-select text-white"
                                 style="background:#1e293b;
@@ -65,19 +66,15 @@
                                        height:55px;">
 
                             <option value="">
-                                Pilih Kontrak
+                                Pilih Alat Berat
                             </option>
 
-                            @foreach($kontraks as $kontrak)
+                            @foreach($alats as $alat)
 
-                                <option value="{{ $kontrak->id }}"
-                                    {{ old('kontrak_id') == $kontrak->id ? 'selected' : '' }}>
+                                <option value="{{ $alat->id }}"
+                                    {{ old('alat_id', $hargaSewa->alat_id) == $alat->id ? 'selected' : '' }}>
 
-                                    {{ $kontrak->nomor_kontrak }}
-                                    -
-                                    {{ $kontrak->booking->pelanggan->nama }}
-                                    -
-                                    {{ $kontrak->booking->alat->nama_alat }}
+                                    {{ $alat->nama_alat }}
 
                                 </option>
 
@@ -87,17 +84,18 @@
 
                     </div>
 
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Tanggal Kirim
+                            Harga Harian
                         </label>
 
-                        <input type="date"
-                               name="tanggal_kirim"
+                        <input type="number"
+                               name="harga_harian"
                                required
-                               value="{{ old('tanggal_kirim') }}"
+                               value="{{ old('harga_harian', $hargaSewa->harga_harian) }}"
                                class="form-control text-white"
+                               placeholder="Masukkan harga harian"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -105,16 +103,17 @@
 
                     </div>
 
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Tanggal Kembali
+                            Harga Mingguan
                         </label>
 
-                        <input type="date"
-                               name="tanggal_kembali"
-                               value="{{ old('tanggal_kembali') }}"
+                        <input type="number"
+                               name="harga_mingguan"
+                               value="{{ old('harga_mingguan', $hargaSewa->harga_mingguan) }}"
                                class="form-control text-white"
+                               placeholder="Masukkan harga mingguan"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -122,75 +121,21 @@
 
                     </div>
 
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-4 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Lokasi Proyek
+                            Harga Bulanan
                         </label>
 
-                        <input type="text"
-                               name="lokasi_proyek"
-                               required
-                               value="{{ old('lokasi_proyek') }}"
+                        <input type="number"
+                               name="harga_bulanan"
+                               value="{{ old('harga_bulanan', $hargaSewa->harga_bulanan) }}"
                                class="form-control text-white"
-                               placeholder="Masukkan lokasi proyek"
+                               placeholder="Masukkan harga bulanan"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
                                       height:55px;">
-
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Status
-                        </label>
-
-                        <select name="status"
-                                required
-                                class="form-select text-white"
-                                style="background:#1e293b;
-                                       border:none;
-                                       border-radius:14px;
-                                       height:55px;">
-
-                            <option value="dijadwalkan"
-                                {{ old('status') == 'dijadwalkan' ? 'selected' : '' }}>
-
-                                Dijadwalkan
-
-                            </option>
-
-                            <option value="dikirim"
-                                {{ old('status') == 'dikirim' ? 'selected' : '' }}>
-
-                                Dikirim
-
-                            </option>
-
-                            <option value="sampai"
-                                {{ old('status') == 'sampai' ? 'selected' : '' }}>
-
-                                Sampai
-
-                            </option>
-
-                            <option value="pengembalian"
-                                {{ old('status') == 'pengembalian' ? 'selected' : '' }}>
-
-                                Pengembalian
-
-                            </option>
-
-                            <option value="selesai"
-                                {{ old('status') == 'selesai' ? 'selected' : '' }}>
-
-                                Selesai
-
-                            </option>
-
-                        </select>
 
                     </div>
 
@@ -203,10 +148,10 @@
                         <textarea name="keterangan"
                                   rows="5"
                                   class="form-control text-white"
-                                  placeholder="Masukkan keterangan mobilisasi..."
+                                  placeholder="Masukkan keterangan harga sewa..."
                                   style="background:#1e293b;
                                          border:none;
-                                         border-radius:14px;">{{ old('keterangan') }}</textarea>
+                                         border-radius:14px;">{{ old('keterangan', $hargaSewa->keterangan) }}</textarea>
 
                     </div>
 
@@ -214,7 +159,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
 
-                    <a href="{{ route('mobilisasi.index') }}"
+                    <a href="{{ route('harga-sewa.index') }}"
                        class="btn btn-outline-light px-4 py-2"
                        style="border-radius:12px;">
 
@@ -230,7 +175,7 @@
                                    border-radius:12px;
                                    font-weight:600;">
 
-                        Simpan
+                        Update
 
                     </button>
 

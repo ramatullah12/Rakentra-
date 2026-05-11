@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Tambah Mobilisasi')
+@section('title', 'Edit Mekanik')
 
 @section('content')
 
@@ -9,11 +9,11 @@
     <div class="mb-4">
 
         <h2 class="fw-bold text-white mb-1">
-            Tambah Mobilisasi
+            Edit Mekanik
         </h2>
 
         <p class="text-secondary mb-0">
-            Tambahkan data pengiriman alat berat
+            Perbarui data mekanik perusahaan
         </p>
 
     </div>
@@ -43,101 +43,104 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('mobilisasi.store') }}"
+            <form action="{{ route('mekanik.update', $mekanik->id) }}"
                   method="POST">
 
                 @csrf
+                @method('PUT')
 
                 <div class="row">
 
-                    <div class="col-md-12 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Kontrak
-                        </label>
-
-                        <select name="kontrak_id"
-                                required
-                                class="form-select text-white"
-                                style="background:#1e293b;
-                                       border:none;
-                                       border-radius:14px;
-                                       height:55px;">
-
-                            <option value="">
-                                Pilih Kontrak
-                            </option>
-
-                            @foreach($kontraks as $kontrak)
-
-                                <option value="{{ $kontrak->id }}"
-                                    {{ old('kontrak_id') == $kontrak->id ? 'selected' : '' }}>
-
-                                    {{ $kontrak->nomor_kontrak }}
-                                    -
-                                    {{ $kontrak->booking->pelanggan->nama }}
-                                    -
-                                    {{ $kontrak->booking->alat->nama_alat }}
-
-                                </option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
                     <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Tanggal Kirim
-                        </label>
-
-                        <input type="date"
-                               name="tanggal_kirim"
-                               required
-                               value="{{ old('tanggal_kirim') }}"
-                               class="form-control text-white"
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:14px;
-                                      height:55px;">
-
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Tanggal Kembali
-                        </label>
-
-                        <input type="date"
-                               name="tanggal_kembali"
-                               value="{{ old('tanggal_kembali') }}"
-                               class="form-control text-white"
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:14px;
-                                      height:55px;">
-
-                    </div>
-
-                    <div class="col-md-12 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Lokasi Proyek
+                            Nama Mekanik
                         </label>
 
                         <input type="text"
-                               name="lokasi_proyek"
+                               name="nama_mekanik"
                                required
-                               value="{{ old('lokasi_proyek') }}"
+                               value="{{ old('nama_mekanik', $mekanik->nama_mekanik) }}"
                                class="form-control text-white"
-                               placeholder="Masukkan lokasi proyek"
+                               placeholder="Masukkan nama mekanik"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
                                       height:55px;">
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Email
+                        </label>
+
+                        <input type="email"
+                               name="email"
+                               required
+                               value="{{ old('email', $mekanik->email) }}"
+                               class="form-control text-white"
+                               placeholder="Masukkan email"
+                               style="background:#1e293b;
+                                      border:none;
+                                      border-radius:14px;
+                                      height:55px;">
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Nomor HP
+                        </label>
+
+                        <input type="text"
+                               name="no_hp"
+                               required
+                               value="{{ old('no_hp', $mekanik->no_hp) }}"
+                               class="form-control text-white"
+                               placeholder="Masukkan nomor HP"
+                               style="background:#1e293b;
+                                      border:none;
+                                      border-radius:14px;
+                                      height:55px;">
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Spesialisasi
+                        </label>
+
+                        <input type="text"
+                               name="spesialisasi"
+                               required
+                               value="{{ old('spesialisasi', $mekanik->spesialisasi) }}"
+                               class="form-control text-white"
+                               placeholder="Contoh: Excavator, Bulldozer"
+                               style="background:#1e293b;
+                                      border:none;
+                                      border-radius:14px;
+                                      height:55px;">
+
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Alamat
+                        </label>
+
+                        <textarea name="alamat"
+                                  rows="4"
+                                  required
+                                  class="form-control text-white"
+                                  placeholder="Masukkan alamat mekanik"
+                                  style="background:#1e293b;
+                                         border:none;
+                                         border-radius:14px;">{{ old('alamat', $mekanik->alamat) }}</textarea>
 
                     </div>
 
@@ -155,38 +158,17 @@
                                        border-radius:14px;
                                        height:55px;">
 
-                            <option value="dijadwalkan"
-                                {{ old('status') == 'dijadwalkan' ? 'selected' : '' }}>
+                            <option value="aktif"
+                                {{ old('status', $mekanik->status) == 'aktif' ? 'selected' : '' }}>
 
-                                Dijadwalkan
-
-                            </option>
-
-                            <option value="dikirim"
-                                {{ old('status') == 'dikirim' ? 'selected' : '' }}>
-
-                                Dikirim
+                                Aktif
 
                             </option>
 
-                            <option value="sampai"
-                                {{ old('status') == 'sampai' ? 'selected' : '' }}>
+                            <option value="nonaktif"
+                                {{ old('status', $mekanik->status) == 'nonaktif' ? 'selected' : '' }}>
 
-                                Sampai
-
-                            </option>
-
-                            <option value="pengembalian"
-                                {{ old('status') == 'pengembalian' ? 'selected' : '' }}>
-
-                                Pengembalian
-
-                            </option>
-
-                            <option value="selesai"
-                                {{ old('status') == 'selesai' ? 'selected' : '' }}>
-
-                                Selesai
+                                Nonaktif
 
                             </option>
 
@@ -194,27 +176,11 @@
 
                     </div>
 
-                    <div class="col-md-12 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Keterangan
-                        </label>
-
-                        <textarea name="keterangan"
-                                  rows="5"
-                                  class="form-control text-white"
-                                  placeholder="Masukkan keterangan mobilisasi..."
-                                  style="background:#1e293b;
-                                         border:none;
-                                         border-radius:14px;">{{ old('keterangan') }}</textarea>
-
-                    </div>
-
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
 
-                    <a href="{{ route('mobilisasi.index') }}"
+                    <a href="{{ route('mekanik.index') }}"
                        class="btn btn-outline-light px-4 py-2"
                        style="border-radius:12px;">
 
@@ -230,7 +196,7 @@
                                    border-radius:12px;
                                    font-weight:600;">
 
-                        Simpan
+                        Update
 
                     </button>
 

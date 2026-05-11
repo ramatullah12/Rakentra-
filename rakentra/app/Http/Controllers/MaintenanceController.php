@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alat;
 use App\Models\Inspeksi;
 use App\Models\Maintenance;
+use App\Models\Mekanik;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -14,7 +15,8 @@ class MaintenanceController extends Controller
     {
         $query = Maintenance::with([
             'alat',
-            'inspeksi'
+            'inspeksi',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -35,6 +37,18 @@ class MaintenanceController extends Controller
             ->latest()
             ->paginate(10);
 
+        if (auth()->user()->role == 'mekanik') {
+
+            return $this->mekanik($request);
+
+        }
+
+        if (auth()->user()->role == 'pemimpin') {
+
+            return $this->pemimpin($request);
+
+        }
+
         return view(
             'maintenance.admin.index',
             compact('maintenances')
@@ -45,7 +59,8 @@ class MaintenanceController extends Controller
     {
         $query = Maintenance::with([
             'alat',
-            'inspeksi'
+            'inspeksi',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -76,7 +91,8 @@ class MaintenanceController extends Controller
     {
         $query = Maintenance::with([
             'alat',
-            'inspeksi'
+            'inspeksi',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -107,6 +123,8 @@ class MaintenanceController extends Controller
     {
         $alats = Alat::all();
 
+        $mekaniks = Mekanik::all();
+
         $inspeksis = Inspeksi::with([
             'alat'
         ])->get();
@@ -115,6 +133,7 @@ class MaintenanceController extends Controller
             'maintenance.mekanik.create',
             compact(
                 'alats',
+                'mekaniks',
                 'inspeksis'
             )
         );
@@ -125,6 +144,7 @@ class MaintenanceController extends Controller
         $request->validate([
             'alat_id' => 'required',
             'inspeksi_id' => 'nullable',
+            'mekanik_id' => 'required',
             'tanggal_maintenance' => 'required',
             'jenis_maintenance' => 'required',
             'deskripsi_kerusakan' => 'required',
@@ -147,11 +167,13 @@ class MaintenanceController extends Controller
             );
 
             $foto = $upload['secure_url'];
+
         }
 
         Maintenance::create([
             'alat_id' => $request->alat_id,
             'inspeksi_id' => $request->inspeksi_id,
+            'mekanik_id' => $request->mekanik_id,
             'tanggal_maintenance' => $request->tanggal_maintenance,
             'jenis_maintenance' => $request->jenis_maintenance,
             'deskripsi_kerusakan' => $request->deskripsi_kerusakan,
@@ -176,6 +198,8 @@ class MaintenanceController extends Controller
 
         $alats = Alat::all();
 
+        $mekaniks = Mekanik::all();
+
         $inspeksis = Inspeksi::with([
             'alat'
         ])->get();
@@ -185,6 +209,7 @@ class MaintenanceController extends Controller
             compact(
                 'maintenance',
                 'alats',
+                'mekaniks',
                 'inspeksis'
             )
         );
@@ -195,6 +220,7 @@ class MaintenanceController extends Controller
         $request->validate([
             'alat_id' => 'required',
             'inspeksi_id' => 'nullable',
+            'mekanik_id' => 'required',
             'tanggal_maintenance' => 'required',
             'jenis_maintenance' => 'required',
             'deskripsi_kerusakan' => 'required',
@@ -219,11 +245,13 @@ class MaintenanceController extends Controller
             );
 
             $foto = $upload['secure_url'];
+
         }
 
         $maintenance->update([
             'alat_id' => $request->alat_id,
             'inspeksi_id' => $request->inspeksi_id,
+            'mekanik_id' => $request->mekanik_id,
             'tanggal_maintenance' => $request->tanggal_maintenance,
             'jenis_maintenance' => $request->jenis_maintenance,
             'deskripsi_kerusakan' => $request->deskripsi_kerusakan,

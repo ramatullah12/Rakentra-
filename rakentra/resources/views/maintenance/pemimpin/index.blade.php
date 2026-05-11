@@ -200,6 +200,10 @@
                         </th>
 
                         <th class="text-secondary border-0 py-4">
+                            Mekanik
+                        </th>
+
+                        <th class="text-secondary border-0 py-4">
                             Jenis Maintenance
                         </th>
 
@@ -239,6 +243,12 @@
                             <td class="text-white fw-semibold py-4">
 
                                 {{ $maintenance->alat->nama_alat }}
+
+                            </td>
+
+                            <td class="text-white py-4">
+
+                                {{ $maintenance->mekanik->nama_mekanik ?? '-' }}
 
                             </td>
 

@@ -28,4 +28,9 @@ class Alat extends Model
     {
         return $this->hasMany(Maintenance::class);
     }
+
+    public function hargaSewa()
+    {
+        return $this->hasOne(HargaSewa::class);
+    }
 }

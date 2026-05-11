@@ -1,6 +1,6 @@
-@extends('layout.pemimpin')
+@extends('layout.admin')
 
-@section('title', 'Data Mobilisasi')
+@section('title', 'Data Mekanik')
 
 @section('content')
 
@@ -11,16 +11,41 @@
         <div>
 
             <h2 class="fw-bold text-white mb-1">
-                Data Mobilisasi
+                Data Mekanik
             </h2>
 
             <p class="text-secondary mb-0">
-                Monitoring mobilisasi alat berat
+                Manajemen data mekanik perusahaan
             </p>
 
         </div>
 
+        <a href="{{ route('mekanik.create') }}"
+           class="btn"
+           style="background:#2563eb;
+                  color:white;
+                  border:none;
+                  border-radius:14px;
+                  padding:12px 25px;
+                  font-weight:600;">
+
+            <i class="bi bi-plus-lg"></i>
+            Tambah Mekanik
+
+        </a>
+
     </div>
+
+    @if(session('success'))
+
+        <div class="alert alert-success border-0 shadow-sm"
+             style="border-radius:14px;">
+
+            {{ session('success') }}
+
+        </div>
+
+    @endif
 
     <div class="card border-0 shadow-sm mb-4"
          style="background:rgba(255,255,255,0.05);
@@ -28,7 +53,7 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('mobilisasi.pemimpin') }}"
+            <form action="{{ route('mekanik.index') }}"
                   method="GET">
 
                 <div class="row g-3">
@@ -39,7 +64,7 @@
                                name="search"
                                value="{{ request('search') }}"
                                class="form-control text-white"
-                               placeholder="Cari nomor kontrak..."
+                               placeholder="Cari nama mekanik..."
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:12px;
@@ -60,38 +85,17 @@
                                 Semua Status
                             </option>
 
-                            <option value="dijadwalkan"
-                                {{ request('status') == 'dijadwalkan' ? 'selected' : '' }}>
+                            <option value="aktif"
+                                {{ request('status') == 'aktif' ? 'selected' : '' }}>
 
-                                Dijadwalkan
-
-                            </option>
-
-                            <option value="dikirim"
-                                {{ request('status') == 'dikirim' ? 'selected' : '' }}>
-
-                                Dikirim
+                                Aktif
 
                             </option>
 
-                            <option value="sampai"
-                                {{ request('status') == 'sampai' ? 'selected' : '' }}>
+                            <option value="nonaktif"
+                                {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
 
-                                Sampai
-
-                            </option>
-
-                            <option value="pengembalian"
-                                {{ request('status') == 'pengembalian' ? 'selected' : '' }}>
-
-                                Pengembalian
-
-                            </option>
-
-                            <option value="selesai"
-                                {{ request('status') == 'selesai' ? 'selected' : '' }}>
-
-                                Selesai
+                                Nonaktif
 
                             </option>
 
@@ -113,7 +117,7 @@
 
                         </button>
 
-                        <a href="{{ route('mobilisasi.pemimpin') }}"
+                        <a href="{{ route('mekanik.index') }}"
                            class="btn btn-outline-light"
                            style="border-radius:12px;">
 
@@ -148,31 +152,27 @@
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Nomor Kontrak
+                            Nama Mekanik
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Pelanggan
+                            Email
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Alat
+                            No HP
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Tanggal Kirim
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Tanggal Kembali
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
-                            Lokasi
+                            Spesialisasi
                         </th>
 
                         <th class="text-secondary border-0 py-4">
                             Status
+                        </th>
+
+                        <th class="text-secondary border-0 py-4 text-center">
+                            Aksi
                         </th>
 
                     </tr>
@@ -181,82 +181,44 @@
 
                 <tbody>
 
-                    @forelse($mobilisasis as $i => $mobilisasi)
+                    @forelse($mekaniks as $i => $mekanik)
 
                         <tr style="background:rgba(255,255,255,0.03);
                                    border-bottom:1px solid rgba(255,255,255,0.05);">
 
                             <td class="text-white fw-semibold py-4 ps-4">
 
-                                {{ $mobilisasis->firstItem() + $i }}
+                                {{ $mekaniks->firstItem() + $i }}
 
                             </td>
 
                             <td class="text-white fw-semibold py-4">
 
-                                {{ $mobilisasi->kontrak->nomor_kontrak }}
-
-                            </td>
-
-                            <td class="text-white py-4">
-
-                                {{ $mobilisasi->kontrak->booking->pelanggan->nama }}
+                                {{ $mekanik->nama_mekanik }}
 
                             </td>
 
                             <td class="text-secondary py-4">
 
-                                {{ $mobilisasi->kontrak->booking->alat->nama_alat }}
+                                {{ $mekanik->email }}
 
                             </td>
 
                             <td class="text-secondary py-4">
 
-                                {{ $mobilisasi->tanggal_kirim }}
+                                {{ $mekanik->no_hp }}
 
                             </td>
 
                             <td class="text-secondary py-4">
 
-                                {{ $mobilisasi->tanggal_kembali ?? '-' }}
-
-                            </td>
-
-                            <td class="text-secondary py-4">
-
-                                {{ $mobilisasi->lokasi_proyek }}
+                                {{ $mekanik->spesialisasi }}
 
                             </td>
 
                             <td class="py-4">
 
-                                @if($mobilisasi->status == 'dijadwalkan')
-
-                                    <span style="background:#f59e0b;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Dijadwalkan
-
-                                    </span>
-
-                                @elseif($mobilisasi->status == 'dikirim')
-
-                                    <span style="background:#2563eb;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Dikirim
-
-                                    </span>
-
-                                @elseif($mobilisasi->status == 'sampai')
+                                @if($mekanik->status == 'aktif')
 
                                     <span style="background:#16a34a;
                                                  color:white;
@@ -265,37 +227,73 @@
                                                  font-size:13px;
                                                  font-weight:600;">
 
-                                        Sampai
-
-                                    </span>
-
-                                @elseif($mobilisasi->status == 'pengembalian')
-
-                                    <span style="background:#8b5cf6;
-                                                 color:white;
-                                                 padding:8px 16px;
-                                                 border-radius:10px;
-                                                 font-size:13px;
-                                                 font-weight:600;">
-
-                                        Pengembalian
+                                        Aktif
 
                                     </span>
 
                                 @else
 
-                                    <span style="background:#64748b;
+                                    <span style="background:#ef4444;
                                                  color:white;
                                                  padding:8px 16px;
                                                  border-radius:10px;
                                                  font-size:13px;
                                                  font-weight:600;">
 
-                                        Selesai
+                                        Nonaktif
 
                                     </span>
 
                                 @endif
+
+                            </td>
+
+                            <td class="py-4">
+
+                                <div class="d-flex justify-content-center gap-2">
+
+                                    <a href="{{ route('mekanik.edit', $mekanik->id) }}"
+                                       class="btn"
+                                       style="background:#2563eb;
+                                              color:white;
+                                              border:none;
+                                              border-radius:10px;
+                                              width:42px;
+                                              height:42px;
+                                              display:flex;
+                                              align-items:center;
+                                              justify-content:center;">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+
+                                    <form action="{{ route('mekanik.destroy', $mekanik->id) }}"
+                                          method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                                onclick="return confirm('Yakin hapus data mekanik?')"
+                                                class="btn"
+                                                style="background:#ef4444;
+                                                       color:white;
+                                                       border:none;
+                                                       border-radius:10px;
+                                                       width:42px;
+                                                       height:42px;
+                                                       display:flex;
+                                                       align-items:center;
+                                                       justify-content:center;">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
 
                             </td>
 
@@ -305,10 +303,10 @@
 
                         <tr>
 
-                            <td colspan="8"
+                            <td colspan="7"
                                 class="text-center text-secondary py-5">
 
-                                Data mobilisasi tidak tersedia
+                                Data mekanik tidak tersedia
 
                             </td>
 
@@ -326,7 +324,7 @@
 
     <div class="mt-4">
 
-        {{ $mobilisasis->withQueryString()->links() }}
+        {{ $mekaniks->withQueryString()->links() }}
 
     </div>
 

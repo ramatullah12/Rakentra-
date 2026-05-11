@@ -119,6 +119,7 @@
                     <thead>
                         <tr style="background:rgba(15,23,42,0.8);">
                             <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">UNIT ALAT</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">MEKANIK</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">MAINTENANCE</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">DESKRIPSI</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">BIAYA</th>
@@ -136,6 +137,10 @@
                             <td class="ps-4">
                                 <div class="text-white fw-bold" style="font-size:14px;">{{ $maintenance->alat->nama_alat }}</div>
                                 <code class="text-info" style="font-size:11px;">{{ $maintenance->alat->kode_alat }}</code>
+                            </td>
+
+                            <td>
+                                <div class="text-white" style="font-size:13px;">{{ $maintenance->mekanik->nama_mekanik ?? '-' }}</div>
                             </td>
 
                             <td>
@@ -181,7 +186,7 @@
                             </td>
 
                             <td class="text-center">
-                                <form action="{{ route('maintenance.delete', $maintenance->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('maintenance.destroy', $maintenance->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm d-flex align-items-center justify-content-center mx-auto"

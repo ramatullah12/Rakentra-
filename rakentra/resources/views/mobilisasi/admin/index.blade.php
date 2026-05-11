@@ -184,10 +184,6 @@
                         </th>
 
                         <th class="text-secondary border-0 py-4">
-                            Vendor
-                        </th>
-
-                        <th class="text-secondary border-0 py-4">
                             Tanggal Kirim
                         </th>
 
@@ -239,12 +235,6 @@
                             <td class="text-secondary py-4">
 
                                 {{ $mobilisasi->kontrak->booking->alat->nama_alat }}
-
-                            </td>
-
-                            <td class="text-secondary py-4">
-
-                                {{ $mobilisasi->vendor->nama_vendor }}
 
                             </td>
 
@@ -392,7 +382,7 @@
 
                         <tr>
 
-                            <td colspan="10"
+                            <td colspan="9"
                                 class="text-center text-secondary py-5">
 
                                 Data mobilisasi tidak tersedia

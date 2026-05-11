@@ -8,7 +8,6 @@ class Mobilisasi extends Model
 {
     protected $fillable = [
         'kontrak_id',
-        'vendor_id',
         'tanggal_kirim',
         'tanggal_kembali',
         'lokasi_proyek',
@@ -19,11 +18,6 @@ class Mobilisasi extends Model
     public function kontrak()
     {
         return $this->belongsTo(Kontrak::class);
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class);
     }
 
     public function operasionals()

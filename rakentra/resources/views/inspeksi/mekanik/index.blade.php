@@ -67,6 +67,7 @@
                     <thead>
                         <tr style="background:rgba(15,23,42,0.8);">
                             <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">UNIT ALAT</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">MEKANIK</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">TGL INSPEKSI</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">KONDISI</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">HASIL TEMUAN</th>
@@ -84,6 +85,10 @@
                             <td class="ps-4">
                                 <div class="text-white fw-bold" style="font-size:14px;">{{ $inspeksi->alat->nama_alat }}</div>
                                 <code class="text-info" style="font-size:11px;">{{ $inspeksi->alat->kode_alat }}</code>
+                            </td>
+
+                            <td>
+                                <div class="text-white" style="font-size:13px;">{{ $inspeksi->mekanik->nama_mekanik ?? '-' }}</div>
                             </td>
 
                             <td>

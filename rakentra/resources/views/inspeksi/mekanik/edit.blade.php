@@ -43,7 +43,7 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('inspeksi.update', $inspeksi->id) }}"
+            <form action="{{ route('inspeksi.mekanik.update', $inspeksi->id) }}"
                   method="POST"
                   enctype="multipart/form-data">
 
@@ -87,13 +87,16 @@
 
                     </div>
 
+                    </div>
+
                     <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Operasional
+                            Mekanik yang Menginspeksi
                         </label>
 
-                        <select name="operasional_id"
+                        <select name="mekanik_id"
+                                required
                                 class="form-select text-white"
                                 style="background:#1e293b;
                                        border:none;
@@ -101,17 +104,15 @@
                                        height:55px;">
 
                             <option value="">
-                                Pilih Operasional
+                                Pilih Mekanik
                             </option>
 
-                            @foreach($operasionals as $operasional)
+                            @foreach($mekaniks as $mekanik)
 
-                                <option value="{{ $operasional->id }}"
-                                    {{ old('operasional_id', $inspeksi->operasional_id) == $operasional->id ? 'selected' : '' }}>
+                                <option value="{{ $mekanik->id }}"
+                                    {{ old('mekanik_id', $inspeksi->mekanik_id) == $mekanik->id ? 'selected' : '' }}>
 
-                                    {{ $operasional->mobilisasi->kontrak->nomor_kontrak }}
-                                    -
-                                    {{ $operasional->lokasi }}
+                                    {{ $mekanik->nama_mekanik }}
 
                                 </option>
 
@@ -269,21 +270,6 @@
 
                     </div>
 
-                    <div class="col-md-12 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Keterangan
-                        </label>
-
-                        <textarea name="keterangan"
-                                  rows="4"
-                                  class="form-control text-white"
-                                  placeholder="Masukkan keterangan..."
-                                  style="background:#1e293b;
-                                         border:none;
-                                         border-radius:14px;">{{ old('keterangan', $inspeksi->keterangan) }}</textarea>
-
-                    </div>
 
                 </div>
 

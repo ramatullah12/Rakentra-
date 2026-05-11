@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alat;
 use App\Models\Inspeksi;
 use App\Models\Operasional;
+use App\Models\Mekanik;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -14,7 +15,8 @@ class InspeksiController extends Controller
     {
         $query = Inspeksi::with([
             'alat',
-            'operasional'
+            'operasional',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -35,6 +37,14 @@ class InspeksiController extends Controller
             ->latest()
             ->paginate(10);
 
+        if (auth()->user()->role == 'mekanik') {
+            return $this->mekanik($request);
+        }
+
+        if (auth()->user()->role == 'pemimpin') {
+            return $this->pemimpin($request);
+        }
+
         return view(
             'inspeksi.admin.index',
             compact('inspeksis')
@@ -45,7 +55,8 @@ class InspeksiController extends Controller
     {
         $query = Inspeksi::with([
             'alat',
-            'operasional'
+            'operasional',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -76,7 +87,8 @@ class InspeksiController extends Controller
     {
         $query = Inspeksi::with([
             'alat',
-            'operasional'
+            'operasional',
+            'mekanik'
         ]);
 
         if ($request->search) {
@@ -116,6 +128,8 @@ class InspeksiController extends Controller
     {
         $alats = Alat::all();
 
+        $mekaniks = Mekanik::all();
+
         $operasionals = Operasional::with([
             'mobilisasi.kontrak'
         ])->get();
@@ -124,6 +138,7 @@ class InspeksiController extends Controller
             'inspeksi.mekanik.create',
             compact(
                 'alats',
+                'mekaniks',
                 'operasionals'
             )
         );
@@ -134,12 +149,12 @@ class InspeksiController extends Controller
         $request->validate([
             'alat_id' => 'required',
             'operasional_id' => 'nullable',
+            'mekanik_id' => 'required',
             'tanggal_inspeksi' => 'required',
             'kondisi_alat' => 'required',
             'hasil_inspeksi' => 'required',
             'foto_kerusakan' => 'nullable|image',
             'status' => 'required',
-            'keterangan' => 'nullable',
         ]);
 
         $foto = null;
@@ -159,12 +174,12 @@ class InspeksiController extends Controller
         Inspeksi::create([
             'alat_id' => $request->alat_id,
             'operasional_id' => $request->operasional_id,
+            'mekanik_id' => $request->mekanik_id,
             'tanggal_inspeksi' => $request->tanggal_inspeksi,
             'kondisi_alat' => $request->kondisi_alat,
             'hasil_inspeksi' => $request->hasil_inspeksi,
             'foto_kerusakan' => $foto,
             'status' => $request->status,
-            'keterangan' => $request->keterangan,
         ]);
 
         return redirect()
@@ -186,6 +201,8 @@ class InspeksiController extends Controller
 
         $alats = Alat::all();
 
+        $mekaniks = Mekanik::all();
+
         $operasionals = Operasional::with([
             'mobilisasi.kontrak'
         ])->get();
@@ -195,6 +212,7 @@ class InspeksiController extends Controller
             compact(
                 'inspeksi',
                 'alats',
+                'mekaniks',
                 'operasionals'
             )
         );
@@ -205,12 +223,12 @@ class InspeksiController extends Controller
         $request->validate([
             'alat_id' => 'required',
             'operasional_id' => 'nullable',
+            'mekanik_id' => 'required',
             'tanggal_inspeksi' => 'required',
             'kondisi_alat' => 'required',
             'hasil_inspeksi' => 'required',
             'foto_kerusakan' => 'nullable|image',
             'status' => 'required',
-            'keterangan' => 'nullable',
         ]);
 
         $inspeksi = Inspeksi::findOrFail($id);
@@ -232,12 +250,12 @@ class InspeksiController extends Controller
         $inspeksi->update([
             'alat_id' => $request->alat_id,
             'operasional_id' => $request->operasional_id,
+            'mekanik_id' => $request->mekanik_id,
             'tanggal_inspeksi' => $request->tanggal_inspeksi,
             'kondisi_alat' => $request->kondisi_alat,
             'hasil_inspeksi' => $request->hasil_inspeksi,
             'foto_kerusakan' => $foto,
             'status' => $request->status,
-            'keterangan' => $request->keterangan,
         ]);
 
         return redirect()

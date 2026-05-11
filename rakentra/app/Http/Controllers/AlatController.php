@@ -60,7 +60,7 @@ class AlatController extends Controller
         Alat::create($validated);
 
         return redirect()
-            ->route('alat.admin')
+            ->route('alat.index')
             ->with(
                 'success',
                 'Data alat berhasil ditambahkan'
@@ -82,7 +82,7 @@ class AlatController extends Controller
         $alat->update($validated);
 
         return redirect()
-            ->route('alat.admin')
+            ->route('alat.index')
             ->with(
                 'success',
                 'Data alat berhasil diupdate'
@@ -96,7 +96,7 @@ class AlatController extends Controller
         $alat->delete();
 
         return redirect()
-            ->route('alat.admin')
+            ->route('alat.index')
             ->with(
                 'success',
                 'Data alat berhasil dihapus'

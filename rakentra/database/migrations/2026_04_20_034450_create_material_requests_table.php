@@ -19,6 +19,10 @@ return new class extends Migration
                 ->constrained('maintenances')
                 ->onDelete('cascade');
 
+            $table->foreignId('mekanik_id')
+                ->constrained('mekaniks')
+                ->onDelete('cascade');
+
             $table->string('nama_material');
 
             $table->integer('jumlah');

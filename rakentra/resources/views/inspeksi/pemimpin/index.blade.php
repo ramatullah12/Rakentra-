@@ -238,6 +238,10 @@
                         </th>
 
                         <th class="text-secondary border-0 py-4">
+                            Mekanik
+                        </th>
+
+                        <th class="text-secondary border-0 py-4">
                             Tanggal
                         </th>
 
@@ -257,9 +261,6 @@
                             Status
                         </th>
 
-                        <th class="text-secondary border-0 py-4">
-                            Keterangan
-                        </th>
 
                     </tr>
 
@@ -281,6 +282,12 @@
                             <td class="text-white fw-semibold py-4">
 
                                 {{ $inspeksi->alat->nama_alat }}
+
+                            </td>
+
+                            <td class="text-white py-4">
+
+                                {{ $inspeksi->mekanik->nama_mekanik ?? '-' }}
 
                             </td>
 
@@ -411,11 +418,6 @@
 
                             </td>
 
-                            <td class="text-secondary py-4">
-
-                                {{ $inspeksi->keterangan }}
-
-                            </td>
 
                         </tr>
 

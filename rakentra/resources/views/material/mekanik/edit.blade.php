@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
     <div class="mb-4">
 
@@ -43,7 +43,7 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('material.update', $material->id) }}"
+            <form action="{{ route('material.mekanik.update', $material->id) }}"
                   method="POST">
 
                 @csrf
@@ -51,7 +51,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
                             Maintenance
@@ -74,9 +74,42 @@
                                 <option value="{{ $maintenance->id }}"
                                     {{ $material->maintenance_id == $maintenance->id ? 'selected' : '' }}>
 
-                                    {{ $maintenance->alat->nama_alat }}
+                                    {{ $maintenance->alat->nama_alat ?? '-' }}
                                     -
                                     {{ $maintenance->jenis_maintenance }}
+
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Nama Mekanik
+                        </label>
+
+                        <select name="mekanik_id"
+                                required
+                                class="form-select text-white"
+                                style="background:#1e293b;
+                                       border:none;
+                                       border-radius:14px;
+                                       height:55px;">
+
+                            <option value="">
+                                Pilih Mekanik
+                            </option>
+
+                            @foreach($mekaniks as $mekanik)
+
+                                <option value="{{ $mekanik->id }}"
+                                    {{ $material->mekanik_id == $mekanik->id ? 'selected' : '' }}>
+
+                                    {{ $mekanik->nama_mekanik }}
 
                                 </option>
 
@@ -113,7 +146,9 @@
 
                         <input type="number"
                                name="jumlah"
+                               id="jumlah"
                                required
+                               min="1"
                                value="{{ $material->jumlah }}"
                                class="form-control text-white"
                                placeholder="Jumlah"
@@ -146,16 +181,36 @@
                     <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Harga
+                            Harga Satuan
                         </label>
 
                         <input type="number"
                                name="harga"
+                               id="harga"
                                required
+                               min="0"
                                value="{{ $material->harga }}"
                                class="form-control text-white"
                                placeholder="Masukkan harga"
                                style="background:#1e293b;
+                                      border:none;
+                                      border-radius:14px;
+                                      height:55px;">
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Total Harga
+                        </label>
+
+                        <input type="text"
+                               id="total"
+                               readonly
+                               class="form-control text-warning fw-bold"
+                               value="Rp {{ number_format($material->jumlah * $material->harga,0,',','.') }}"
+                               style="background:#0f172a;
                                       border:none;
                                       border-radius:14px;
                                       height:55px;">
@@ -262,6 +317,7 @@
                                    border-radius:12px;
                                    font-weight:600;">
 
+                        <i class="bi bi-save me-2"></i>
                         Update
 
                     </button>
@@ -275,5 +331,26 @@
     </div>
 
 </div>
+
+<script>
+
+    const jumlah = document.getElementById('jumlah');
+    const harga = document.getElementById('harga');
+    const total = document.getElementById('total');
+
+    function hitungTotal()
+    {
+        let jml = parseInt(jumlah.value) || 0;
+        let hrg = parseInt(harga.value) || 0;
+
+        let hasil = jml * hrg;
+
+        total.value = 'Rp ' + hasil.toLocaleString('id-ID');
+    }
+
+    jumlah.addEventListener('keyup', hitungTotal);
+    harga.addEventListener('keyup', hitungTotal);
+
+</script>
 
 @endsection

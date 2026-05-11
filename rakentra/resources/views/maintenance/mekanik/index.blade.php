@@ -110,6 +110,7 @@
                     <thead>
                         <tr style="background:rgba(15,23,42,0.8);">
                             <th class="text-secondary fw-normal ps-4 py-3" style="font-size:11px;letter-spacing:1px;">ALAT BERAT</th>
+                            <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">MEKANIK</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">JENIS & TANGGAL</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">BIAYA</th>
                             <th class="text-secondary fw-normal py-3" style="font-size:11px;letter-spacing:1px;">STATUS</th>
@@ -126,6 +127,10 @@
                             <td class="ps-4">
                                 <div class="text-white fw-bold" style="font-size:14px;">{{ $maintenance->alat->nama_alat }}</div>
                                 <code class="text-info" style="font-size:11px;">{{ $maintenance->alat->kode_alat }}</code>
+                            </td>
+
+                            <td>
+                                <div class="text-white" style="font-size:13px;">{{ $maintenance->mekanik->nama_mekanik ?? '-' }}</div>
                             </td>
 
                             <td>

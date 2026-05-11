@@ -9,6 +9,7 @@ class Maintenance extends Model
     protected $fillable = [
         'alat_id',
         'inspeksi_id',
+        'mekanik_id',
         'tanggal_maintenance',
         'jenis_maintenance',
         'deskripsi_kerusakan',
@@ -27,6 +28,11 @@ class Maintenance extends Model
     public function inspeksi()
     {
         return $this->belongsTo(Inspeksi::class);
+    }
+
+    public function mekanik()
+    {
+        return $this->belongsTo(Mekanik::class);
     }
 
     public function materialRequests()

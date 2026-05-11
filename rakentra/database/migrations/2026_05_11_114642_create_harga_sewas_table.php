@@ -11,28 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mobilisasis', function (Blueprint $table) {
+        Schema::create('harga_sewas', function (Blueprint $table) {
 
             $table->id();
 
-            $table->foreignId('kontrak_id')
-                ->constrained('kontraks')
+            $table->foreignId('alat_id')
+                ->constrained('alats')
                 ->onDelete('cascade');
 
-            $table->date('tanggal_kirim');
+            $table->decimal('harga_harian', 15, 2);
 
-            $table->date('tanggal_kembali')
+            $table->decimal('harga_mingguan', 15, 2)
                 ->nullable();
 
-            $table->string('lokasi_proyek');
-
-            $table->enum('status', [
-                'dijadwalkan',
-                'dikirim',
-                'sampai',
-                'pengembalian',
-                'selesai'
-            ])->default('dijadwalkan');
+            $table->decimal('harga_bulanan', 15, 2)
+                ->nullable();
 
             $table->text('keterangan')
                 ->nullable();
@@ -47,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mobilisasis');
+        Schema::dropIfExists('harga_sewas');
     }
 };

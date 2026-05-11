@@ -43,7 +43,7 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('maintenance.update', $maintenance->id) }}"
+            <form action="{{ route('maintenance.mekanik.update', $maintenance->id) }}"
                   method="POST"
                   enctype="multipart/form-data">
 
@@ -112,6 +112,39 @@
                                     {{ $inspeksi->alat->nama_alat }}
                                     -
                                     {{ $inspeksi->tanggal_inspeksi }}
+
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label text-white fw-semibold mb-2">
+                            Mekanik yang Menangani
+                        </label>
+
+                        <select name="mekanik_id"
+                                required
+                                class="form-select text-white"
+                                style="background:#1e293b;
+                                       border:none;
+                                       border-radius:14px;
+                                       height:55px;">
+
+                            <option value="">
+                                Pilih Mekanik
+                            </option>
+
+                            @foreach($mekaniks as $mekanik)
+
+                                <option value="{{ $mekanik->id }}"
+                                    {{ old('mekanik_id', $maintenance->mekanik_id) == $mekanik->id ? 'selected' : '' }}>
+
+                                    {{ $mekanik->nama_mekanik }}
 
                                 </option>
 
@@ -303,20 +336,6 @@
 
                     @endif
 
-                    <div class="col-md-12 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Keterangan
-                        </label>
-
-                        <textarea name="keterangan"
-                                  rows="4"
-                                  class="form-control text-white"
-                                  style="background:#1e293b;
-                                         border:none;
-                                         border-radius:14px;">{{ $maintenance->keterangan }}</textarea>
-
-                    </div>
 
                 </div>
 

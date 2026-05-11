@@ -153,7 +153,7 @@
                                        style="width:34px;height:34px;background:rgba(37,99,235,0.1);color:#3b82f6;border:1px solid rgba(37,99,235,0.2);border-radius:8px;">
                                         <i class="bi bi-pencil-fill" style="font-size:12px;"></i>
                                     </a>
-                                    <form action="{{ route('alat.delete', $alat->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('alat.destroy', $alat->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm d-flex align-items-center justify-content-center"
