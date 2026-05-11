@@ -150,7 +150,7 @@ class InspeksiController extends Controller
             'alat_id' => 'required',
             'operasional_id' => 'nullable',
             'mekanik_id' => 'required',
-            'tanggal_inspeksi' => 'required',
+            'tanggal_inspeksi' => 'required|date|after_or_equal:today',
             'kondisi_alat' => 'required',
             'hasil_inspeksi' => 'required',
             'foto_kerusakan' => 'nullable|image',

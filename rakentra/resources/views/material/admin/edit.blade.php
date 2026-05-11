@@ -1,6 +1,6 @@
-@extends('layout.mekanik')
+@extends('layout.admin')
 
-@section('title', 'Tambah Material Request')
+@section('title', 'Review Material Request')
 
 @section('content')
 
@@ -9,11 +9,11 @@
     <div class="mb-4">
 
         <h2 class="fw-bold text-white mb-1">
-            Tambah Material Request
+            Review Material Request
         </h2>
 
         <p class="text-secondary mb-0">
-            Input kebutuhan sparepart dan material maintenance
+            Setujui atau tolak kebutuhan sparepart dan material maintenance
         </p>
 
     </div>
@@ -43,10 +43,11 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('material.mekanik.store') }}"
+            <form action="{{ route('material.update', $material->id) }}"
                   method="POST">
 
                 @csrf
+                @method('PUT')
 
                 <div class="row">
 
@@ -64,14 +65,10 @@
                                        border-radius:14px;
                                        height:55px;">
 
-                            <option value="">
-                                Pilih Maintenance
-                            </option>
-
                             @foreach($maintenances as $maintenance)
 
                                 <option value="{{ $maintenance->id }}"
-                                    {{ old('maintenance_id') == $maintenance->id ? 'selected' : '' }}>
+                                    {{ $material->maintenance_id == $maintenance->id ? 'selected' : '' }}>
 
                                     {{ $maintenance->alat->nama_alat ?? '-' }}
                                     -
@@ -99,14 +96,10 @@
                                        border-radius:14px;
                                        height:55px;">
 
-                            <option value="">
-                                Pilih Mekanik
-                            </option>
-
                             @foreach($mekaniks as $mekanik)
 
                                 <option value="{{ $mekanik->id }}"
-                                    {{ old('mekanik_id') == $mekanik->id ? 'selected' : '' }}>
+                                    {{ $material->mekanik_id == $mekanik->id ? 'selected' : '' }}>
 
                                     {{ $mekanik->nama_mekanik }}
 
@@ -127,9 +120,8 @@
                         <input type="text"
                                name="nama_material"
                                required
-                               value="{{ old('nama_material') }}"
+                               value="{{ $material->nama_material }}"
                                class="form-control text-white"
-                               placeholder="Masukkan nama material"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -148,9 +140,8 @@
                                id="jumlah"
                                required
                                min="1"
-                               value="{{ old('jumlah') }}"
+                               value="{{ $material->jumlah }}"
                                class="form-control text-white"
-                               placeholder="Jumlah"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -167,9 +158,8 @@
                         <input type="text"
                                name="satuan"
                                required
-                               value="{{ old('satuan') }}"
+                               value="{{ $material->satuan }}"
                                class="form-control text-white"
-                               placeholder="PCS / Unit"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -188,9 +178,8 @@
                                id="harga"
                                required
                                min="0"
-                               value="{{ old('harga') }}"
+                               value="{{ $material->harga }}"
                                class="form-control text-white"
-                               placeholder="Masukkan harga"
                                style="background:#1e293b;
                                       border:none;
                                       border-radius:14px;
@@ -201,36 +190,38 @@
                     <div class="col-md-6 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">
-                            Total Harga
+                            Status Persetujuan
                         </label>
 
-                        <input type="text"
-                               id="total"
-                               readonly
-                               class="form-control text-warning fw-bold"
-                               placeholder="Total otomatis"
-                               style="background:#0f172a;
-                                      border:none;
-                                      border-radius:14px;
-                                      height:55px;">
+                        <select name="status"
+                                required
+                                class="form-select text-white"
+                                style="background:#1e293b;
+                                       border:1px solid #2563eb;
+                                       border-radius:14px;
+                                       height:55px;">
 
-                    </div>
+                            <option value="pending"
+                                {{ $material->status == 'pending' ? 'selected' : '' }}>
+                                Pending
+                            </option>
 
-                    <div class="col-md-6 mb-4">
+                            <option value="disetujui"
+                                {{ $material->status == 'disetujui' ? 'selected' : '' }}>
+                                Disetujui
+                            </option>
 
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Supplier
-                        </label>
+                            <option value="ditolak"
+                                {{ $material->status == 'ditolak' ? 'selected' : '' }}>
+                                Ditolak
+                            </option>
 
-                        <input type="text"
-                               name="supplier"
-                               value="{{ old('supplier') }}"
-                               class="form-control text-white"
-                               placeholder="Masukkan supplier"
-                               style="background:#1e293b;
-                                      border:none;
-                                      border-radius:14px;
-                                      height:55px;">
+                            <option value="selesai"
+                                {{ $material->status == 'selesai' ? 'selected' : '' }}>
+                                Selesai
+                            </option>
+
+                        </select>
 
                     </div>
 
@@ -243,10 +234,9 @@
                         <textarea name="keterangan"
                                   rows="5"
                                   class="form-control text-white"
-                                  placeholder="Masukkan keterangan tambahan..."
                                   style="background:#1e293b;
                                          border:none;
-                                         border-radius:14px;">{{ old('keterangan') }}</textarea>
+                                         border-radius:14px;">{{ $material->keterangan }}</textarea>
 
                     </div>
 
@@ -254,12 +244,10 @@
 
                 <div class="d-flex justify-content-between align-items-center">
 
-                    <a href="{{ route('material.mekanik') }}"
+                    <a href="{{ route('material.index') }}"
                        class="btn btn-outline-light px-4 py-2"
                        style="border-radius:12px;">
-
                         Kembali
-
                     </a>
 
                     <button type="submit"
@@ -269,10 +257,8 @@
                                    border:none;
                                    border-radius:12px;
                                    font-weight:600;">
-
-                        <i class="bi bi-save me-2"></i>
-                        Simpan
-
+                        <i class="bi bi-check2-circle me-2"></i>
+                        Update Status
                     </button>
 
                 </div>
@@ -284,26 +270,5 @@
     </div>
 
 </div>
-
-<script>
-
-    const jumlah = document.getElementById('jumlah');
-    const harga = document.getElementById('harga');
-    const total = document.getElementById('total');
-
-    function hitungTotal()
-    {
-        let jml = parseInt(jumlah.value) || 0;
-        let hrg = parseInt(harga.value) || 0;
-
-        let hasil = jml * hrg;
-
-        total.value = 'Rp ' + hasil.toLocaleString('id-ID');
-    }
-
-    jumlah.addEventListener('keyup', hitungTotal);
-    harga.addEventListener('keyup', hitungTotal);
-
-</script>
 
 @endsection

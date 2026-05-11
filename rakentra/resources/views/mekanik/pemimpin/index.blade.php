@@ -28,7 +28,7 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('mekanik.index') }}"
+            <form action="{{ route('mekanik.pemimpin') }}"
                   method="GET">
 
                 <div class="row g-3">
@@ -92,7 +92,7 @@
 
                         </button>
 
-                        <a href="{{ route('mekanik.index') }}"
+                        <a href="{{ route('mekanik.pemimpin') }}"
                            class="btn btn-outline-light"
                            style="border-radius:12px;">
 

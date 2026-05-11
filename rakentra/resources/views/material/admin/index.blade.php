@@ -414,25 +414,40 @@
 
                             <td class="py-4 text-center">
 
-                                <form action="{{ route('material.destroy', $material->id) }}"
-                                      method="POST">
+                                <div class="d-flex justify-content-center gap-2">
 
-                                    @csrf
-                                    @method('DELETE')
+                                    <a href="{{ route('material.edit', $material->id) }}"
+                                       class="btn btn-sm"
+                                       style="background:#2563eb;
+                                              color:white;
+                                              border:none;
+                                              border-radius:10px;">
 
-                                    <button type="submit"
-                                            onclick="return confirm('Yakin hapus data?')"
-                                            class="btn btn-sm"
-                                            style="background:#dc2626;
-                                                   color:white;
-                                                   border:none;
-                                                   border-radius:10px;">
+                                        <i class="bi bi-pencil"></i>
 
-                                        <i class="bi bi-trash"></i>
+                                    </a>
 
-                                    </button>
+                                    <form action="{{ route('material.destroy', $material->id) }}"
+                                          method="POST">
 
-                                </form>
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                                onclick="return confirm('Yakin hapus data?')"
+                                                class="btn btn-sm"
+                                                style="background:#dc2626;
+                                                       color:white;
+                                                       border:none;
+                                                       border-radius:10px;">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
 
                             </td>
 

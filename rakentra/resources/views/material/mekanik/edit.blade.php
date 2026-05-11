@@ -235,52 +235,6 @@
 
                     </div>
 
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label text-white fw-semibold mb-2">
-                            Status
-                        </label>
-
-                        <select name="status"
-                                required
-                                class="form-select text-white"
-                                style="background:#1e293b;
-                                       border:none;
-                                       border-radius:14px;
-                                       height:55px;">
-
-                            <option value="pending"
-                                {{ $material->status == 'pending' ? 'selected' : '' }}>
-
-                                Pending
-
-                            </option>
-
-                            <option value="disetujui"
-                                {{ $material->status == 'disetujui' ? 'selected' : '' }}>
-
-                                Disetujui
-
-                            </option>
-
-                            <option value="ditolak"
-                                {{ $material->status == 'ditolak' ? 'selected' : '' }}>
-
-                                Ditolak
-
-                            </option>
-
-                            <option value="selesai"
-                                {{ $material->status == 'selesai' ? 'selected' : '' }}>
-
-                                Selesai
-
-                            </option>
-
-                        </select>
-
-                    </div>
-
                     <div class="col-md-12 mb-4">
 
                         <label class="form-label text-white fw-semibold mb-2">

@@ -162,6 +162,7 @@
                         <input type="date"
                                name="tanggal_maintenance"
                                required
+                               min="{{ date('Y-m-d') }}"
                                value="{{ old('tanggal_maintenance') }}"
                                class="form-control text-white"
                                style="background:#1e293b;

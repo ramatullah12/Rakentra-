@@ -141,7 +141,7 @@ class MaterialRequestController extends Controller
             'satuan' => $request->satuan,
             'harga' => $request->harga,
             'supplier' => $request->supplier,
-            'status' => $request->status,
+            'status' => 'pending', // Default to pending
             'keterangan' => $request->keterangan,
         ]);
 
@@ -163,6 +163,17 @@ class MaterialRequestController extends Controller
 
         $mekaniks = Mekanik::all();
 
+        if (auth()->user()->role == 'admin') {
+            return view(
+                'material.admin.edit',
+                compact(
+                    'material',
+                    'maintenances',
+                    'mekaniks'
+                )
+            );
+        }
+
         return view(
             'material.mekanik.edit',
             compact(
@@ -175,7 +186,7 @@ class MaterialRequestController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $rules = [
             'maintenance_id' => 'required',
             'mekanik_id' => 'required',
             'nama_material' => 'required',
@@ -183,13 +194,18 @@ class MaterialRequestController extends Controller
             'satuan' => 'required',
             'harga' => 'required',
             'supplier' => 'nullable',
-            'status' => 'required',
             'keterangan' => 'nullable',
-        ]);
+        ];
+
+        if (auth()->user()->role == 'admin') {
+            $rules['status'] = 'required';
+        }
+
+        $request->validate($rules);
 
         $material = MaterialRequest::findOrFail($id);
 
-        $material->update([
+        $data = [
             'maintenance_id' => $request->maintenance_id,
             'mekanik_id' => $request->mekanik_id,
             'nama_material' => $request->nama_material,
@@ -197,9 +213,14 @@ class MaterialRequestController extends Controller
             'satuan' => $request->satuan,
             'harga' => $request->harga,
             'supplier' => $request->supplier,
-            'status' => $request->status,
             'keterangan' => $request->keterangan,
-        ]);
+        ];
+
+        if (auth()->user()->role == 'admin') {
+            $data['status'] = $request->status;
+        }
+
+        $material->update($data);
 
         return redirect()
             ->route('material.mekanik')

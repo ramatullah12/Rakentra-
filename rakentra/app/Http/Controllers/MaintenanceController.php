@@ -145,7 +145,7 @@ class MaintenanceController extends Controller
             'alat_id' => 'required',
             'inspeksi_id' => 'nullable',
             'mekanik_id' => 'required',
-            'tanggal_maintenance' => 'required',
+            'tanggal_maintenance' => 'required|date|after_or_equal:today',
             'jenis_maintenance' => 'required',
             'deskripsi_kerusakan' => 'required',
             'tindakan_perbaikan' => 'nullable',

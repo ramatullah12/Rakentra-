@@ -113,7 +113,7 @@ Route::middleware(['auth', 'role:mekanik'])
     ->prefix('mekanik')
     ->group(function () {
 
-    Route::get('/', [DashboardController::class, 'mekanik'])
+    Route::get('/dashboard', [DashboardController::class, 'mekanik'])
         ->name('dashboard.mekanik');
 
     Route::get('/alat', [AlatController::class, 'mekanik'])
