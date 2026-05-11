@@ -360,8 +360,8 @@
 
         </a>
 
-        <a href="{{ route('alat.admin') }}"
-           class="nav-link {{ request()->is('alat-admin*') ? 'active' : '' }}">
+        <a href="{{ route('alat.index') }}"
+           class="nav-link {{ request()->routeIs('alat.*') ? 'active' : '' }}">
 
             <i class="bi bi-truck"></i>
             Data Alat Berat

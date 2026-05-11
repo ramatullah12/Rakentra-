@@ -163,6 +163,9 @@ Route::middleware(['auth', 'role:pemimpin'])
 
     Route::get('/', [DashboardController::class, 'pemimpin'])
         ->name('dashboard.pemimpin');
+    
+    Route::resource('user', UserController::class)
+        ->except(['show']);
 
     Route::get('/alat', [AlatController::class, 'pemimpin'])
         ->name('alat.pemimpin');
@@ -197,7 +200,7 @@ Route::middleware(['auth', 'role:pemimpin'])
     Route::get('/material', [MaterialRequestController::class, 'pemimpin'])
         ->name('material.pemimpin');
 
-    Route::get('/tagihan', [TagihanController::class, 'index'])
+    Route::get('/tagihan', [TagihanController::class, 'pemimpin'])
         ->name('tagihan.pemimpin');
 
     Route::get('/tagihan/faktur/{id}', [TagihanController::class, 'faktur'])

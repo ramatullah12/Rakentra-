@@ -391,7 +391,7 @@
 
         </a>
 
-        <a href="{{ route('harga-sewa.index') }}"
+        <a href="{{ route('harga-sewa.pemimpin') }}"
            class="nav-link {{ request()->routeIs('harga-sewa.*') ? 'active' : '' }}">
 
             <i class="bi bi-cash-stack"></i>
@@ -399,7 +399,7 @@
 
         </a>
 
-        <a href="{{ route('mekanik.index') }}"
+        <a href="{{ route('mekanik.pemimpin') }}"
            class="nav-link {{ request()->routeIs('mekanik.*') ? 'active' : '' }}">
 
             <i class="bi bi-person-gear"></i>
