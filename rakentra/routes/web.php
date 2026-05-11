@@ -84,6 +84,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->except(['show']);
 
     Route::resource('material', MaterialRequestController::class)
+        ->names([
+            'index'   => 'material.index',
+            'create'  => 'material.create',
+            'store'   => 'material.store',
+            'edit'    => 'material.edit',
+            'update'  => 'material.update',
+            'destroy' => 'material.destroy',
+        ])
         ->except(['show']);
 
     Route::resource('tagihan', TagihanController::class)

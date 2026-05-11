@@ -145,8 +145,10 @@ class MaterialRequestController extends Controller
             'keterangan' => $request->keterangan,
         ]);
 
+        $route = auth()->user()->role == 'admin' ? 'material.index' : 'material.mekanik';
+
         return redirect()
-            ->route('material.mekanik')
+            ->route($route)
             ->with(
                 'success',
                 'Material request berhasil ditambahkan'
@@ -222,8 +224,10 @@ class MaterialRequestController extends Controller
 
         $material->update($data);
 
+        $route = auth()->user()->role == 'admin' ? 'material.index' : 'material.mekanik';
+
         return redirect()
-            ->route('material.mekanik')
+            ->route($route)
             ->with(
                 'success',
                 'Material request berhasil diupdate'

@@ -275,7 +275,7 @@
 
                     <div class="row g-2">
                         <div class="col-6">
-                            <a href="{{ route('alat.admin') }}" class="d-block text-decoration-none p-3 rounded-3 text-center" style="background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.25);transition:0.2s;" onmouseover="this.style.background='rgba(37,99,235,0.3)'" onmouseout="this.style.background='rgba(37,99,235,0.15)'">
+                            <a href="{{ route('alat.index') }}" class="d-block text-decoration-none p-3 rounded-3 text-center" style="background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.25);transition:0.2s;" onmouseover="this.style.background='rgba(37,99,235,0.3)'" onmouseout="this.style.background='rgba(37,99,235,0.15)'">
                                 <i class="bi bi-truck d-block mb-1" style="font-size:22px;color:#60a5fa;"></i>
                                 <small class="text-secondary" style="font-size:11px;">Data Alat</small>
                             </a>

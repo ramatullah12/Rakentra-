@@ -7,9 +7,9 @@
 <div class="container-fluid">
 
     <div class="d-flex align-items-center gap-3 mb-4">
-        <a href="{{ route('alat.admin') }}" class="btn d-flex align-items-center justify-content-center"
-           style="width:40px;height:40px;background:rgba(255,255,255,0.07);border-radius:12px;color:#94a3b8;border:1px solid rgba(255,255,255,0.08);">
-            <i class="bi bi-arrow-left"></i>
+        <a href="{{ route('alat.index') }}" class="btn d-flex align-items-center justify-content-center"
+           style="width:45px;height:45px;background:rgba(255,255,255,0.05);border-radius:12px;color:#94a3b8;border:none;">
+            <i class="bi bi-arrow-left fs-5"></i>
         </a>
         <div>
             <h4 class="fw-bold text-white mb-0">Edit Alat Berat</h4>
@@ -104,9 +104,9 @@
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.07);">
-                            <a href="{{ route('alat.admin') }}" class="btn px-4"
-                               style="background:rgba(255,255,255,0.07);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:12px;">
-                                <i class="bi bi-x-lg me-2"></i>Batal
+                            <a href="{{ route('alat.index') }}" class="btn px-4"
+                               style="background:rgba(255,255,255,0.1);color:#fff;border-radius:12px;padding:12px 25px;">
+                                Batal
                             </a>
                             <button type="submit" class="btn px-5 fw-semibold"
                                     style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;padding:10px 30px;">

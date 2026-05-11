@@ -18,9 +18,16 @@ class RoleMiddleware
             abort(403, 'Unauthorized');
         }
 
+        // Log untuk debug
+        \Illuminate\Support\Facades\Log::info('Role Check:', [
+            'url' => $request->fullUrl(),
+            'user_role' => auth()->user()->role,
+            'allowed_roles' => $roles
+        ]);
+
         // cek apakah role user sesuai
-        if (!in_array(auth()->user()->role, $roles)) {
-            abort(403, 'Akses ditolak');
+        if (!in_array(trim(auth()->user()->role), $roles)) {
+            abort(403, 'Akses ditolak. Role Anda: ' . auth()->user()->role . '. Dibutuhkan: ' . implode(', ', $roles));
         }
 
         return $next($request);
