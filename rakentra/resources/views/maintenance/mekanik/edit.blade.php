@@ -306,7 +306,8 @@
                         </label>
 
                         <input type="file"
-                               name="foto_perbaikan"
+                               name="foto_perbaikan[]"
+                               multiple
                                class="form-control text-white"
                                style="background:#1e293b;
                                       border:none;
@@ -315,7 +316,7 @@
 
                     </div>
 
-                    @if($maintenance->foto_perbaikan)
+                    @if($maintenance->foto_perbaikan && count($maintenance->foto_perbaikan) > 0)
 
                         <div class="col-md-12 mb-4">
 
@@ -323,12 +324,16 @@
                                 Foto Saat Ini
                             </label>
 
-                            <div>
+                            <div class="d-flex flex-wrap gap-3">
 
-                                <img src="{{ $maintenance->foto_perbaikan }}"
-                                     width="180"
-                                     style="border-radius:16px;
-                                            object-fit:cover;">
+                                @foreach($maintenance->foto_perbaikan as $foto)
+                                    <img src="{{ $foto }}"
+                                         width="180"
+                                         height="120"
+                                         style="border-radius:16px;
+                                                object-fit:cover;
+                                                border: 1px solid rgba(255,255,255,0.1);">
+                                @endforeach
 
                             </div>
 

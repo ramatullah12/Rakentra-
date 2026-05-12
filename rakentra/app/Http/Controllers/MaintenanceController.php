@@ -151,23 +151,25 @@ class MaintenanceController extends Controller
             'tindakan_perbaikan' => 'nullable',
             'biaya' => 'required',
             'status' => 'required',
-            'foto_perbaikan' => 'nullable|image',
+            'foto_perbaikan.*' => 'nullable|image',
             'keterangan' => 'nullable',
         ]);
 
-        $foto = null;
+        $fotos = [];
 
         if ($request->hasFile('foto_perbaikan')) {
 
-            $upload = Cloudinary::uploadApi()->upload(
-                $request->file('foto_perbaikan')->getRealPath(),
-                [
-                    'folder' => 'rakentra/maintenance'
-                ]
-            );
+            foreach ($request->file('foto_perbaikan') as $file) {
 
-            $foto = $upload['secure_url'];
+                $upload = Cloudinary::uploadApi()->upload(
+                    $file->getRealPath(),
+                    [
+                        'folder' => 'rakentra/maintenance'
+                    ]
+                );
 
+                $fotos[] = $upload['secure_url'];
+            }
         }
 
         Maintenance::create([
@@ -180,7 +182,7 @@ class MaintenanceController extends Controller
             'tindakan_perbaikan' => $request->tindakan_perbaikan,
             'biaya' => $request->biaya,
             'status' => $request->status,
-            'foto_perbaikan' => $foto,
+            'foto_perbaikan' => $fotos,
             'keterangan' => $request->keterangan,
         ]);
 
@@ -227,25 +229,29 @@ class MaintenanceController extends Controller
             'tindakan_perbaikan' => 'nullable',
             'biaya' => 'required',
             'status' => 'required',
-            'foto_perbaikan' => 'nullable|image',
+            'foto_perbaikan.*' => 'nullable|image',
             'keterangan' => 'nullable',
         ]);
 
         $maintenance = Maintenance::findOrFail($id);
 
-        $foto = $maintenance->foto_perbaikan;
+        $fotos = $maintenance->foto_perbaikan ?? [];
 
         if ($request->hasFile('foto_perbaikan')) {
 
-            $upload = Cloudinary::uploadApi()->upload(
-                $request->file('foto_perbaikan')->getRealPath(),
-                [
-                    'folder' => 'rakentra/maintenance'
-                ]
-            );
+            $fotos = [];
 
-            $foto = $upload['secure_url'];
+            foreach ($request->file('foto_perbaikan') as $file) {
 
+                $upload = Cloudinary::uploadApi()->upload(
+                    $file->getRealPath(),
+                    [
+                        'folder' => 'rakentra/maintenance'
+                    ]
+                );
+
+                $fotos[] = $upload['secure_url'];
+            }
         }
 
         $maintenance->update([
@@ -258,7 +264,7 @@ class MaintenanceController extends Controller
             'tindakan_perbaikan' => $request->tindakan_perbaikan,
             'biaya' => $request->biaya,
             'status' => $request->status,
-            'foto_perbaikan' => $foto,
+            'foto_perbaikan' => $fotos,
             'keterangan' => $request->keterangan,
         ]);
 

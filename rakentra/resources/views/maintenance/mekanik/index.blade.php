@@ -160,12 +160,24 @@
                             </td>
 
                             <td>
-                                @if($maintenance->foto_perbaikan)
-                                    <div class="position-relative" style="width:45px;height:45px;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
+                                @if($maintenance->foto_perbaikan && is_array($maintenance->foto_perbaikan) && count($maintenance->foto_perbaikan) > 0)
+                                    <div class="d-flex align-items-center">
+                                        @foreach($maintenance->foto_perbaikan as $index => $foto)
+                                            @if($index < 3)
+                                                <div class="position-relative" style="width:35px;height:35px;overflow:hidden;border-radius:8px;border:2px solid #0f172a;margin-left:{{ $index > 0 ? '-15px' : '0' }};z-index:{{ 10 - $index }};">
+                                                    <img src="{{ $foto }}" class="w-100 h-100" style="object-fit:cover;">
+                                                    <a href="{{ $foto }}" target="_blank" class="position-absolute top-0 start-0 w-100 h-100"></a>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                        @if(count($maintenance->foto_perbaikan) > 3)
+                                            <div class="ms-2 small text-secondary" style="font-size:10px;">+{{ count($maintenance->foto_perbaikan) - 3 }}</div>
+                                        @endif
+                                    </div>
+                                @elseif($maintenance->foto_perbaikan && !is_array($maintenance->foto_perbaikan))
+                                    <div class="position-relative" style="width:35px;height:35px;overflow:hidden;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">
                                         <img src="{{ $maintenance->foto_perbaikan }}" class="w-100 h-100" style="object-fit:cover;">
-                                        <a href="{{ $maintenance->foto_perbaikan }}" target="_blank" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 opacity-0 hover-opacity-100 transition-2">
-                                            <i class="bi bi-eye text-white"></i>
-                                        </a>
+                                        <a href="{{ $maintenance->foto_perbaikan }}" target="_blank" class="position-absolute top-0 start-0 w-100 h-100"></a>
                                     </div>
                                 @else
                                     <small class="text-secondary">N/A</small>

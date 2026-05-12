@@ -153,22 +153,25 @@ class InspeksiController extends Controller
             'tanggal_inspeksi' => 'required|date|after_or_equal:today',
             'kondisi_alat' => 'required',
             'hasil_inspeksi' => 'required',
-            'foto_kerusakan' => 'nullable|image',
+            'foto_kerusakan.*' => 'nullable|image',
             'status' => 'required',
         ]);
 
-        $foto = null;
+        $fotos = [];
 
         if ($request->hasFile('foto_kerusakan')) {
 
-            $upload = Cloudinary::uploadApi()->upload(
-                $request->file('foto_kerusakan')->getRealPath(),
-                [
-                    'folder' => 'rakentra/inspeksi'
-                ]
-            );
+            foreach ($request->file('foto_kerusakan') as $file) {
 
-            $foto = $upload['secure_url'];
+                $upload = Cloudinary::uploadApi()->upload(
+                    $file->getRealPath(),
+                    [
+                        'folder' => 'rakentra/inspeksi'
+                    ]
+                );
+
+                $fotos[] = $upload['secure_url'];
+            }
         }
 
         Inspeksi::create([
@@ -178,7 +181,7 @@ class InspeksiController extends Controller
             'tanggal_inspeksi' => $request->tanggal_inspeksi,
             'kondisi_alat' => $request->kondisi_alat,
             'hasil_inspeksi' => $request->hasil_inspeksi,
-            'foto_kerusakan' => $foto,
+            'foto_kerusakan' => $fotos,
             'status' => $request->status,
         ]);
 
@@ -227,24 +230,31 @@ class InspeksiController extends Controller
             'tanggal_inspeksi' => 'required',
             'kondisi_alat' => 'required',
             'hasil_inspeksi' => 'required',
-            'foto_kerusakan' => 'nullable|image',
+            'foto_kerusakan.*' => 'nullable|image',
             'status' => 'required',
         ]);
 
         $inspeksi = Inspeksi::findOrFail($id);
 
-        $foto = $inspeksi->foto_kerusakan;
+        $fotos = $inspeksi->foto_kerusakan ?? [];
 
         if ($request->hasFile('foto_kerusakan')) {
 
-            $upload = Cloudinary::uploadApi()->upload(
-                $request->file('foto_kerusakan')->getRealPath(),
-                [
-                    'folder' => 'rakentra/inspeksi'
-                ]
-            );
+            // If new photos are uploaded, we can either append or replace.
+            // Replacing is simpler for now, matching previous behavior.
+            $fotos = [];
 
-            $foto = $upload['secure_url'];
+            foreach ($request->file('foto_kerusakan') as $file) {
+
+                $upload = Cloudinary::uploadApi()->upload(
+                    $file->getRealPath(),
+                    [
+                        'folder' => 'rakentra/inspeksi'
+                    ]
+                );
+
+                $fotos[] = $upload['secure_url'];
+            }
         }
 
         $inspeksi->update([
@@ -254,7 +264,7 @@ class InspeksiController extends Controller
             'tanggal_inspeksi' => $request->tanggal_inspeksi,
             'kondisi_alat' => $request->kondisi_alat,
             'hasil_inspeksi' => $request->hasil_inspeksi,
-            'foto_kerusakan' => $foto,
+            'foto_kerusakan' => $fotos,
             'status' => $request->status,
         ]);
 

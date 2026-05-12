@@ -18,6 +18,10 @@ class Inspeksi extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'foto_kerusakan' => 'array',
+    ];
+
     public function alat()
     {
         return $this->belongsTo(Alat::class);

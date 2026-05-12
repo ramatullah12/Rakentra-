@@ -295,7 +295,8 @@
                         </label>
 
                         <input type="file"
-                               name="foto_perbaikan"
+                               name="foto_perbaikan[]"
+                               multiple
                                class="form-control text-white"
                                style="background:#1e293b;
                                       border:none;

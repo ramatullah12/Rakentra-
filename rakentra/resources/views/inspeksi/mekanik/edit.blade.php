@@ -203,7 +203,8 @@
                         </label>
 
                         <input type="file"
-                               name="foto_kerusakan"
+                               name="foto_kerusakan[]"
+                               multiple
                                class="form-control text-white"
                                style="background:#1e293b;
                                       border:none;
@@ -212,14 +213,18 @@
 
                     </div>
 
-                    <div class="col-md-6 mb-4 d-flex align-items-end">
+                    <div class="col-md-6 mb-4 d-flex flex-wrap gap-2 align-items-end">
 
-                        @if($inspeksi->foto_kerusakan)
+                        @if($inspeksi->foto_kerusakan && count($inspeksi->foto_kerusakan) > 0)
 
-                            <img src="{{ $inspeksi->foto_kerusakan }}"
-                                 width="120"
-                                 style="border-radius:12px;
-                                        object-fit:cover;">
+                            @foreach($inspeksi->foto_kerusakan as $foto)
+                                <img src="{{ $foto }}"
+                                     width="80"
+                                     height="80"
+                                     style="border-radius:12px;
+                                            object-fit:cover;
+                                            border: 1px solid rgba(255,255,255,0.1);">
+                            @endforeach
 
                         @else
 

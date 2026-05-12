@@ -20,6 +20,10 @@ class Maintenance extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'foto_perbaikan' => 'array',
+    ];
+
     public function alat()
     {
         return $this->belongsTo(Alat::class);
