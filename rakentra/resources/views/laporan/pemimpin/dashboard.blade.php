@@ -4,10 +4,14 @@
 
 @section('content')
 
-<div class="container-fluid">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container-fluid py-3">
 
     <div class="mb-4">
-
         <h2 class="fw-bold text-white mb-1">
             Executive Dashboard
         </h2>
@@ -15,14 +19,13 @@
         <p class="text-secondary mb-0">
             Monitoring performa operasional dan biaya alat berat perusahaan
         </p>
-
     </div>
 
+    {{-- CARD UTAMA --}}
     <div class="row">
 
         <div class="col-md-3 mb-4">
-
-            <div class="card border-0 shadow-sm h-100"
+            <div class="card border-0 shadow-lg h-100"
                  style="background:linear-gradient(135deg,#2563eb,#1d4ed8);
                         border-radius:22px;">
 
@@ -31,37 +34,29 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-
                             <p class="text-light mb-2">
                                 Total Alat
                             </p>
 
                             <h2 class="fw-bold text-white">
-
                                 {{ $totalAlat }}
-
                             </h2>
-
                         </div>
 
                         <div style="font-size:45px;
                                     color:rgba(255,255,255,0.3);">
 
                             <i class="bi bi-truck"></i>
-
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
         <div class="col-md-3 mb-4">
-
-            <div class="card border-0 shadow-sm h-100"
+            <div class="card border-0 shadow-lg h-100"
                  style="background:linear-gradient(135deg,#16a34a,#15803d);
                         border-radius:22px;">
 
@@ -70,37 +65,29 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-
                             <p class="text-light mb-2">
                                 Total Booking
                             </p>
 
                             <h2 class="fw-bold text-white">
-
                                 {{ $totalBooking }}
-
                             </h2>
-
                         </div>
 
                         <div style="font-size:45px;
                                     color:rgba(255,255,255,0.3);">
 
                             <i class="bi bi-calendar-check"></i>
-
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
         <div class="col-md-3 mb-4">
-
-            <div class="card border-0 shadow-sm h-100"
+            <div class="card border-0 shadow-lg h-100"
                  style="background:linear-gradient(135deg,#f59e0b,#d97706);
                         border-radius:22px;">
 
@@ -109,37 +96,29 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-
                             <p class="text-light mb-2">
                                 Maintenance
                             </p>
 
                             <h2 class="fw-bold text-white">
-
                                 {{ $totalMaintenance }}
-
                             </h2>
-
                         </div>
 
                         <div style="font-size:45px;
                                     color:rgba(255,255,255,0.3);">
 
                             <i class="bi bi-tools"></i>
-
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
         <div class="col-md-3 mb-4">
-
-            <div class="card border-0 shadow-sm h-100"
+            <div class="card border-0 shadow-lg h-100"
                  style="background:linear-gradient(135deg,#dc2626,#b91c1c);
                         border-radius:22px;">
 
@@ -148,36 +127,30 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-
                             <p class="text-light mb-2">
                                 Total Tagihan
                             </p>
 
-                            <h2 class="fw-bold text-white">
-
+                            <h4 class="fw-bold text-white">
                                 Rp {{ number_format($totalTagihan,0,',','.') }}
-
-                            </h2>
-
+                            </h4>
                         </div>
 
                         <div style="font-size:45px;
                                     color:rgba(255,255,255,0.3);">
 
                             <i class="bi bi-receipt"></i>
-
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
     </div>
 
+    {{-- BIAYA --}}
     <div class="row">
 
         <div class="col-md-4 mb-4">
@@ -191,7 +164,6 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
 
                         <div>
-
                             <h5 class="fw-bold text-white">
                                 Biaya Maintenance
                             </h5>
@@ -199,22 +171,15 @@
                             <small class="text-secondary">
                                 Total biaya perbaikan alat
                             </small>
-
                         </div>
 
-                        <div class="text-warning"
-                             style="font-size:35px;">
-
-                            <i class="bi bi-tools"></i>
-
-                        </div>
+                        <i class="bi bi-tools text-warning"
+                           style="font-size:35px;"></i>
 
                     </div>
 
                     <h3 class="fw-bold text-warning">
-
                         Rp {{ number_format($biayaMaintenance,0,',','.') }}
-
                     </h3>
 
                 </div>
@@ -234,7 +199,6 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
 
                         <div>
-
                             <h5 class="fw-bold text-white">
                                 Biaya Material
                             </h5>
@@ -242,22 +206,15 @@
                             <small class="text-secondary">
                                 Total sparepart dan material
                             </small>
-
                         </div>
 
-                        <div class="text-danger"
-                             style="font-size:35px;">
-
-                            <i class="bi bi-box-seam"></i>
-
-                        </div>
+                        <i class="bi bi-box-seam text-danger"
+                           style="font-size:35px;"></i>
 
                     </div>
 
                     <h3 class="fw-bold text-danger">
-
                         Rp {{ number_format($biayaMaterial,0,',','.') }}
-
                     </h3>
 
                 </div>
@@ -277,30 +234,22 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
 
                         <div>
-
                             <h5 class="fw-bold text-white">
-                                Operasional
+                                Biaya Operasional
                             </h5>
 
                             <small class="text-secondary">
                                 Total biaya operasional
                             </small>
-
                         </div>
 
-                        <div class="text-primary"
-                             style="font-size:35px;">
-
-                            <i class="bi bi-cash-stack"></i>
-
-                        </div>
+                        <i class="bi bi-cash-stack text-primary"
+                           style="font-size:35px;"></i>
 
                     </div>
 
                     <h3 class="fw-bold text-primary">
-
                         Rp {{ number_format($biayaOperasional,0,',','.') }}
-
                     </h3>
 
                 </div>
@@ -311,6 +260,7 @@
 
     </div>
 
+    {{-- GRAFIK --}}
     <div class="row">
 
         <div class="col-md-8 mb-4">
@@ -321,24 +271,21 @@
 
                 <div class="card-body">
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="mb-4">
 
-                        <div>
+                        <h5 class="fw-bold text-white mb-1">
+                            Grafik Operasional
+                        </h5>
 
-                            <h5 class="fw-bold text-white mb-1">
-                                Grafik Operasional
-                            </h5>
-
-                            <small class="text-secondary">
-                                Statistik operasional bulanan
-                            </small>
-
-                        </div>
+                        <small class="text-secondary">
+                            Statistik biaya operasional bulanan
+                        </small>
 
                     </div>
 
-                    <canvas id="operasionalChart"
-                            height="120"></canvas>
+                    <div style="height:350px;">
+                        <canvas id="operasionalChart"></canvas>
+                    </div>
 
                 </div>
 
@@ -346,6 +293,7 @@
 
         </div>
 
+        {{-- MONITORING --}}
         <div class="col-md-4 mb-4">
 
             <div class="card border-0 shadow-sm"
@@ -358,6 +306,7 @@
                         Monitoring Sistem
                     </h5>
 
+                    {{-- Maintenance --}}
                     <div class="mb-4">
 
                         <div class="d-flex justify-content-between mb-2">
@@ -367,16 +316,13 @@
                             </span>
 
                             <span class="text-warning fw-bold">
-
                                 {{ $totalMaintenance }}
-
                             </span>
 
                         </div>
 
                         <div class="progress"
                              style="height:10px;
-                                    background:rgba(255,255,255,0.08);
                                     border-radius:20px;">
 
                             <div class="progress-bar bg-warning"
@@ -386,6 +332,7 @@
 
                     </div>
 
+                    {{-- Booking --}}
                     <div class="mb-4">
 
                         <div class="d-flex justify-content-between mb-2">
@@ -395,16 +342,13 @@
                             </span>
 
                             <span class="text-success fw-bold">
-
                                 {{ $totalBooking }}
-
                             </span>
 
                         </div>
 
                         <div class="progress"
                              style="height:10px;
-                                    background:rgba(255,255,255,0.08);
                                     border-radius:20px;">
 
                             <div class="progress-bar bg-success"
@@ -414,6 +358,7 @@
 
                     </div>
 
+                    {{-- Operasional --}}
                     <div class="mb-4">
 
                         <div class="d-flex justify-content-between mb-2">
@@ -423,16 +368,13 @@
                             </span>
 
                             <span class="text-primary fw-bold">
-
                                 Rp {{ number_format($biayaOperasional,0,',','.') }}
-
                             </span>
 
                         </div>
 
                         <div class="progress"
                              style="height:10px;
-                                    background:rgba(255,255,255,0.08);
                                     border-radius:20px;">
 
                             <div class="progress-bar bg-primary"
@@ -450,205 +392,126 @@
 
     </div>
 
-    <div class="card border-0 shadow-sm"
-         style="background:rgba(255,255,255,0.05);
-                border-radius:22px;">
-
-        <div class="card-body">
-
-            <div class="d-flex justify-content-between align-items-center mb-4">
-
-                <div>
-
-                    <h5 class="fw-bold text-white mb-1">
-                        Ringkasan Executive
-                    </h5>
-
-                    <small class="text-secondary">
-                        Monitoring keseluruhan performa perusahaan
-                    </small>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="p-4 rounded-4"
-                         style="background:rgba(37,99,235,0.15);">
-
-                        <h6 class="text-secondary">
-                            Total Alat
-                        </h6>
-
-                        <h3 class="fw-bold text-info">
-
-                            {{ $totalAlat }}
-
-                        </h3>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="p-4 rounded-4"
-                         style="background:rgba(22,163,74,0.15);">
-
-                        <h6 class="text-secondary">
-                            Total Booking
-                        </h6>
-
-                        <h3 class="fw-bold text-success">
-
-                            {{ $totalBooking }}
-
-                        </h3>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="p-4 rounded-4"
-                         style="background:rgba(245,158,11,0.15);">
-
-                        <h6 class="text-secondary">
-                            Maintenance
-                        </h6>
-
-                        <h3 class="fw-bold text-warning">
-
-                            {{ $totalMaintenance }}
-
-                        </h3>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="p-4 rounded-4"
-                         style="background:rgba(220,38,38,0.15);">
-
-                        <h6 class="text-secondary">
-                            Total Tagihan
-                        </h6>
-
-                        <h3 class="fw-bold text-danger">
-
-                            Rp {{ number_format($totalTagihan,0,',','.') }}
-
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
 </div>
 
+{{-- CHART --}}
 <script>
 
-const ctx = document.getElementById('operasionalChart');
+document.addEventListener("DOMContentLoaded", function () {
 
-new Chart(ctx, {
+    const ctx = document.getElementById('operasionalChart');
 
-    type: 'line',
+    if (!ctx) {
+        console.error('Canvas tidak ditemukan');
+        return;
+    }
 
-    data: {
+    const operasionalData = @json($operasionalBulanan ?? []);
 
-        labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'Mei',
-            'Jun',
-            'Jul',
-            'Agu',
-            'Sep',
-            'Okt',
-            'Nov',
-            'Des'
-        ],
+    const defaultData = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-        datasets: [{
+    new Chart(ctx, {
 
-            label: 'Operasional',
+        type: 'line',
 
-            data: @json($operasionalBulanan),
+        data: {
 
-            borderColor: '#2563eb',
+            labels: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'Mei',
+                'Jun',
+                'Jul',
+                'Agu',
+                'Sep',
+                'Okt',
+                'Nov',
+                'Des'
+            ],
 
-            backgroundColor: 'rgba(37,99,235,0.2)',
+            datasets: [{
 
-            fill: true,
+                label: 'Biaya Operasional',
 
-            tension: 0.4
+                data: operasionalData.length
+                    ? operasionalData
+                    : defaultData,
 
-        }]
-    },
+                borderColor: '#2563eb',
 
-    options: {
+                backgroundColor: 'rgba(37,99,235,0.15)',
 
-        responsive: true,
+                fill: true,
 
-        plugins: {
+                tension: 0.4,
 
-            legend: {
+                borderWidth: 3,
 
-                labels: {
+                pointRadius: 5,
 
-                    color: '#ffffff'
+                pointBackgroundColor: '#2563eb',
 
-                }
-            }
+                pointBorderColor: '#ffffff',
+
+                pointBorderWidth: 2
+            }]
         },
 
-        scales: {
+        options: {
 
-            x: {
+            responsive: true,
 
-                ticks: {
+            maintainAspectRatio: false,
 
-                    color: '#cbd5e1'
+            plugins: {
 
-                },
+                legend: {
 
-                grid: {
+                    labels: {
 
-                    color: 'rgba(255,255,255,0.05)'
-
+                        color: '#ffffff'
+                    }
                 }
             },
 
-            y: {
+            scales: {
 
-                ticks: {
+                x: {
 
-                    color: '#cbd5e1'
+                    ticks: {
 
+                        color: '#cbd5e1'
+                    },
+
+                    grid: {
+
+                        color: 'rgba(255,255,255,0.05)'
+                    }
                 },
 
-                grid: {
+                y: {
 
-                    color: 'rgba(255,255,255,0.05)'
+                    beginAtZero: true,
 
+                    ticks: {
+
+                        color: '#cbd5e1',
+
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
+
+                    grid: {
+
+                        color: 'rgba(255,255,255,0.05)'
+                    }
                 }
             }
         }
-    }
+    });
 });
 
 </script>
