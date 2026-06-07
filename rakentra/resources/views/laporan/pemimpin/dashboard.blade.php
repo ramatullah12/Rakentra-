@@ -458,7 +458,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 pointBorderWidth: 2
             }]
         },
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
