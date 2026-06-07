@@ -464,7 +464,6 @@ document.addEventListener("DOMContentLoaded", function () {
             responsive: true,
 
             maintainAspectRatio: false,
-
             plugins: {
                 legend: {
                     labels: {
