@@ -409,7 +409,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const operasionalData = @json($operasionalBulanan ?? []);
 
     const defaultData = [0,0,0,0,0,0,0,0,0,0,0,0];
-
     new Chart(ctx, {
         type: 'line',
         data: {
