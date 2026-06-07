@@ -434,7 +434,6 @@ document.addEventListener("DOMContentLoaded", function () {
             datasets: [{
 
                 label: 'Biaya Operasional',
-
                 data: operasionalData.length
                     ? operasionalData
                     : defaultData,
