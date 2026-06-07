@@ -477,7 +477,6 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             scales: {
-
                 x: {
                     ticks: {
 
