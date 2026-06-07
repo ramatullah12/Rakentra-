@@ -446,7 +446,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 fill: true,
 
                 tension: 0.4,
-
                 borderWidth: 3,
                 pointRadius: 5,
                 pointBackgroundColor: '#2563eb',
