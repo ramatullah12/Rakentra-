@@ -470,7 +470,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 legend: {
 
                     labels: {
-
                         color: '#ffffff'
                     }
                 }
