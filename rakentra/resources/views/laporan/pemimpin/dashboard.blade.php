@@ -468,7 +468,6 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
 
                 legend: {
-
                     labels: {
                         color: '#ffffff'
                     }
