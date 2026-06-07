@@ -411,7 +411,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const defaultData = [0,0,0,0,0,0,0,0,0,0,0,0];
 
     new Chart(ctx, {
-
         type: 'line',
         data: {
             labels: [
