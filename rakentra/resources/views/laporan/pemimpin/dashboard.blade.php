@@ -444,7 +444,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 backgroundColor: 'rgba(37,99,235,0.15)',
 
                 fill: true,
-
                 tension: 0.4,
                 borderWidth: 3,
                 pointRadius: 5,
