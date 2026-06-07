@@ -479,7 +479,6 @@ document.addEventListener("DOMContentLoaded", function () {
             scales: {
 
                 x: {
-
                     ticks: {
 
                         color: '#cbd5e1'
