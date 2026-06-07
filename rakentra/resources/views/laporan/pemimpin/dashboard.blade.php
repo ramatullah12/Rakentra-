@@ -494,7 +494,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 y: {
 
                     beginAtZero: true,
-
                     ticks: {
                         color: '#cbd5e1',
                         callback: function(value) {
