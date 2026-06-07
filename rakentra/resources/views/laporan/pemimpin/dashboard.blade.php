@@ -454,7 +454,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 pointBackgroundColor: '#2563eb',
 
                 pointBorderColor: '#ffffff',
-
                 pointBorderWidth: 2
             }]
         },
