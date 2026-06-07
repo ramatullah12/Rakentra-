@@ -440,7 +440,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     : defaultData,
 
                 borderColor: '#2563eb',
-
                 backgroundColor: 'rgba(37,99,235,0.15)',
                 fill: true,
                 tension: 0.4,
