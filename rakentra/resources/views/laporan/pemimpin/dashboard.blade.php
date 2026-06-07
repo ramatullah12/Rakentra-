@@ -466,7 +466,6 @@ document.addEventListener("DOMContentLoaded", function () {
             maintainAspectRatio: false,
 
             plugins: {
-
                 legend: {
                     labels: {
                         color: '#ffffff'
