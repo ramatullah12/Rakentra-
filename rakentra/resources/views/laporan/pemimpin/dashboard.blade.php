@@ -430,7 +430,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Nov',
                 'Des'
             ],
-
             datasets: [{
                 label: 'Biaya Operasional',
                 data: operasionalData.length
