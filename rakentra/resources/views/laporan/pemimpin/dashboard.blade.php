@@ -498,7 +498,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     ticks: {
 
                         color: '#cbd5e1',
-
                         callback: function(value) {
                             return 'Rp ' + value.toLocaleString('id-ID');
                         }
