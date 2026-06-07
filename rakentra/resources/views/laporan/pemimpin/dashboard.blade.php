@@ -413,7 +413,6 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(ctx, {
 
         type: 'line',
-
         data: {
             labels: [
                 'Jan',
