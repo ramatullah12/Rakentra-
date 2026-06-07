@@ -415,7 +415,6 @@ document.addEventListener("DOMContentLoaded", function () {
         type: 'line',
 
         data: {
-
             labels: [
                 'Jan',
                 'Feb',
