@@ -400,12 +400,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 document.addEventListener("DOMContentLoaded", function () {
 
     const ctx = document.getElementById('operasionalChart');
-
     if (!ctx) {
         console.error('Canvas tidak ditemukan');
         return;
     }
-
     const operasionalData = @json($operasionalBulanan ?? []);
     const defaultData = [0,0,0,0,0,0,0,0,0,0,0,0];
     new Chart(ctx, {
