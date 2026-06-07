@@ -438,7 +438,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: operasionalData.length
                     ? operasionalData
                     : defaultData,
-
                 borderColor: '#2563eb',
                 backgroundColor: 'rgba(37,99,235,0.15)',
                 fill: true,
