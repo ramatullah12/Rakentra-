@@ -344,7 +344,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                             <span class="text-success fw-bold">
                                 {{ $totalBooking }}
                             </span>
-
                         </div>
                         <div class="progress"
                              style="height:10px;
