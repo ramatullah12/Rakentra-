@@ -379,7 +379,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
                             <div class="progress-bar bg-primary"
                                  style="width:90%"></div>
-
                         </div>
                     </div>
                 </div>
