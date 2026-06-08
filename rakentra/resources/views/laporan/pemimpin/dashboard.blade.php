@@ -320,7 +320,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                             </span>
 
                         </div>
-
                         <div class="progress"
                              style="height:10px;
                                     border-radius:20px;">
