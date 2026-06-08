@@ -350,7 +350,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                         <div class="progress"
                              style="height:10px;
                                     border-radius:20px;">
-
                             <div class="progress-bar bg-success"
                                  style="width:85%"></div>
                         </div>
