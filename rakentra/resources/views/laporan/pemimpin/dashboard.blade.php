@@ -340,7 +340,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                             <span class="text-secondary">
                                 Booking
                             </span>
-
                             <span class="text-success fw-bold">
                                 {{ $totalBooking }}
                             </span>
