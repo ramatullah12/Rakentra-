@@ -290,7 +290,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                 </div>
 
             </div>
-
         </div>
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm"
