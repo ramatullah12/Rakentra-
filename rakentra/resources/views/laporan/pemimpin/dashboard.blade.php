@@ -280,7 +280,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                         <small class="text-secondary">
                             Statistik biaya operasional bulanan
                         </small>
-
                     </div>
                     <div style="height:350px;">
                         <canvas id="operasionalChart"></canvas>
