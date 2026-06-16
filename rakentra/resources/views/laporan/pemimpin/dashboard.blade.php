@@ -286,7 +286,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                     <div style="height:350px;">
                         <canvas id="operasionalChart"></canvas>
                     </div>
-
                 </div>
             </div>
         </div>
