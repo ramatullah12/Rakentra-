@@ -210,7 +210,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
                         <i class="bi bi-box-seam text-danger"
                            style="font-size:35px;"></i>
-
                     </div>
                     <h3 class="fw-bold text-danger">
                         Rp {{ number_format($biayaMaterial,0,',','.') }}
