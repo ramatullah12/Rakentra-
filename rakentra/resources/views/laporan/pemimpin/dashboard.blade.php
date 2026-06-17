@@ -272,7 +272,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                 <div class="card-body">
 
                     <div class="mb-4">
-
                         <h5 class="fw-bold text-white mb-1">
                             Grafik Operasional
                         </h5>
