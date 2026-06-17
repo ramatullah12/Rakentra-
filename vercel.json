@@ -36,6 +36,8 @@
         "APP_ENV": "production",
         "APP_DEBUG": "false",
         "APP_KEY": "base64:LZk+rgo7va6kRDj8ksFpEs+tVmedjhW+1qRDzYQVwYs=",
+        "APP_URL": "https://rakentra-git-main-yuan-ramatullahs-projects.vercel.app",
+        "ASSET_URL": "https://rakentra-git-main-yuan-ramatullahs-projects.vercel.app",
 
         "DB_CONNECTION": "mysql",
         "DB_HOST": "bpvjrridkqchje8pmg1w-mysql.services.clever-cloud.com",
