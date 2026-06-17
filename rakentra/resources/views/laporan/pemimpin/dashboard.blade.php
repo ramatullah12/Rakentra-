@@ -262,7 +262,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
     {{-- GRAFIK --}}
     <div class="row">
-
         <div class="col-md-8 mb-4">
             <div class="card border-0 shadow-sm"
                  style="background:rgba(255,255,255,0.05);
