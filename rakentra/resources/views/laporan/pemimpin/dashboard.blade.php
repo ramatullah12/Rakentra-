@@ -276,7 +276,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                         <h5 class="fw-bold text-white mb-1">
                             Grafik Operasional
                         </h5>
-
                         <small class="text-secondary">
                             Statistik biaya operasional bulanan
                         </small>
