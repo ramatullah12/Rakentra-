@@ -242,7 +242,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                                 Total biaya operasional
                             </small>
                         </div>
-
                         <i class="bi bi-cash-stack text-primary"
                            style="font-size:35px;"></i>
                     </div>
