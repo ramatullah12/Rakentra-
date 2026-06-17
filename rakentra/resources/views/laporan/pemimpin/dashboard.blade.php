@@ -268,7 +268,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
             <div class="card border-0 shadow-sm"
                  style="background:rgba(255,255,255,0.05);
                         border-radius:22px;">
-
                 <div class="card-body">
                     <div class="mb-4">
                         <h5 class="fw-bold text-white mb-1">
