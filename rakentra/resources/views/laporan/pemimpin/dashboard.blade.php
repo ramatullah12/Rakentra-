@@ -216,7 +216,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                     <h3 class="fw-bold text-danger">
                         Rp {{ number_format($biayaMaterial,0,',','.') }}
                     </h3>
-
                 </div>
             </div>
 
