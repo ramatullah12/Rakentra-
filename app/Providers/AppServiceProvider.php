@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') === 'production' && isset($_SERVER['VERCEL_URL'])) {
+        // Force HTTPS on production (Vercel runs behind HTTPS proxy)
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
+        if (config('app.env') === 'production') {
             config(['session.driver' => 'cookie']);
             config(['logging.default' => 'stderr']);
             config(['view.compiled' => '/tmp/storage/framework/views']);
