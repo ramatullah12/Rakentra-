@@ -44,6 +44,11 @@
         "DB_USERNAME": "ucdcsycivznixidn",
         "DB_PASSWORD": "MqrUeDZZkLJIoaLJOW6a",
 
+        "CLOUDINARY_URL": "cloudinary://937148821391261:IxZWjkPLxwAjoWc1FsUL_hSujd0@dajmg24cl",
+        "CLOUDINARY_CLOUD_NAME": "dajmg24cl",
+        "CLOUDINARY_API_KEY": "937148821391261",
+        "CLOUDINARY_API_SECRET": "IxZWjkPLxwAjoWc1FsUL_hSujd0",
+
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
