@@ -141,7 +141,7 @@
 <div class="login-container">
 
     <div class="logo-box">
-        <img src="/images/logo.png">
+        <img src="">
     </div>
 
     <div class="title">ROKS System</div>

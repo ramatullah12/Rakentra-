@@ -297,7 +297,7 @@
 
         <div class="logo-icon">
 
-            <img src="{{ asset('images/logo.png') }}">
+            <img src="">
 
         </div>
 
