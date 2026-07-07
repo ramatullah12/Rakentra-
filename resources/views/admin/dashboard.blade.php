@@ -46,7 +46,7 @@
                         <div style="font-size:45px;
                                     color:rgba(255,255,255,0.3);">
 
-                            <i class="bi bi-truck"></i>
+                            <i class="bi bi-truck"></i> 
                         </div>
 
                     </div>
