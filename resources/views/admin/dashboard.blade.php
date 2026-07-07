@@ -11,7 +11,6 @@
         <h2 class="fw-bold text-white mb-1">
             Dashboard Admin
         </h2>
-
         <p class="text-secondary mb-0">
             Monitoring sistem rental alat berat
         </p>
