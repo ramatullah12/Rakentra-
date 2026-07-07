@@ -128,7 +128,7 @@
 
     <!-- LOGO -->
     <div class="logo-box">
-        <img src="">
+        <img src="/images/logo.png" alt="ROKS Logo">
     </div>
 
     <div class="title">ROKS System</div>
