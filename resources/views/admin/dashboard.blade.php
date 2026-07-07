@@ -47,7 +47,6 @@
                                     color:rgba(255,255,255,0.3);">
 
                             <i class="bi bi-truck"></i>
-
                         </div>
 
                     </div>
