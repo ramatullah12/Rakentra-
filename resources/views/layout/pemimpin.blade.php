@@ -350,9 +350,7 @@
     <div class="logo-box">
 
         <div class="logo-icon">
-
-            <img src="">
-
+            <img src="/images/logo.png" alt="Rakentra Logo">
         </div>
 
         <div class="logo-text">
